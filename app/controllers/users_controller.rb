@@ -2,6 +2,8 @@ class UsersController < ApplicationController
 
   hobo_user_controller
 
+  public :render
+
   auto_actions :all, :except => [ :index, :new, :create ]
 
   # Normally, users should be created via the user lifecycle, except

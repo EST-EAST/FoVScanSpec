@@ -11,7 +11,70 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160505152602) do
+ActiveRecord::Schema.define(version: 20160506120639) do
+
+  create_table "fovs", force: :cascade do |t|
+    t.string   "name"
+    t.float    "size_x"
+    t.float    "size_y"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "sweeps_count", default: 0, null: false
+  end
+
+  create_table "sweep_eng_runs", force: :cascade do |t|
+    t.string   "name"
+    t.float    "max_l1_speed"
+    t.float    "max_l2_speed"
+    t.float    "max_l3_speed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "sweep_ex_id"
+  end
+
+  add_index "sweep_eng_runs", ["sweep_ex_id"], name: "index_sweep_eng_runs_on_sweep_ex_id"
+
+  create_table "sweep_exes", force: :cascade do |t|
+    t.string   "name"
+    t.float    "step_size_x"
+    t.float    "step_number_x"
+    t.string   "step_dir_x"
+    t.float    "step_size_y"
+    t.float    "step_number_y"
+    t.string   "step_dir_y"
+    t.string   "step_init_coord"
+    t.float    "step_init_x"
+    t.float    "step_init_y"
+    t.integer  "repetitions"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "sweep_id"
+    t.integer  "sweep_eng_runs_count", default: 0, null: false
+  end
+
+  add_index "sweep_exes", ["sweep_id"], name: "index_sweep_exes_on_sweep_id"
+
+  create_table "sweep_types", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "sweeps_count", default: 0, null: false
+  end
+
+  create_table "sweeps", force: :cascade do |t|
+    t.boolean  "double_sampling"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "fov_id"
+    t.integer  "window_id"
+    t.integer  "sweep_type_id"
+    t.integer  "sweep_exes_count", default: 0, null: false
+  end
+
+  add_index "sweeps", ["fov_id"], name: "index_sweeps_on_fov_id"
+  add_index "sweeps", ["sweep_type_id"], name: "index_sweeps_on_sweep_type_id"
+  add_index "sweeps", ["window_id"], name: "index_sweeps_on_window_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "crypted_password",          limit: 40
@@ -28,5 +91,14 @@ ActiveRecord::Schema.define(version: 20160505152602) do
   end
 
   add_index "users", ["state"], name: "index_users_on_state"
+
+  create_table "windows", force: :cascade do |t|
+    t.string   "name"
+    t.float    "size_x"
+    t.float    "size_y"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "sweeps_count", default: 0, null: false
+  end
 
 end

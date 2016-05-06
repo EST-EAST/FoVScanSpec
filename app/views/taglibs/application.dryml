@@ -1,3 +1,24 @@
 <!-- this file is included by front_site.dryml, admin_site.dryml et al, so
 you can place common code in this file. -->
 
+<extend tag="card" for="Sweep">
+  <old-card merge>
+    <append-body:>
+      <ul>
+      	<li><a:fov/>: X FoV Size: <view:fov.size_x/> Y Fov Size: <view:fov.size_y/></li>
+      	<li><a:window/>: X Window Size: <view:window.size_x/> Y Window Size: <view:window.size_y/></li>
+      	<li><a:sweep_type/>: X steps: <view:steps_x/> Y steps: <view:steps_y/> </li>
+      </ul>
+    </append-body:>
+  </old-card>
+</extend>
+
+<extend tag="show-page" for="SweepEx">
+  <old-show-page merge>
+    <append-main-content:>
+      <aside: param>
+      <iframe src="./#{this.id}.svg" seamless="true"/>
+      </aside:>
+    </append-main-content:>
+  </old-show-page>
+</extend>
