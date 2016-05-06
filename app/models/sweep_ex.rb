@@ -33,18 +33,24 @@ class SweepEx < ActiveRecord::Base
     # Step sequence index determination 
     c+=1
     case sweep.sweep_type.name
-    when "Spiral"
+    when "Raster"
       x+=1
-      if (x>=4) then
+      if (x>=step_number_x) then
 	x=0
-	y+=1
+        y+=1
+      end
+    when "Serpent"
+      x+=1
+      if (x>=step_number_x) then
+        x=0
+        y+=1
       end
     end
     return x,y,c
   end
 
   def endStep(x,y,c)
-    return (y>=4)
+    return (c>=step_number_y*step_number_x)
   end
 
   def initialStep()
@@ -86,17 +92,26 @@ class SweepEx < ActiveRecord::Base
         stlabel="font-style:normal;font-weight:normal;font-size:2px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
 
         stepX,stepY,stepCounter=initialStep()
+        stepXfinal=stepX
+        stepYfinal=stepY
 	while not(endStep(stepX,stepY,stepCounter)) do
-	  stepX,stepY,stepCounter=nextStep(stepX,stepY,stepCounter)
-
           doc.g id:"step"+stepX.to_s+"_"+stepY.to_s do
-	    doc.rect x:(initx-winx/2+(stepX*winx)), y:(inity-winy/2+(stepY*winy)), width:winx, height:winy, style:stfov, id:"win"
-            doc.text_ id:"label", x:(initx+(stepX*winx)-winy/2), y:(inity+(stepY*winy)+winy/4), style:stlabel do
-#              doc.tspan stepX.to_s+","+stepY.to_s
+	    doc.rect x:(initx-winx/2+(stepXfinal*winx)), y:(inity-winy/2+(stepYfinal*winy)), width:winx, height:winy, style:stfov, id:"win"
+            doc.text_ id:"label", x:(initx+(stepXfinal*winx)-winy/2), y:(inity+(stepYfinal*winy)+winy/4), style:stlabel do
                doc.tspan stepCounter.to_s
             end
           end
-
+          stepX,stepY,stepCounter=nextStep(stepX,stepY,stepCounter)
+          if (step_dir_x==:positive) then
+            stepXfinal = stepX
+          else
+            stepXfinal = -stepX
+          end
+          if (step_dir_y==:positive) then
+            stepYfinal = stepY
+          else
+            stepYfinal = -stepY
+          end
 	end
       end
     end
