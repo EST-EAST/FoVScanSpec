@@ -1,24 +1,55 @@
 <!-- this file is included by front_site.dryml, admin_site.dryml et al, so
 you can place common code in this file. -->
 
+<!-- REDEFINITION ZONE WHEN NO INHERITANCE IS POSSIBLE -->
+
+<def tag="show-page" for="SweepEx">
+  <page merge title="#{ht 'sweep_ex.show.title', :default=>['Sweep ex'], :name => name(:no_wrapper => true) }" >
+
+    <body: class="show-page sweep-ex" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_ex.show.heading" name="#{name(:no_wrapper => true)}">
+          Sweep ex <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="sweep_ex.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Sweep ex
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <field-list fields="step_size_x, step_number_x, step_dir_x, step_size_y, step_number_y, step_dir_y, step_init_coord, step_init_x, step_init_y, repetitions, sweep" param/>
+    </content-body:>
+
+  </page>
+</def>
+
+<!-- EXTENSION ZONE -->
+
+<extend tag="show-page" for="SweepEx">
+  <old-show-page merge>
+    <append-aside:>
+      <iframe src="./#{this.id}.svg" seamless="true"/>
+    </append-aside:>
+  </old-show-page>
+</extend>
+
 <extend tag="card" for="Sweep">
   <old-card merge>
     <append-body:>
       <ul>
-      	<li><a:fov/>: X FoV Size: <view:fov.size_x/> Y Fov Size: <view:fov.size_y/></li>
-      	<li><a:window/>: X Window Size: <view:window.size_x/> Y Window Size: <view:window.size_y/></li>
-      	<li><a:sweep_type/>: X steps: <view:steps_x/> Y steps: <view:steps_y/> </li>
+        <li><a:fov/>: X FoV Size: <view:fov.size_x/> Y Fov Size: <view:fov.size_y/></li>
+        <li><a:window/>: X Window Size: <view:window.size_x/> Y Window Size: <view:window.size_y/></li>
+        <li><a:sweep_type/>: X steps: <view:steps_x/> Y steps: <view:steps_y/> </li>
       </ul>
     </append-body:>
   </old-card>
 </extend>
 
-<extend tag="show-page" for="SweepEx">
-  <old-show-page merge>
-    <append-main-content:>
-      <aside: param>
-      <iframe src="./#{this.id}.svg" seamless="true"/>
-      </aside:>
-    </append-main-content:>
-  </old-show-page>
-</extend>
