@@ -1,0 +1,108 @@
+<!-- AUTOMATICALLY GENERATED FILE - DO NOT EDIT -->
+
+
+<def tag="form" for="Fov">
+  <form merge param="default">
+    <error-messages param/>
+    <field-list fields="name, size_x, size_y" param/>
+    <div param="actions">
+      <submit label="#{ht 'fov.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+
+
+<def tag="form" for="SweepEngRun">
+  <form merge param="default">
+    <error-messages param/>
+    <field-list fields="name, max_l1_speed, max_l2_speed, max_l3_speed, sweep_ex" param/>
+    <div param="actions">
+      <submit label="#{ht 'sweep_eng_run.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+
+
+<def tag="form" for="SweepEx">
+  <form merge param="default">
+    <error-messages param/>
+    <field-list fields="name, step_size_x, step_number_x, step_dir_x, step_size_y, step_number_y, step_dir_y, step_init_coord, step_init_x, step_init_y, repetitions, sweep" param/>
+    <div param="actions">
+      <submit label="#{ht 'sweep_ex.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+
+
+<def tag="form" for="SweepType">
+  <form merge param="default">
+    <error-messages param/>
+    <field-list fields="name, description" param/>
+    <div param="actions">
+      <submit label="#{ht 'sweep_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+
+
+<def tag="form" for="Sweep">
+  <form merge param="default">
+    <error-messages param/>
+    <field-list fields="double_sampling, fov, sweep_type, window" param/>
+    <div param="actions">
+      <submit label="#{ht 'sweep.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+
+
+<def tag="form" for="User">
+  <form merge param="default">
+    <error-messages param/>
+    <field-list fields="name, email_address, administrator, state" param/>
+    <div param="actions">
+      <submit label="#{ht 'user.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+<def tag="signup-form" polymorphic/>
+<def tag="signup-form" for="User">
+  <form lifecycle="signup" merge param="default">
+    <error-messages param/>
+    <field-list fields="name, email_address, password, password_confirmation" param/>
+    <div param="actions">
+      <submit label="#{ht 'user.actions.signup', :default=>['Signup']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+<def tag="reset-password-form" polymorphic/>
+<def tag="reset-password-form" for="User">
+  <form lifecycle="reset_password" merge param="default">
+    <error-messages param/>
+    <input type="hidden" name="key" value="&this.lifecycle.provided_key" if="&this.lifecycle.provided_key"/>
+    <field-list fields="password, password_confirmation" param/>
+    <div param="actions">
+      <submit label="#{t 'activerecord.attributes.user.lifecycle.transitions.reset_password', :default=>['Reset Password']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+<def tag="form" for="Window">
+  <form merge param="default">
+    <error-messages param/>
+    <field-list fields="name, size_x, size_y" param/>
+    <div param="actions">
+      <submit label="#{ht 'window.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+
+

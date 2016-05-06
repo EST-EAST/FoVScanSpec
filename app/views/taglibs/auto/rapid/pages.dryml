@@ -1,0 +1,849 @@
+<!-- AUTOMATICALLY GENERATED FILE - DO NOT EDIT -->
+
+
+<!-- ====== Main Navigation ====== -->
+
+<def tag="main-nav">
+  <navigation class="main-nav" merge-attrs param="default">
+    <nav-item href="#{base_url}/">Home</nav-item>
+    <nav-item with="&Fov"><ht key="fov.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&Sweep"><ht key="sweep.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&SweepEngRun"><ht key="sweep_eng_run.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&SweepEx"><ht key="sweep_ex.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&SweepType"><ht key="sweep_type.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&Window"><ht key="window.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+  </navigation>
+</def>
+
+
+
+
+<!-- ====== Fov Pages ====== -->
+
+<def tag="index-page" for="Fov">
+  <page merge title="#{ht 'fov.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page fov" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="fov.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="fov.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&model" param="new-link">
+        <ht key="fov.actions.new">New Fov</ht>
+      </a>
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+
+
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-page" for="Fov">
+  <page merge title="#{ht 'fov.new.title', :default=>[' New Fov'] }">
+    <body: class="new-page fov" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="fov.new.heading">
+          New Fov
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <form param>
+        <submit: label="#{ht 'fov.actions.create', :default=>['Create Fov']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="show-page" for="Fov">
+  <page merge title="#{ht 'fov.show.title', :default=>['Fov'], :name => name(:no_wrapper => true) }" without-aside >
+
+    <body: class="show-page fov" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="fov.show.heading" name="#{name(:no_wrapper => true)}">
+          Fov <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="fov.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Fov
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <field-list fields="size_x, size_y" param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+<def tag="edit-page" for="Fov">
+  <page merge title="#{ht 'fov.edit.title', :default=>['Edit Fov'], :name => name(:no_wrapper => true) }">
+
+    <body: class="edit-page fov" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="fov.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Fov
+        </ht>
+      </h2>
+      <delete-button label="#{ht 'fov.actions.delete', :default=>['Remove This Fov']}" param/>
+    </content-header:>
+
+    <content-body: param>
+      <form param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+
+
+
+<!-- ====== SweepEngRun Pages ====== -->
+
+<def tag="index-page" for="SweepEngRun">
+  <page merge title="#{ht 'sweep_eng_run.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page sweep-eng-run" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_eng_run.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="sweep_eng_run.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&model" param="new-link">
+        <ht key="sweep_eng_run.actions.new">New Sweep eng run</ht>
+      </a>
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+
+
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-page" for="SweepEngRun">
+  <page merge title="#{ht 'sweep_eng_run.new.title', :default=>[' New Sweep eng run'] }">
+    <body: class="new-page sweep-eng-run" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_eng_run.new.heading">
+          New Sweep eng run
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <form param>
+        <submit: label="#{ht 'sweep_eng_run.actions.create', :default=>['Create Sweep eng run']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="show-page" for="SweepEngRun">
+  <page merge title="#{ht 'sweep_eng_run.show.title', :default=>['Sweep eng run'], :name => name(:no_wrapper => true) }" without-aside >
+
+    <body: class="show-page sweep-eng-run" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_eng_run.show.heading" name="#{name(:no_wrapper => true)}">
+          Sweep eng run <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="sweep_eng_run.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Sweep eng run
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <field-list fields="max_l1_speed, max_l2_speed, max_l3_speed, sweep_ex" param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+<def tag="edit-page" for="SweepEngRun">
+  <page merge title="#{ht 'sweep_eng_run.edit.title', :default=>['Edit Sweep eng run'], :name => name(:no_wrapper => true) }">
+
+    <body: class="edit-page sweep-eng-run" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_eng_run.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Sweep eng run
+        </ht>
+      </h2>
+      <delete-button label="#{ht 'sweep_eng_run.actions.delete', :default=>['Remove This Sweep eng run']}" param/>
+    </content-header:>
+
+    <content-body: param>
+      <form param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+
+
+
+<!-- ====== SweepEx Pages ====== -->
+
+<def tag="index-page" for="SweepEx">
+  <page merge title="#{ht 'sweep_ex.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page sweep-ex" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_ex.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="sweep_ex.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&model" param="new-link">
+        <ht key="sweep_ex.actions.new">New Sweep ex</ht>
+      </a>
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+
+
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-page" for="SweepEx">
+  <page merge title="#{ht 'sweep_ex.new.title', :default=>[' New Sweep ex'] }">
+    <body: class="new-page sweep-ex" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_ex.new.heading">
+          New Sweep ex
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <form param>
+        <submit: label="#{ht 'sweep_ex.actions.create', :default=>['Create Sweep ex']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="show-page" for="SweepEx">
+  <page merge title="#{ht 'sweep_ex.show.title', :default=>['Sweep ex'], :name => name(:no_wrapper => true) }" without-aside >
+
+    <body: class="show-page sweep-ex" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_ex.show.heading" name="#{name(:no_wrapper => true)}">
+          Sweep ex <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="sweep_ex.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Sweep ex
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <field-list fields="step_size_x, step_number_x, step_dir_x, step_size_y, step_number_y, step_dir_y, step_init_coord, step_init_x, step_init_y, repetitions, sweep" param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+<def tag="edit-page" for="SweepEx">
+  <page merge title="#{ht 'sweep_ex.edit.title', :default=>['Edit Sweep ex'], :name => name(:no_wrapper => true) }">
+
+    <body: class="edit-page sweep-ex" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_ex.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Sweep ex
+        </ht>
+      </h2>
+      <delete-button label="#{ht 'sweep_ex.actions.delete', :default=>['Remove This Sweep ex']}" param/>
+    </content-header:>
+
+    <content-body: param>
+      <form param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+
+
+
+<!-- ====== SweepType Pages ====== -->
+
+<def tag="index-page" for="SweepType">
+  <page merge title="#{ht 'sweep_type.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page sweep-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_type.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="sweep_type.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&model" param="new-link">
+        <ht key="sweep_type.actions.new">New Sweep type</ht>
+      </a>
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+
+
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-page" for="SweepType">
+  <page merge title="#{ht 'sweep_type.new.title', :default=>[' New Sweep type'] }">
+    <body: class="new-page sweep-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_type.new.heading">
+          New Sweep type
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <form param>
+        <submit: label="#{ht 'sweep_type.actions.create', :default=>['Create Sweep type']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="show-page" for="SweepType">
+  <page merge title="#{ht 'sweep_type.show.title', :default=>['Sweep type'], :name => name(:no_wrapper => true) }" without-aside >
+
+    <body: class="show-page sweep-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_type.show.heading" name="#{name(:no_wrapper => true)}">
+          Sweep type <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="sweep_type.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Sweep type
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <view:description param="description" />
+    </content-body:>
+
+  </page>
+</def>
+
+
+<def tag="edit-page" for="SweepType">
+  <page merge title="#{ht 'sweep_type.edit.title', :default=>['Edit Sweep type'], :name => name(:no_wrapper => true) }">
+
+    <body: class="edit-page sweep-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_type.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Sweep type
+        </ht>
+      </h2>
+      <delete-button label="#{ht 'sweep_type.actions.delete', :default=>['Remove This Sweep type']}" param/>
+    </content-header:>
+
+    <content-body: param>
+      <form param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+
+
+
+<!-- ====== Sweep Pages ====== -->
+
+<def tag="index-page" for="Sweep">
+  <page merge title="#{ht 'sweep.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page sweep" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="sweep.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&model" param="new-link">
+        <ht key="sweep.actions.new">New Sweep</ht>
+      </a>
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+
+
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-page" for="Sweep">
+  <page merge title="#{ht 'sweep.new.title', :default=>[' New Sweep'] }">
+    <body: class="new-page sweep" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep.new.heading">
+          New Sweep
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <form param>
+        <submit: label="#{ht 'sweep.actions.create', :default=>['Create Sweep']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="show-page" for="Sweep">
+  <page merge title="#{ht 'sweep.show.title', :default=>['Sweep'], :name => name(:no_wrapper => true) }" without-aside >
+
+    <body: class="show-page sweep" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep.show.heading" name="#{name(:no_wrapper => true)}">
+          Sweep <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="double_sampling" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="sweep.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Sweep
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <field-list fields="fov, sweep_type, window" param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+<def tag="edit-page" for="Sweep">
+  <page merge title="#{ht 'sweep.edit.title', :default=>['Edit Sweep'], :name => name(:no_wrapper => true) }">
+
+    <body: class="edit-page sweep" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Sweep
+        </ht>
+      </h2>
+      <delete-button label="#{ht 'sweep.actions.delete', :default=>['Remove This Sweep']}" param/>
+    </content-header:>
+
+    <content-body: param>
+      <form param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+
+
+
+<!-- ====== User Pages ====== -->
+
+<def tag="index-page" for="User">
+  <page merge title="#{ht 'user.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page user" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="user.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="user.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+
+
+      <div param="new-form">
+        <h3 param="new-form-heading">
+          <ht key="user.form.new.heading">New User</ht>
+        </h3>
+        <form with="&@invalid_record || new_for_current_user(User)" param/>
+      </div>
+
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-page" for="User">
+  <page merge title="#{ht 'user.new.title', :default=>[' New User'] }">
+    <body: class="new-page user" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="user.new.heading">
+          New User
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <form param>
+        <submit: label="#{ht 'user.actions.create', :default=>['Create User']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="show-page" for="User">
+  <page merge title="#{ht 'user.show.title', :default=>['User'], :name => name(:no_wrapper => true) }" without-aside >
+
+    <body: class="show-page user" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="user.show.heading" name="#{name(:no_wrapper => true)}">
+          User <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="administrator" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="user.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit User
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <field-list fields="email_address, state" param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+<def tag="edit-page" for="User">
+  <page merge title="#{ht 'user.edit.title', :default=>['Edit User'], :name => name(:no_wrapper => true) }">
+
+    <body: class="edit-page user" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="user.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit User
+        </ht>
+      </h2>
+      <delete-button label="#{ht 'user.actions.delete', :default=>['Remove This User']}" param/>
+    </content-header:>
+
+    <content-body: param>
+      <form param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+<def tag="signup-page" polymorphic/>
+<def tag="signup-page" for="User">
+
+  <page title="#{ht 'user.signup.title', :default=>['Signup']}" merge>
+
+    <body: class="lifecycle-start-page signup-page" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="user.signup.heading">
+          Signup
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <signup-form param="form"/>
+    </content-body:>
+
+  </page>
+</def>
+
+<def tag="reset-password-page" polymorphic/>
+<def tag="reset-password-page" for="User">
+  <page title="#{ht 'user.reset_password.title', :default=>['Reset Password']}" merge>
+
+    <body: class="lifecycle-transition-page reset-password-page" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="user.reset_password.heading">
+          Reset Password
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <reset-password-form param="form"/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+
+<!-- ====== Window Pages ====== -->
+
+<def tag="index-page" for="Window">
+  <page merge title="#{ht 'window.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page window" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="window.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="window.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&model" param="new-link">
+        <ht key="window.actions.new">New Window</ht>
+      </a>
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+
+
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-page" for="Window">
+  <page merge title="#{ht 'window.new.title', :default=>[' New Window'] }">
+    <body: class="new-page window" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="window.new.heading">
+          New Window
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <form param>
+        <submit: label="#{ht 'window.actions.create', :default=>['Create Window']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="show-page" for="Window">
+  <page merge title="#{ht 'window.show.title', :default=>['Window'], :name => name(:no_wrapper => true) }" without-aside >
+
+    <body: class="show-page window" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="window.show.heading" name="#{name(:no_wrapper => true)}">
+          Window <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="window.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Window
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <field-list fields="size_x, size_y" param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+<def tag="edit-page" for="Window">
+  <page merge title="#{ht 'window.edit.title', :default=>['Edit Window'], :name => name(:no_wrapper => true) }">
+
+    <body: class="edit-page window" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="window.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Window
+        </ht>
+      </h2>
+      <delete-button label="#{ht 'window.actions.delete', :default=>['Remove This Window']}" param/>
+    </content-header:>
+
+    <content-body: param>
+      <form param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+
+

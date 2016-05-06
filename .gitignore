@@ -15,7 +15,7 @@
 /log/*
 !/log/.keep
 /tmp
-app/views/taglibs/auto/**/*
+#app/views/taglibs/auto/**/*
 config/hobo_routes.rb
 =======
 *.rbc
