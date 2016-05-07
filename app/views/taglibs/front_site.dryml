@@ -13,3 +13,14 @@
 <include src="taglibs/auto/rapid/forms"/>
 
 <include src="application"/>
+
+<def tag="main-nav">
+  <navigation class="main-nav" merge-attrs param="default">
+    <nav-item href="#{base_url}/">Home</nav-item>
+    <nav-item with="&Fov"><ht key="fov.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&Window"><ht key="window.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&Sweep"><ht key="sweep.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&SweepEx"><ht key="sweep_ex.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&SweepEngRun"><ht key="sweep_eng_run.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+  </navigation>
+</def>

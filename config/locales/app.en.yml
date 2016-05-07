@@ -3,7 +3,22 @@
 
 en:
   hello: "Hello world"
-
+  fov:
+      nav_item: "FoVs"
+  window:
+      nav_item: "Wins"
+  sweep:
+      nav_item: "Sweeps"
+  sweep_ex:
+      nav_item: "SweepEx"
+      index:
+          heading:      
+              "Executable Sweep Index"
+  sweep_eng_run: 
+      nav_item: "SweepEngRun"
+      index:
+          heading:
+              "Sweep Engineering Run index"
 #  attributes:
 #    created_at: Created at
 #    updated_at: Updated at

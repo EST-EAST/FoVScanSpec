@@ -28,21 +28,9 @@
 <def tag="form" for="SweepEx">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="name, step_size_x, step_number_x, step_dir_x, step_size_y, step_number_y, step_dir_y, step_init_coord, step_init_x, step_init_y, repetitions, sweep" param/>
+    <field-list fields="name, step_size_x, step_min_x, step_number_x, step_dir_x, step_init_x, step_size_y, step_min_y, step_number_y, step_dir_y, step_init_y, step_init_coord, repetitions, sweep" param/>
     <div param="actions">
       <submit label="#{ht 'sweep_ex.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
-    </div>
-  </form>
-</def>
-
-
-
-<def tag="form" for="SweepType">
-  <form merge param="default">
-    <error-messages param/>
-    <field-list fields="name, description" param/>
-    <div param="actions">
-      <submit label="#{ht 'sweep_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
   </form>
 </def>

@@ -1,4 +1,4 @@
-class Admin::UsersController < Admin::AdminSiteController
+class Admin::RasterSweepTypesController < Admin::AdminSiteController
 
   hobo_model_controller
 

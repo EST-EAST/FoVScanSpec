@@ -2,6 +2,8 @@ class Admin::AdminSiteController < ApplicationController
 
   hobo_controller
 
+  public :render  
+  
   before_filter :admin_required
 
   private

@@ -1,6 +1,54 @@
 <!-- AUTOMATICALLY GENERATED FILE - DO NOT EDIT -->
 
 
+<def tag="form" for="RasterSweepType">
+  <form merge param="default">
+    <error-messages param/>
+    <field-list fields="name, description" param/>
+    <div param="actions">
+      <submit label="#{ht 'raster_sweep_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+
+
+<def tag="form" for="SerpentSweepType">
+  <form merge param="default">
+    <error-messages param/>
+    <field-list fields="name, description" param/>
+    <div param="actions">
+      <submit label="#{ht 'serpent_sweep_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+
+
+<def tag="form" for="SpiralSweepType">
+  <form merge param="default">
+    <error-messages param/>
+    <field-list fields="name, description" param/>
+    <div param="actions">
+      <submit label="#{ht 'spiral_sweep_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+
+
+<def tag="form" for="SweepType">
+  <form merge param="default">
+    <error-messages param/>
+    <field-list fields="name, description" param/>
+    <div param="actions">
+      <submit label="#{ht 'sweep_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+
+
 <def tag="form" for="User">
   <form merge param="default">
     <error-messages param/>

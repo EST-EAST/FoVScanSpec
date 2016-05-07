@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160506120639) do
+ActiveRecord::Schema.define(version: 20160507185217) do
 
   create_table "fovs", force: :cascade do |t|
     t.string   "name"
@@ -37,10 +37,10 @@ ActiveRecord::Schema.define(version: 20160506120639) do
   create_table "sweep_exes", force: :cascade do |t|
     t.string   "name"
     t.float    "step_size_x"
-    t.float    "step_number_x"
+    t.integer  "step_number_x"
     t.string   "step_dir_x"
     t.float    "step_size_y"
-    t.float    "step_number_y"
+    t.integer  "step_number_y"
     t.string   "step_dir_y"
     t.string   "step_init_coord"
     t.float    "step_init_x"
@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(version: 20160506120639) do
     t.datetime "updated_at"
     t.integer  "sweep_id"
     t.integer  "sweep_eng_runs_count", default: 0, null: false
+    t.integer  "step_min_x"
+    t.integer  "step_min_y"
   end
 
   add_index "sweep_exes", ["sweep_id"], name: "index_sweep_exes_on_sweep_id"
@@ -60,7 +62,10 @@ ActiveRecord::Schema.define(version: 20160506120639) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sweeps_count", default: 0, null: false
+    t.string   "type"
   end
+
+  add_index "sweep_types", ["type"], name: "index_sweep_types_on_type"
 
   create_table "sweeps", force: :cascade do |t|
     t.boolean  "double_sampling"

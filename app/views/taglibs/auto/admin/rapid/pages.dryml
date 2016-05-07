@@ -6,9 +6,461 @@
 <def tag="main-nav">
   <navigation class="main-nav" merge-attrs param="default">
     <nav-item href="#{base_url}/">Home</nav-item>
+    <nav-item with="&RasterSweepType"><ht key="raster_sweep_type.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&SerpentSweepType"><ht key="serpent_sweep_type.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&SpiralSweepType"><ht key="spiral_sweep_type.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&SweepType"><ht key="sweep_type.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&User"><ht key="user.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
   </navigation>
 </def>
+
+
+
+
+<!-- ====== RasterSweepType Pages ====== -->
+
+<def tag="index-page" for="RasterSweepType">
+  <page merge title="#{ht 'raster_sweep_type.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page raster-sweep-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="raster_sweep_type.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="raster_sweep_type.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&model" param="new-link">
+        <ht key="raster_sweep_type.actions.new">New Raster sweep type</ht>
+      </a>
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+
+
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-page" for="RasterSweepType">
+  <page merge title="#{ht 'raster_sweep_type.new.title', :default=>[' New Raster sweep type'] }">
+    <body: class="new-page raster-sweep-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="raster_sweep_type.new.heading">
+          New Raster sweep type
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <form param>
+        <submit: label="#{ht 'raster_sweep_type.actions.create', :default=>['Create Raster sweep type']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="show-page" for="RasterSweepType">
+  <page merge title="#{ht 'raster_sweep_type.show.title', :default=>['Raster sweep type'], :name => name(:no_wrapper => true) }" without-aside >
+
+    <body: class="show-page raster-sweep-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="raster_sweep_type.show.heading" name="#{name(:no_wrapper => true)}">
+          Raster sweep type <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="raster_sweep_type.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Raster sweep type
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <view:description param="description" />
+    </content-body:>
+
+  </page>
+</def>
+
+
+<def tag="edit-page" for="RasterSweepType">
+  <page merge title="#{ht 'raster_sweep_type.edit.title', :default=>['Edit Raster sweep type'], :name => name(:no_wrapper => true) }">
+
+    <body: class="edit-page raster-sweep-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="raster_sweep_type.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Raster sweep type
+        </ht>
+      </h2>
+      <delete-button label="#{ht 'raster_sweep_type.actions.delete', :default=>['Remove This Raster sweep type']}" param/>
+    </content-header:>
+
+    <content-body: param>
+      <form param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+
+
+
+<!-- ====== SerpentSweepType Pages ====== -->
+
+<def tag="index-page" for="SerpentSweepType">
+  <page merge title="#{ht 'serpent_sweep_type.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page serpent-sweep-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="serpent_sweep_type.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="serpent_sweep_type.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&model" param="new-link">
+        <ht key="serpent_sweep_type.actions.new">New Serpent sweep type</ht>
+      </a>
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+
+
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-page" for="SerpentSweepType">
+  <page merge title="#{ht 'serpent_sweep_type.new.title', :default=>[' New Serpent sweep type'] }">
+    <body: class="new-page serpent-sweep-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="serpent_sweep_type.new.heading">
+          New Serpent sweep type
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <form param>
+        <submit: label="#{ht 'serpent_sweep_type.actions.create', :default=>['Create Serpent sweep type']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="show-page" for="SerpentSweepType">
+  <page merge title="#{ht 'serpent_sweep_type.show.title', :default=>['Serpent sweep type'], :name => name(:no_wrapper => true) }" without-aside >
+
+    <body: class="show-page serpent-sweep-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="serpent_sweep_type.show.heading" name="#{name(:no_wrapper => true)}">
+          Serpent sweep type <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="serpent_sweep_type.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Serpent sweep type
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <view:description param="description" />
+    </content-body:>
+
+  </page>
+</def>
+
+
+<def tag="edit-page" for="SerpentSweepType">
+  <page merge title="#{ht 'serpent_sweep_type.edit.title', :default=>['Edit Serpent sweep type'], :name => name(:no_wrapper => true) }">
+
+    <body: class="edit-page serpent-sweep-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="serpent_sweep_type.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Serpent sweep type
+        </ht>
+      </h2>
+      <delete-button label="#{ht 'serpent_sweep_type.actions.delete', :default=>['Remove This Serpent sweep type']}" param/>
+    </content-header:>
+
+    <content-body: param>
+      <form param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+
+
+
+<!-- ====== SpiralSweepType Pages ====== -->
+
+<def tag="index-page" for="SpiralSweepType">
+  <page merge title="#{ht 'spiral_sweep_type.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page spiral-sweep-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="spiral_sweep_type.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="spiral_sweep_type.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&model" param="new-link">
+        <ht key="spiral_sweep_type.actions.new">New Spiral sweep type</ht>
+      </a>
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+
+
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-page" for="SpiralSweepType">
+  <page merge title="#{ht 'spiral_sweep_type.new.title', :default=>[' New Spiral sweep type'] }">
+    <body: class="new-page spiral-sweep-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="spiral_sweep_type.new.heading">
+          New Spiral sweep type
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <form param>
+        <submit: label="#{ht 'spiral_sweep_type.actions.create', :default=>['Create Spiral sweep type']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="show-page" for="SpiralSweepType">
+  <page merge title="#{ht 'spiral_sweep_type.show.title', :default=>['Spiral sweep type'], :name => name(:no_wrapper => true) }" without-aside >
+
+    <body: class="show-page spiral-sweep-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="spiral_sweep_type.show.heading" name="#{name(:no_wrapper => true)}">
+          Spiral sweep type <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="spiral_sweep_type.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Spiral sweep type
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <view:description param="description" />
+    </content-body:>
+
+  </page>
+</def>
+
+
+<def tag="edit-page" for="SpiralSweepType">
+  <page merge title="#{ht 'spiral_sweep_type.edit.title', :default=>['Edit Spiral sweep type'], :name => name(:no_wrapper => true) }">
+
+    <body: class="edit-page spiral-sweep-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="spiral_sweep_type.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Spiral sweep type
+        </ht>
+      </h2>
+      <delete-button label="#{ht 'spiral_sweep_type.actions.delete', :default=>['Remove This Spiral sweep type']}" param/>
+    </content-header:>
+
+    <content-body: param>
+      <form param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+
+
+
+<!-- ====== SweepType Pages ====== -->
+
+<def tag="index-page" for="SweepType">
+  <page merge title="#{ht 'sweep_type.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page sweep-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_type.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="sweep_type.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&model" param="new-link">
+        <ht key="sweep_type.actions.new">New Sweep type</ht>
+      </a>
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+
+
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-page" for="SweepType">
+  <page merge title="#{ht 'sweep_type.new.title', :default=>[' New Sweep type'] }">
+    <body: class="new-page sweep-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_type.new.heading">
+          New Sweep type
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <form param>
+        <submit: label="#{ht 'sweep_type.actions.create', :default=>['Create Sweep type']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="show-page" for="SweepType">
+  <page merge title="#{ht 'sweep_type.show.title', :default=>['Sweep type'], :name => name(:no_wrapper => true) }" without-aside >
+
+    <body: class="show-page sweep-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_type.show.heading" name="#{name(:no_wrapper => true)}">
+          Sweep type <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="sweep_type.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Sweep type
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <view:description param="description" />
+    </content-body:>
+
+  </page>
+</def>
+
+
+<def tag="edit-page" for="SweepType">
+  <page merge title="#{ht 'sweep_type.edit.title', :default=>['Edit Sweep type'], :name => name(:no_wrapper => true) }">
+
+    <body: class="edit-page sweep-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_type.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Sweep type
+        </ht>
+      </h2>
+      <delete-button label="#{ht 'sweep_type.actions.delete', :default=>['Remove This Sweep type']}" param/>
+    </content-header:>
+
+    <content-body: param>
+      <form param/>
+    </content-body:>
+
+  </page>
+</def>
+
 
 
 
