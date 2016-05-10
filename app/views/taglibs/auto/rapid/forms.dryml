@@ -25,6 +25,18 @@
 
 
 
+<def tag="form" for="SweepExLog">
+  <form merge param="default">
+    <error-messages param/>
+    <field-list fields="a, b, c, sweep_eng_run" param/>
+    <div param="actions">
+      <submit label="#{ht 'sweep_ex_log.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+
+
 <def tag="form" for="SweepEx">
   <form merge param="default">
     <error-messages param/>

@@ -47,11 +47,11 @@ class SweepEx < ActiveRecord::Base
       step_min_y+step_number_y-1)
   end
   
-  def initial_step()
+  def initial_step
     return 0,0,0
   end
 
-  def step_list()
+  def step_list
     # Prepare the values to draw
 
     step_x,step_y,step_counter=initial_step()
@@ -73,8 +73,8 @@ class SweepEx < ActiveRecord::Base
     return ret    
   end
   
-  def step_coords_list()
-    slist = step_list()
+  def step_coords_list
+    slist = step_list
     ret = []
     slist.each { |s|  
       step_x = s[:x]
@@ -86,6 +86,36 @@ class SweepEx < ActiveRecord::Base
       }
     }
     return ret
+  end
+  
+  def step_list_text
+    slist = step_coords_list
+    ret = ""
+    slist.each { |s|
+          ret+=s[:c].to_s+": ["+
+            s[:x].to_s+","+
+            s[:y].to_s+"] -> ["+
+            s[:x_coord].to_s+","+
+            s[:y_coord].to_s+"]\n"    
+    }
+    return ret
+  end
+  
+  def step_list_py
+    slist = step_coords_list
+    ret = ""
+    slist.each { |s|
+          ret+="{ 'c': ("+s[:c].to_s+"),"
+          ret+="'x': ("+s[:x].to_s+"),"
+          ret+="'y': ("+s[:y].to_s+"),"
+          ret+="'x_coord': ("+s[:x_coord].to_s+"),"
+          ret+="'y_coord': ("+s[:y_coord].to_s+") },"    
+    }
+    return ret
+  end
+  
+  def to_svg
+
   end
   
   def to_svg
@@ -125,7 +155,7 @@ class SweepEx < ActiveRecord::Base
 
         stlabel="font-style:normal;font-weight:normal;font-size:2px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
 
-        slist = step_coords_list()
+        slist = step_coords_list
         slist.each { |s|  
           step_x = s[:x]
           step_y = s[:y]

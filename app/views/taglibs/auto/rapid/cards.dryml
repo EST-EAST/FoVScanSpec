@@ -55,11 +55,24 @@
     <header: param>
       <h4 param="heading"><a><name/></a></h4>
     </header:>
+    <body: param>
+      <ht key="sweep_ex_log.collection.count" count="&this.sweep_ex_logs.size">
+         <count:sweep_ex_logs param/>
+      </ht>
+    </body:>
   </card>
 </def>
 
 <def tag="card" for="SweepEx">
   <card class="sweep-ex" param="default" merge>
+    <header: param>
+      <h4 param="heading"><a><name/></a></h4>
+    </header:>
+  </card>
+</def>
+
+<def tag="card" for="SweepExLog">
+  <card class="sweep-ex-log" param="default" merge>
     <header: param>
       <h4 param="heading"><a><name/></a></h4>
     </header:>

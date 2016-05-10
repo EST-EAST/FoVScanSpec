@@ -33,13 +33,54 @@ you can place common code in this file. -->
 
 <!-- EXTENSION ZONE -->
 
-<extend tag="show-page" for="SweepEx">
+<extend tag="show-page" for="SweepEngRun">
   <old-show-page merge>
     <append-aside:>
-      <iframe src="./#{this.id}.svg" seamless="true"/>
+      <%= link_to "SVG diagram #{@sweep_eng_run.sweep_ex.name}", :only_path => true, :controller => :sweep_exes, :action => :show, :format => 'svg', :id => @sweep_eng_run.sweep_ex.id %>
+      <!--iframe src="./#{this.id}.svg" seamless="true"/-->
+      <embed src="../sweep_exes/#{this.sweep_ex.id}.svg" type="image/svg+xml" />
+      <b>Point list:</b><br/>
+      <!--table>
+      < % @sweep_ex.step_coords_list.each{|s| % >
+          <tr>
+              <td style="border-style:groove;border-width:1px">< %=s[:c].to_s% ></td>  
+              <td style="border-style:groove;border-width:1px">< %=s[:x].to_s% ></td>
+              <td style="border-style:groove;border-width:1px">< %=s[:y].to_s% ></td>  
+              <td style="border-style:groove;border-width:1px">< %=s[:x_coord].to_s% ></td>  
+              <td style="border-style:groove;border-width:1px">< %=s[:y_coord].to_s% ></td>  
+          </tr>
+      < %  } % >
+      </table-->
+      <view:sweep_ex.step_list_text/>
     </append-aside:>
   </old-show-page>
 </extend>
+
+<extend tag="show-page" for="SweepEx">
+  <old-show-page merge>
+    <append-aside:>
+      <%= link_to "SVG diagram #{@sweep_ex.name}", :only_path => true, :controller => :sweep_exes, :action => :show, :format => 'svg', :id => @sweep_ex.id %>
+      <!--iframe src="./#{this.id}.svg" seamless="true"/-->
+      <embed src="./#{this.id}.svg" type="image/svg+xml" />
+      <br/><%= link_to "Python program #{@sweep_ex.name}", :only_path => true, :controller => :sweep_exes, :action => :show, :format => 'py', :id => @sweep_ex.id %>
+      <br/><b>Point list:</b><br/>
+      <!--table>
+      < % @sweep_ex.step_coords_list.each{|s| % >
+          <tr>
+              <td style="border-style:groove;border-width:1px">< %=s[:c].to_s% ></td>  
+              <td style="border-style:groove;border-width:1px">< %=s[:x].to_s% ></td>
+              <td style="border-style:groove;border-width:1px">< %=s[:y].to_s% ></td>  
+              <td style="border-style:groove;border-width:1px">< %=s[:x_coord].to_s% ></td>  
+              <td style="border-style:groove;border-width:1px">< %=s[:y_coord].to_s% ></td>  
+          </tr>
+      < %  } % >
+      </table-->
+      <view:step_list_text/>
+    </append-aside:>
+  </old-show-page>
+</extend>
+
+
 
 <extend tag="card" for="Sweep">
   <old-card merge>

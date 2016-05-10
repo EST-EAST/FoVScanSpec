@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160507185217) do
+ActiveRecord::Schema.define(version: 20160508131213) do
 
   create_table "fovs", force: :cascade do |t|
     t.string   "name"
@@ -30,9 +30,21 @@ ActiveRecord::Schema.define(version: 20160507185217) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sweep_ex_id"
+    t.integer  "sweep_ex_logs_count", default: 0, null: false
   end
 
   add_index "sweep_eng_runs", ["sweep_ex_id"], name: "index_sweep_eng_runs_on_sweep_ex_id"
+
+  create_table "sweep_ex_logs", force: :cascade do |t|
+    t.float    "a"
+    t.float    "b"
+    t.float    "c"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "sweep_eng_run_id"
+  end
+
+  add_index "sweep_ex_logs", ["sweep_eng_run_id"], name: "index_sweep_ex_logs_on_sweep_eng_run_id"
 
   create_table "sweep_exes", force: :cascade do |t|
     t.string   "name"

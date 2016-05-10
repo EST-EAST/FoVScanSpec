@@ -10,6 +10,7 @@
     <nav-item with="&Sweep"><ht key="sweep.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&SweepEngRun"><ht key="sweep_eng_run.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&SweepEx"><ht key="sweep_ex.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&SweepExLog"><ht key="sweep_ex_log.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&Window"><ht key="window.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
   </navigation>
 </def>
@@ -210,6 +211,21 @@
 
     <content-body: param>
       <field-list fields="max_l1_speed, max_l2_speed, max_l3_speed, sweep_ex" param/>
+      <section param="collection-section">
+        <h3 param="collection-heading">
+          <ht key="sweep_ex_log.collection.heading" count="&this.sweep_ex_logs.count" >
+            <human-collection-name collection="sweep_ex_logs" your/>
+          </ht>
+        </h3>
+
+        <collection:sweep_ex_logs param/>
+
+        <a:sweep_ex_logs action="new" if="&can_create?(@sweep_eng_run.sweep_ex_logs)" param="new-link">
+          <ht key="sweep_ex_log.actions.new" count="1">
+            New Sweep Ex Log
+          </ht>
+        </a:sweep_ex_logs>
+      </section>
     </content-body:>
 
   </page>
@@ -234,6 +250,149 @@
       <form param/>
     </content-body:>
 
+  </page>
+</def>
+
+
+
+
+
+<!-- ====== SweepExLog Pages ====== -->
+
+<def tag="index-page" for="SweepExLog">
+  <page merge title="#{ht 'sweep_ex_log.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page sweep-ex-log" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_ex_log.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="sweep_ex_log.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&model" param="new-link">
+        <ht key="sweep_ex_log.actions.new">New Sweep ex log</ht>
+      </a>
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+
+
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-page" for="SweepExLog">
+  <page merge title="#{ht 'sweep_ex_log.new.title', :default=>[' New Sweep ex log'] }">
+    <body: class="new-page sweep-ex-log" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_ex_log.new.heading">
+          New Sweep ex log
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <form param>
+        <submit: label="#{ht 'sweep_ex_log.actions.create', :default=>['Create Sweep ex log']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="show-page" for="SweepExLog">
+  <page merge title="#{ht 'sweep_ex_log.show.title', :default=>['Sweep ex log'], :name => name(:no_wrapper => true) }" without-aside >
+
+    <body: class="show-page sweep-ex-log" param/>
+
+    <content-header: param>
+      <a:sweep_eng_run param="parent-link">&laquo; <ht key="sweep_ex_log.actions.back_to_parent" parent="Sweep eng run" name="&this">Back to <name/></ht></a:sweep_eng_run>
+      <h2 param="heading">
+        <ht key="sweep_ex_log.show.heading" name="#{name(:no_wrapper => true)}">
+          Sweep ex log <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="sweep_ex_log.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Sweep ex log
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <field-list fields="a, b, c" param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+<def tag="edit-page" for="SweepExLog">
+  <page merge title="#{ht 'sweep_ex_log.edit.title', :default=>['Edit Sweep ex log'], :name => name(:no_wrapper => true) }">
+
+    <body: class="edit-page sweep-ex-log" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_ex_log.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Sweep ex log
+        </ht>
+      </h2>
+      <delete-button label="#{ht 'sweep_ex_log.actions.delete', :default=>['Remove This Sweep ex log']}" param/>
+    </content-header:>
+
+    <content-body: param>
+      <form param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+
+<def tag="new-for-sweep-eng-run-page" polymorphic/>
+<def tag="new-for-sweep-eng-run-page" for="SweepExLog">
+  <page merge title="#{ht 'sweep_ex_log.new_for_owner.title', :default=>['New Sweep ex log for']} #{name :with => @sweep_eng_run}">
+    <body: class="new-for-owner-page  sweep-ex-log" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sweep_ex_log.new_for_owner.heading">
+          New Sweep Ex Log
+        </ht>
+      </h2>
+      <h3 param="subheading">
+        <ht key="sweep_ex_log.new_for_owner.subheading">
+          For:
+        </ht>
+        <a with="&@sweep_eng_run"/>
+      </h3>
+    </content-header:>
+
+    <content-body: param>
+      <form owner="sweep_eng_run" method="post" param>
+        <field-list: skip="sweep_eng_run"/>
+        <submit: label="#{ht 'sweep_ex_log.actions.create', :default=>['Create Sweep ex log']}"/>
+      </form>
+    </content-body:>
   </page>
 </def>
 
