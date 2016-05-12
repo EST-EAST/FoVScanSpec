@@ -338,7 +338,7 @@
     </content-header:>
 
     <content-body: param>
-      <field-list fields="step, x, y, x_coord, y_coord, a, b, c, timestr, dtinit, dtend" param/>
+      <field-list fields="step, x, y, x_coord, y_coord, m1, m2, m3, timestr, dtinit, dtend, m1_fdback, m2_fdback, m3_fdback" param/>
     </content-body:>
 
   </page>

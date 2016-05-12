@@ -28,7 +28,7 @@
 <def tag="form" for="SweepExLog">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="step, x, y, x_coord, y_coord, a, b, c, timestr, dtinit, dtend, sweep_eng_run" param/>
+    <field-list fields="step, x, y, x_coord, y_coord, m1, m2, m3, timestr, dtinit, dtend, m1_fdback, m2_fdback, m3_fdback, sweep_eng_run" param/>
     <div param="actions">
       <submit label="#{ht 'sweep_ex_log.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>

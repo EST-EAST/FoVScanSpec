@@ -18,6 +18,7 @@ class SweepExesController < ApplicationController
   end
 
   def index
+	@sweep_exes = SweepEx.all
 	respond_to do |format|
 		format.html
 		format.py

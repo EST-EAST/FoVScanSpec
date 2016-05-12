@@ -41,12 +41,12 @@ def stepDone():
     #   0 does nothing, non blocking implementation is welcome
     return sws.stepDone()
 
-sqlsentence ="INSERT INTO \\"sweep_ex_logs\\" (\\"step\\", \\"x\\", \\"y\\", \\"x_coord\\", \\"y_coord\\", \\"a\\", \\"b\\", \\"c\\", \\"timestr\\", \\"sweep_eng_run_id\\", \\"dtinit\\", \\"dtend\\", \\"created_at\\", \\"updated_at\\") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
+sqlsentence ="INSERT INTO \\"sweep_ex_logs\\" (\\"step\\", \\"x\\", \\"y\\", \\"x_coord\\", \\"y_coord\\", \\"m1\\", \\"m2\\", \\"m3\\", \\"m1_fdback\\", \\"m2_fdback\\", \\"m3_fdback\\", \\"timestr\\", \\"sweep_eng_run_id\\", \\"dtinit\\", \\"dtend\\", \\"created_at\\", \\"updated_at\\") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
 
-sqlprepare="CREATE TABLE IF NOT EXISTS \\"sweep_ex_logs\\" (\\"id\\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, \\"a\\" float, \\"b\\" float, \\"c\\" float, \\"created_at\\" datetime, \\"updated_at\\" datetime, \\"sweep_eng_run_id\\" integer, \\"step\\" integer, \\"x\\" integer, \\"y\\" integer, \\"x_coord\\" float, \\"y_coord\\" float, \\"timestr\\" varchar, \\"dtinit\\" datetime, \\"dtend\\" datetime);"
+sqlprepare="CREATE TABLE IF NOT EXISTS \\"sweep_ex_logs\\" (\\"id\\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, \\"m1\\" float, \\"m2\\" float, \\"m3\\" float, \\"created_at\\" datetime, \\"updated_at\\" datetime, \\"sweep_eng_run_id\\" integer, \\"step\\" integer, \\"x\\" integer, \\"y\\" integer, \\"x_coord\\" float, \\"y_coord\\" float, \\"timestr\\" varchar, \\"dtinit\\" datetime, \\"dtend\\" datetime, \\"m1_fdback\\" float, \\"m2_fdback\\" float, \\"m3_fdback\\" float);"
 
-def dbinsert(dbc, curStep, stepX, stepY,stepXcoord,stepYcoord,a,b,c,timestr,dtinit,dtcam):
-    item = [curStep,stepX,stepY,stepXcoord,stepYcoord,a,b,c,timestr,
+def dbinsert(dbc, curStep, stepX, stepY,stepXcoord,stepYcoord,m1,m2,m3,m1_fdback,m2_fdback,m3_fdback,timestr,dtinit,dtcam):
+    item = [curStep,stepX,stepY,stepXcoord,stepYcoord,m1,m2,m3,m1_fdback,m2_fdback,m3_fdback,timestr,
             sweep_ex_id,dtinit,dtcam,dtcam,dtcam]
     dbc.execute(sqlsentence,item)
     return True
@@ -107,7 +107,7 @@ while (done!=-1 and curStep <%= raw("<") %> endStep ):
     stepYcoord=steps[curStep]['y_coord']
     # Command motor position for this step
     dtinit = datetime.now()
-    done=commandMotor(stepXcoord,stepYcoord)
+    done,m1,m2,m3=commandMotor(stepXcoord,stepYcoord)
     # Wait command to end
     while (done==0):
       done=stepDone();
@@ -117,18 +117,18 @@ while (done!=-1 and curStep <%= raw("<") %> endStep ):
       dtcam = datetime.now()
       ret, frame = cam.read()
       #save to disk
-      strg=sws.cte_fileprefix+'%s_%03d_%03d_%03d_%03d.png' % (timestr, sweep_ex_id, curStep, stepX, stepY)
+      strg=sws.cte_fileprefix+'%s_%03d_%03d.png' % (timestr, sweep_ex_id, curStep)
       cv2.imwrite(sws.cte_framePath + strg, frame)
       #show the image
       cv2.imshow('Current Frame', frame)
       # acquire the motor status
-      a,b,c = sws.motorPositions()
-      print ("Motores | a: "+str(a)+", b: "+str(b)+", c: "+str(c))
+      m1_fdback,m2_fdback,m3_fdback = sws.motorPositions()
+      print ("Motores | m1: "+str(m1_fdback)+", m2: "+str(m2_fdback)+", m3: "+str(m3_fdback))
       # Envío la info a la web
       #r = requests.post("http://localhost:3000/sweep_eng_runs/1/sweep_ex_logs/new", data={'sweep_ex_log': {"sweep_eng_run_id":"1", "a":"6", "b":"8", "c":"9"},"sweep_eng_run_id":"1" })
       #print(r.status_code, r.reason)
       # Envío la info a la BD
-      done=dbinsert(dbc,curStep, stepX, stepY,stepXcoord, stepYcoord,a,b,c,timestr,dtinit,dtcam)
+      done=dbinsert(dbc,curStep, stepX, stepY,stepXcoord, stepYcoord,m1,m2,m3,m1_fdback,m2_fdback,m3_fdback,timestr,dtinit,dtcam)
       curStep += 1
         
 # End of program, steps have finished or someone has cancelled the scan process
