@@ -41,9 +41,9 @@ def stepDone():
     #   0 does nothing, non blocking implementation is welcome
     return sws.stepDone()
 
-sqlsentence ="INSERT INTO \"sweep_ex_logs\" (\"step\", \"x\", \"y\", \"x_coord\", \"y_coord\", \"a\", \"b\", \"c\", \"timestr\", \"sweep_eng_run_id\", \"dtinit\", \"dtend\", \"created_at\", \"updated_at\") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
+sqlsentence ="INSERT INTO \\"sweep_ex_logs\\" (\\"step\\", \\"x\\", \\"y\\", \\"x_coord\\", \\"y_coord\\", \\"a\\", \\"b\\", \\"c\\", \\"timestr\\", \\"sweep_eng_run_id\\", \\"dtinit\\", \\"dtend\\", \\"created_at\\", \\"updated_at\\") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
 
-sqlprepare="CREATE TABLE IF NOT EXISTS \"sweep_ex_logs\" (\"id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, \"a\" float, \"b\" float, \"c\" float, \"created_at\" datetime, \"updated_at\" datetime, \"sweep_eng_run_id\" integer, \"step\" integer, \"x\" integer, \"y\" integer, \"x_coord\" float, \"y_coord\" float, \"timestr\" varchar, \"dtinit\" datetime, \"dtend\" datetime);"
+sqlprepare="CREATE TABLE IF NOT EXISTS \\"sweep_ex_logs\\" (\\"id\\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, \\"a\\" float, \\"b\\" float, \\"c\\" float, \\"created_at\\" datetime, \\"updated_at\\" datetime, \\"sweep_eng_run_id\\" integer, \\"step\\" integer, \\"x\\" integer, \\"y\\" integer, \\"x_coord\\" float, \\"y_coord\\" float, \\"timestr\\" varchar, \\"dtinit\\" datetime, \\"dtend\\" datetime);"
 
 def dbinsert(dbc, curStep, stepX, stepY,stepXcoord,stepYcoord,a,b,c,timestr,dtinit,dtcam):
     item = [curStep,stepX,stepY,stepXcoord,stepYcoord,a,b,c,timestr,
@@ -58,7 +58,7 @@ def dbprepare(dbc):
 ###### END Functions ############
 
 ###### Automatically generated code ###########
-sweep_ex_id = <%= @sweep_ex.id.to_str %>
+sweep_ex_id = <%= @sweep_ex.id.to_s %>
 steps = [ <%= raw(@sweep_ex.step_list_py) %> ]
 
 ###### Automatically generated steps table ###########
