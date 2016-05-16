@@ -123,11 +123,11 @@ while (done!=-1 and curStep <%= raw("<") %> endStep ):
       cv2.imshow('Current Frame', frame)
       # acquire the motor status
       m1_fdback,m2_fdback,m3_fdback = sws.motorPositions()
-      print ("Motores | m1: "+str(m1_fdback)+", m2: "+str(m2_fdback)+", m3: "+str(m3_fdback))
-      # Envío la info a la web
+      print ("Motor | m1: "+str(m1_fdback)+", m2: "+str(m2_fdback)+", m3: "+str(m3_fdback))
+      # Web information upload
       #r = requests.post("http://localhost:3000/sweep_eng_runs/1/sweep_ex_logs/new", data={'sweep_ex_log': {"sweep_eng_run_id":"1", "a":"6", "b":"8", "c":"9"},"sweep_eng_run_id":"1" })
       #print(r.status_code, r.reason)
-      # Envío la info a la BD
+      # BD information store
       done=dbinsert(dbc,curStep, stepX, stepY,stepXcoord, stepYcoord,m1,m2,m3,m1_fdback,m2_fdback,m3_fdback,timestr,dtinit,dtcam)
       curStep += 1
         

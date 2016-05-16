@@ -7,8 +7,7 @@ class SweepExesController < ApplicationController
   auto_actions :all
 
   def show	
-    @sweep_ex=find_instance
-    respond_to do |format|
+    hobo_show do |format|
       format.svg {
         render :inline => find_instance.to_svg
       }
@@ -18,10 +17,9 @@ class SweepExesController < ApplicationController
   end
 
   def index
-	@sweep_exes = SweepEx.all
-	respond_to do |format|
+	hobo_index do |format|
 		format.html
 		format.py
 	end
-  end  
+  end 
 end
