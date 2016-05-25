@@ -112,7 +112,7 @@ if (sweepconfig.cte_reset_motors_first):
 # or steps have finished
 endStep = len(steps)
 #endStep = 4
-while (done!=-1 and curStep <%= raw("<") %> endStep ):
+while (done!=-1 and curStep < endStep ):
     # In stepX and stepY we have the step positions to be done
     stepX=steps[curStep]['x']
     stepY=steps[curStep]['y']
@@ -159,7 +159,7 @@ while (done!=-1 and curStep <%= raw("<") %> endStep ):
         curStep += 1
 
 # End of program, steps have finished or someone has cancelled the scan process
-if (curStep <%= raw("<") %> len(steps)):
+if (curStep < len(steps)):
   # Scan process was cancelled
     if (sweepconfig.cte_verbose):
         print ("Scan process was cancelled")
