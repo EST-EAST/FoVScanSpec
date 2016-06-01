@@ -1,0 +1,2 @@
+module ScanExesHelper
+end

@@ -1,2 +1,0 @@
-module SweepTypesHelper
-end

@@ -1,48 +1,48 @@
 <!-- AUTOMATICALLY GENERATED FILE - DO NOT EDIT -->
 
 
-<def tag="form" for="RasterSweepType">
+<def tag="form" for="RasterScanType">
   <form merge param="default">
     <error-messages param/>
     <field-list fields="name, description" param/>
     <div param="actions">
-      <submit label="#{ht 'raster_sweep_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+      <submit label="#{ht 'raster_scan_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
   </form>
 </def>
 
 
 
-<def tag="form" for="SerpentSweepType">
+<def tag="form" for="ScanType">
   <form merge param="default">
     <error-messages param/>
     <field-list fields="name, description" param/>
     <div param="actions">
-      <submit label="#{ht 'serpent_sweep_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+      <submit label="#{ht 'scan_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
   </form>
 </def>
 
 
 
-<def tag="form" for="SpiralSweepType">
+<def tag="form" for="SerpentScanType">
   <form merge param="default">
     <error-messages param/>
     <field-list fields="name, description" param/>
     <div param="actions">
-      <submit label="#{ht 'spiral_sweep_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+      <submit label="#{ht 'serpent_scan_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
   </form>
 </def>
 
 
 
-<def tag="form" for="SweepType">
+<def tag="form" for="SpiralScanType">
   <form merge param="default">
     <error-messages param/>
     <field-list fields="name, description" param/>
     <div param="actions">
-      <submit label="#{ht 'sweep_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+      <submit label="#{ht 'spiral_scan_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
   </form>
 </def>

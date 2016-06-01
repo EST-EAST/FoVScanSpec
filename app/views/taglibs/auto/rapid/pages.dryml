@@ -7,10 +7,14 @@
   <navigation class="main-nav" merge-attrs param="default">
     <nav-item href="#{base_url}/">Home</nav-item>
     <nav-item with="&Fov"><ht key="fov.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
-    <nav-item with="&Sweep"><ht key="sweep.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
-    <nav-item with="&SweepEngRun"><ht key="sweep_eng_run.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
-    <nav-item with="&SweepEx"><ht key="sweep_ex.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
-    <nav-item with="&SweepExLog"><ht key="sweep_ex_log.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&RasterScanType"><ht key="raster_scan_type.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&Scan"><ht key="scan.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&ScanEngRun"><ht key="scan_eng_run.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&ScanEx"><ht key="scan_ex.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&ScanExLog"><ht key="scan_ex_log.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&ScanType"><ht key="scan_type.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&SerpentScanType"><ht key="serpent_scan_type.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&SpiralScanType"><ht key="spiral_scan_type.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&Window"><ht key="window.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
   </navigation>
 </def>
@@ -130,21 +134,21 @@
 
 
 
-<!-- ====== SweepEngRun Pages ====== -->
+<!-- ====== RasterScanType Pages ====== -->
 
-<def tag="index-page" for="SweepEngRun">
-  <page merge title="#{ht 'sweep_eng_run.index.title', :default=>[model.model_name.human(:count=>100)] }">
-    <body: class="index-page sweep-eng-run" param/>
+<def tag="index-page" for="RasterScanType">
+  <page merge title="#{ht 'raster_scan_type.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page raster-scan-type" param/>
 
     <content-header: param>
       <h2 param="heading">
-        <ht key="sweep_eng_run.index.heading">
+        <ht key="raster_scan_type.index.heading">
           <model-name-human model="&model"/>
         </ht>
       </h2>
 
       <p param="count" if>
-        <ht key="sweep_eng_run.collection.count" count="&collection_count">
+        <ht key="raster_scan_type.collection.count" count="&collection_count">
           <count summary/>
         </ht>
       </p>
@@ -152,7 +156,7 @@
 
     <content-body: param>
       <a action="new" to="&model" param="new-link">
-        <ht key="sweep_eng_run.actions.new">New Sweep eng run</ht>
+        <ht key="raster_scan_type.actions.new">New Raster scan type</ht>
       </a>
 
       <page-nav param="top-page-nav"/>
@@ -167,64 +171,176 @@
 </def>
 
 
-<def tag="new-page" for="SweepEngRun">
-  <page merge title="#{ht 'sweep_eng_run.new.title', :default=>[' New Sweep eng run'] }">
-    <body: class="new-page sweep-eng-run" param/>
+<def tag="new-page" for="RasterScanType">
+  <page merge title="#{ht 'raster_scan_type.new.title', :default=>[' New Raster scan type'] }">
+    <body: class="new-page raster-scan-type" param/>
 
     <content-header: param>
       <h2 param="heading">
-        <ht key="sweep_eng_run.new.heading">
-          New Sweep eng run
+        <ht key="raster_scan_type.new.heading">
+          New Raster scan type
         </ht>
       </h2>
     </content-header:>
 
     <content-body: param>
       <form param>
-        <submit: label="#{ht 'sweep_eng_run.actions.create', :default=>['Create Sweep eng run']}"/>
+        <submit: label="#{ht 'raster_scan_type.actions.create', :default=>['Create Raster scan type']}"/>
       </form>
     </content-body:>
   </page>
 </def>
 
 
-<def tag="show-page" for="SweepEngRun">
-  <page merge title="#{ht 'sweep_eng_run.show.title', :default=>['Sweep eng run'], :name => name(:no_wrapper => true) }" without-aside >
+<def tag="show-page" for="RasterScanType">
+  <page merge title="#{ht 'raster_scan_type.show.title', :default=>['Raster scan type'], :name => name(:no_wrapper => true) }" without-aside >
 
-    <body: class="show-page sweep-eng-run" param/>
+    <body: class="show-page raster-scan-type" param/>
 
     <content-header: param>
       <h2 param="heading">
-        <ht key="sweep_eng_run.show.heading" name="#{name(:no_wrapper => true)}">
-          Sweep eng run <name/>
+        <ht key="raster_scan_type.show.heading" name="#{name(:no_wrapper => true)}">
+          Raster scan type <name/>
         </ht>
       </h2>
 
       <record-flags fields="" param/>
 
       <a action="edit" if="&can_edit?" param="edit-link">
-        <ht key="sweep_eng_run.actions.edit" name="#{name(:no_wrapper => true)}">
-          Edit Sweep eng run
+        <ht key="raster_scan_type.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Raster scan type
         </ht>
       </a>
     </content-header:>
 
     <content-body: param>
-      <field-list fields="max_l1_speed, max_l2_speed, max_l3_speed, sweep_ex" param/>
+      <view:description param="description" />
+    </content-body:>
+
+  </page>
+</def>
+
+
+<def tag="edit-page" for="RasterScanType">
+  <page merge title="#{ht 'raster_scan_type.edit.title', :default=>['Edit Raster scan type'], :name => name(:no_wrapper => true) }">
+
+    <body: class="edit-page raster-scan-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="raster_scan_type.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Raster scan type
+        </ht>
+      </h2>
+      <delete-button label="#{ht 'raster_scan_type.actions.delete', :default=>['Remove This Raster scan type']}" param/>
+    </content-header:>
+
+    <content-body: param>
+      <form param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+
+
+
+<!-- ====== ScanEngRun Pages ====== -->
+
+<def tag="index-page" for="ScanEngRun">
+  <page merge title="#{ht 'scan_eng_run.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page scan-eng-run" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="scan_eng_run.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="scan_eng_run.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&model" param="new-link">
+        <ht key="scan_eng_run.actions.new">New Scan eng run</ht>
+      </a>
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+
+
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-page" for="ScanEngRun">
+  <page merge title="#{ht 'scan_eng_run.new.title', :default=>[' New Scan eng run'] }">
+    <body: class="new-page scan-eng-run" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="scan_eng_run.new.heading">
+          New Scan eng run
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <form param>
+        <submit: label="#{ht 'scan_eng_run.actions.create', :default=>['Create Scan eng run']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="show-page" for="ScanEngRun">
+  <page merge title="#{ht 'scan_eng_run.show.title', :default=>['Scan eng run'], :name => name(:no_wrapper => true) }" without-aside >
+
+    <body: class="show-page scan-eng-run" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="scan_eng_run.show.heading" name="#{name(:no_wrapper => true)}">
+          Scan eng run <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="scan_eng_run.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Scan eng run
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <field-list fields="max_l1_speed, max_l2_speed, max_l3_speed, scan_ex" param/>
       <section param="collection-section">
         <h3 param="collection-heading">
-          <ht key="sweep_ex_log.collection.heading" count="&this.sweep_ex_logs.count" >
-            <human-collection-name collection="sweep_ex_logs" your/>
+          <ht key="scan_ex_log.collection.heading" count="&this.scan_ex_logs.count" >
+            <human-collection-name collection="scan_ex_logs" your/>
           </ht>
         </h3>
 
-        <collection:sweep_ex_logs param/>
+        <collection:scan_ex_logs param/>
 
-        <a:sweep_ex_logs action="new" if="&can_create?(@sweep_eng_run.sweep_ex_logs)" param="new-link">
-          <ht key="sweep_ex_log.actions.new" count="1">
-            New Sweep Ex Log
+        <a:scan_ex_logs action="new" if="&can_create?(@scan_eng_run.scan_ex_logs)" param="new-link">
+          <ht key="scan_ex_log.actions.new" count="1">
+            New Scan Ex Log
           </ht>
-        </a:sweep_ex_logs>
+        </a:scan_ex_logs>
       </section>
     </content-body:>
 
@@ -232,18 +348,18 @@
 </def>
 
 
-<def tag="edit-page" for="SweepEngRun">
-  <page merge title="#{ht 'sweep_eng_run.edit.title', :default=>['Edit Sweep eng run'], :name => name(:no_wrapper => true) }">
+<def tag="edit-page" for="ScanEngRun">
+  <page merge title="#{ht 'scan_eng_run.edit.title', :default=>['Edit Scan eng run'], :name => name(:no_wrapper => true) }">
 
-    <body: class="edit-page sweep-eng-run" param/>
+    <body: class="edit-page scan-eng-run" param/>
 
     <content-header: param>
       <h2 param="heading">
-        <ht key="sweep_eng_run.edit.heading" name="#{name(:no_wrapper => true)}">
-          Edit Sweep eng run
+        <ht key="scan_eng_run.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Scan eng run
         </ht>
       </h2>
-      <delete-button label="#{ht 'sweep_eng_run.actions.delete', :default=>['Remove This Sweep eng run']}" param/>
+      <delete-button label="#{ht 'scan_eng_run.actions.delete', :default=>['Remove This Scan eng run']}" param/>
     </content-header:>
 
     <content-body: param>
@@ -257,21 +373,21 @@
 
 
 
-<!-- ====== SweepExLog Pages ====== -->
+<!-- ====== ScanExLog Pages ====== -->
 
-<def tag="index-page" for="SweepExLog">
-  <page merge title="#{ht 'sweep_ex_log.index.title', :default=>[model.model_name.human(:count=>100)] }">
-    <body: class="index-page sweep-ex-log" param/>
+<def tag="index-page" for="ScanExLog">
+  <page merge title="#{ht 'scan_ex_log.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page scan-ex-log" param/>
 
     <content-header: param>
       <h2 param="heading">
-        <ht key="sweep_ex_log.index.heading">
+        <ht key="scan_ex_log.index.heading">
           <model-name-human model="&model"/>
         </ht>
       </h2>
 
       <p param="count" if>
-        <ht key="sweep_ex_log.collection.count" count="&collection_count">
+        <ht key="scan_ex_log.collection.count" count="&collection_count">
           <count summary/>
         </ht>
       </p>
@@ -279,7 +395,7 @@
 
     <content-body: param>
       <a action="new" to="&model" param="new-link">
-        <ht key="sweep_ex_log.actions.new">New Sweep ex log</ht>
+        <ht key="scan_ex_log.actions.new">New Scan ex log</ht>
       </a>
 
       <page-nav param="top-page-nav"/>
@@ -294,69 +410,69 @@
 </def>
 
 
-<def tag="new-page" for="SweepExLog">
-  <page merge title="#{ht 'sweep_ex_log.new.title', :default=>[' New Sweep ex log'] }">
-    <body: class="new-page sweep-ex-log" param/>
+<def tag="new-page" for="ScanExLog">
+  <page merge title="#{ht 'scan_ex_log.new.title', :default=>[' New Scan ex log'] }">
+    <body: class="new-page scan-ex-log" param/>
 
     <content-header: param>
       <h2 param="heading">
-        <ht key="sweep_ex_log.new.heading">
-          New Sweep ex log
+        <ht key="scan_ex_log.new.heading">
+          New Scan ex log
         </ht>
       </h2>
     </content-header:>
 
     <content-body: param>
       <form param>
-        <submit: label="#{ht 'sweep_ex_log.actions.create', :default=>['Create Sweep ex log']}"/>
+        <submit: label="#{ht 'scan_ex_log.actions.create', :default=>['Create Scan ex log']}"/>
       </form>
     </content-body:>
   </page>
 </def>
 
 
-<def tag="show-page" for="SweepExLog">
-  <page merge title="#{ht 'sweep_ex_log.show.title', :default=>['Sweep ex log'], :name => name(:no_wrapper => true) }" without-aside >
+<def tag="show-page" for="ScanExLog">
+  <page merge title="#{ht 'scan_ex_log.show.title', :default=>['Scan ex log'], :name => name(:no_wrapper => true) }" without-aside >
 
-    <body: class="show-page sweep-ex-log" param/>
+    <body: class="show-page scan-ex-log" param/>
 
     <content-header: param>
-      <a:sweep_eng_run param="parent-link">&laquo; <ht key="sweep_ex_log.actions.back_to_parent" parent="Sweep eng run" name="&this">Back to <name/></ht></a:sweep_eng_run>
+      <a:scan_eng_run param="parent-link">&laquo; <ht key="scan_ex_log.actions.back_to_parent" parent="Scan eng run" name="&this">Back to <name/></ht></a:scan_eng_run>
       <h2 param="heading">
-        <ht key="sweep_ex_log.show.heading" name="#{name(:no_wrapper => true)}">
-          Sweep ex log <name/>
+        <ht key="scan_ex_log.show.heading" name="#{name(:no_wrapper => true)}">
+          Scan ex log <name/>
         </ht>
       </h2>
 
       <record-flags fields="" param/>
 
       <a action="edit" if="&can_edit?" param="edit-link">
-        <ht key="sweep_ex_log.actions.edit" name="#{name(:no_wrapper => true)}">
-          Edit Sweep ex log
+        <ht key="scan_ex_log.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Scan ex log
         </ht>
       </a>
     </content-header:>
 
     <content-body: param>
-      <field-list fields="step, x, y, x_coord, y_coord, m1, m2, m3, timestr, dtinit, dtend, m1_fdback, m2_fdback, m3_fdback" param/>
+      <field-list fields="step, x, y, x_coord, y_coord, mx, my, mcomp, timestr, dtinit, dtend, mx_fdback, my_fdback, mcomp_fdback" param/>
     </content-body:>
 
   </page>
 </def>
 
 
-<def tag="edit-page" for="SweepExLog">
-  <page merge title="#{ht 'sweep_ex_log.edit.title', :default=>['Edit Sweep ex log'], :name => name(:no_wrapper => true) }">
+<def tag="edit-page" for="ScanExLog">
+  <page merge title="#{ht 'scan_ex_log.edit.title', :default=>['Edit Scan ex log'], :name => name(:no_wrapper => true) }">
 
-    <body: class="edit-page sweep-ex-log" param/>
+    <body: class="edit-page scan-ex-log" param/>
 
     <content-header: param>
       <h2 param="heading">
-        <ht key="sweep_ex_log.edit.heading" name="#{name(:no_wrapper => true)}">
-          Edit Sweep ex log
+        <ht key="scan_ex_log.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Scan ex log
         </ht>
       </h2>
-      <delete-button label="#{ht 'sweep_ex_log.actions.delete', :default=>['Remove This Sweep ex log']}" param/>
+      <delete-button label="#{ht 'scan_ex_log.actions.delete', :default=>['Remove This Scan ex log']}" param/>
     </content-header:>
 
     <content-body: param>
@@ -368,29 +484,29 @@
 
 
 
-<def tag="new-for-sweep-eng-run-page" polymorphic/>
-<def tag="new-for-sweep-eng-run-page" for="SweepExLog">
-  <page merge title="#{ht 'sweep_ex_log.new_for_owner.title', :default=>['New Sweep ex log for']} #{name :with => @sweep_eng_run}">
-    <body: class="new-for-owner-page  sweep-ex-log" param/>
+<def tag="new-for-scan-eng-run-page" polymorphic/>
+<def tag="new-for-scan-eng-run-page" for="ScanExLog">
+  <page merge title="#{ht 'scan_ex_log.new_for_owner.title', :default=>['New Scan ex log for']} #{name :with => @scan_eng_run}">
+    <body: class="new-for-owner-page  scan-ex-log" param/>
 
     <content-header: param>
       <h2 param="heading">
-        <ht key="sweep_ex_log.new_for_owner.heading">
-          New Sweep Ex Log
+        <ht key="scan_ex_log.new_for_owner.heading">
+          New Scan Ex Log
         </ht>
       </h2>
       <h3 param="subheading">
-        <ht key="sweep_ex_log.new_for_owner.subheading">
+        <ht key="scan_ex_log.new_for_owner.subheading">
           For:
         </ht>
-        <a with="&@sweep_eng_run"/>
+        <a with="&@scan_eng_run"/>
       </h3>
     </content-header:>
 
     <content-body: param>
-      <form owner="sweep_eng_run" method="post" param>
-        <field-list: skip="sweep_eng_run"/>
-        <submit: label="#{ht 'sweep_ex_log.actions.create', :default=>['Create Sweep ex log']}"/>
+      <form owner="scan_eng_run" method="post" param>
+        <field-list: skip="scan_eng_run"/>
+        <submit: label="#{ht 'scan_ex_log.actions.create', :default=>['Create Scan ex log']}"/>
       </form>
     </content-body:>
   </page>
@@ -400,21 +516,21 @@
 
 
 
-<!-- ====== SweepEx Pages ====== -->
+<!-- ====== ScanEx Pages ====== -->
 
-<def tag="index-page" for="SweepEx">
-  <page merge title="#{ht 'sweep_ex.index.title', :default=>[model.model_name.human(:count=>100)] }">
-    <body: class="index-page sweep-ex" param/>
+<def tag="index-page" for="ScanEx">
+  <page merge title="#{ht 'scan_ex.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page scan-ex" param/>
 
     <content-header: param>
       <h2 param="heading">
-        <ht key="sweep_ex.index.heading">
+        <ht key="scan_ex.index.heading">
           <model-name-human model="&model"/>
         </ht>
       </h2>
 
       <p param="count" if>
-        <ht key="sweep_ex.collection.count" count="&collection_count">
+        <ht key="scan_ex.collection.count" count="&collection_count">
           <count summary/>
         </ht>
       </p>
@@ -422,7 +538,7 @@
 
     <content-body: param>
       <a action="new" to="&model" param="new-link">
-        <ht key="sweep_ex.actions.new">New Sweep ex</ht>
+        <ht key="scan_ex.actions.new">New Scan ex</ht>
       </a>
 
       <page-nav param="top-page-nav"/>
@@ -437,68 +553,68 @@
 </def>
 
 
-<def tag="new-page" for="SweepEx">
-  <page merge title="#{ht 'sweep_ex.new.title', :default=>[' New Sweep ex'] }">
-    <body: class="new-page sweep-ex" param/>
+<def tag="new-page" for="ScanEx">
+  <page merge title="#{ht 'scan_ex.new.title', :default=>[' New Scan ex'] }">
+    <body: class="new-page scan-ex" param/>
 
     <content-header: param>
       <h2 param="heading">
-        <ht key="sweep_ex.new.heading">
-          New Sweep ex
+        <ht key="scan_ex.new.heading">
+          New Scan ex
         </ht>
       </h2>
     </content-header:>
 
     <content-body: param>
       <form param>
-        <submit: label="#{ht 'sweep_ex.actions.create', :default=>['Create Sweep ex']}"/>
+        <submit: label="#{ht 'scan_ex.actions.create', :default=>['Create Scan ex']}"/>
       </form>
     </content-body:>
   </page>
 </def>
 
 
-<def tag="show-page" for="SweepEx">
-  <page merge title="#{ht 'sweep_ex.show.title', :default=>['Sweep ex'], :name => name(:no_wrapper => true) }" without-aside >
+<def tag="show-page" for="ScanEx">
+  <page merge title="#{ht 'scan_ex.show.title', :default=>['Scan ex'], :name => name(:no_wrapper => true) }" without-aside >
 
-    <body: class="show-page sweep-ex" param/>
+    <body: class="show-page scan-ex" param/>
 
     <content-header: param>
       <h2 param="heading">
-        <ht key="sweep_ex.show.heading" name="#{name(:no_wrapper => true)}">
-          Sweep ex <name/>
+        <ht key="scan_ex.show.heading" name="#{name(:no_wrapper => true)}">
+          Scan ex <name/>
         </ht>
       </h2>
 
       <record-flags fields="" param/>
 
       <a action="edit" if="&can_edit?" param="edit-link">
-        <ht key="sweep_ex.actions.edit" name="#{name(:no_wrapper => true)}">
-          Edit Sweep ex
+        <ht key="scan_ex.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Scan ex
         </ht>
       </a>
     </content-header:>
 
     <content-body: param>
-      <field-list fields="step_size_x, step_min_x, step_number_x, step_dir_x, step_init_x, step_size_y, step_min_y, step_number_y, step_dir_y, step_init_y, step_init_coord, repetitions, sweep" param/>
+      <field-list fields="step_size_x, step_min_x, step_number_x, step_dir_x, step_init_x, step_size_y, step_min_y, step_number_y, step_dir_y, step_init_y, step_init_coord, repetitions, scan" param/>
     </content-body:>
 
   </page>
 </def>
 
 
-<def tag="edit-page" for="SweepEx">
-  <page merge title="#{ht 'sweep_ex.edit.title', :default=>['Edit Sweep ex'], :name => name(:no_wrapper => true) }">
+<def tag="edit-page" for="ScanEx">
+  <page merge title="#{ht 'scan_ex.edit.title', :default=>['Edit Scan ex'], :name => name(:no_wrapper => true) }">
 
-    <body: class="edit-page sweep-ex" param/>
+    <body: class="edit-page scan-ex" param/>
 
     <content-header: param>
       <h2 param="heading">
-        <ht key="sweep_ex.edit.heading" name="#{name(:no_wrapper => true)}">
-          Edit Sweep ex
+        <ht key="scan_ex.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Scan ex
         </ht>
       </h2>
-      <delete-button label="#{ht 'sweep_ex.actions.delete', :default=>['Remove This Sweep ex']}" param/>
+      <delete-button label="#{ht 'scan_ex.actions.delete', :default=>['Remove This Scan ex']}" param/>
     </content-header:>
 
     <content-body: param>
@@ -512,21 +628,21 @@
 
 
 
-<!-- ====== Sweep Pages ====== -->
+<!-- ====== ScanType Pages ====== -->
 
-<def tag="index-page" for="Sweep">
-  <page merge title="#{ht 'sweep.index.title', :default=>[model.model_name.human(:count=>100)] }">
-    <body: class="index-page sweep" param/>
+<def tag="index-page" for="ScanType">
+  <page merge title="#{ht 'scan_type.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page scan-type" param/>
 
     <content-header: param>
       <h2 param="heading">
-        <ht key="sweep.index.heading">
+        <ht key="scan_type.index.heading">
           <model-name-human model="&model"/>
         </ht>
       </h2>
 
       <p param="count" if>
-        <ht key="sweep.collection.count" count="&collection_count">
+        <ht key="scan_type.collection.count" count="&collection_count">
           <count summary/>
         </ht>
       </p>
@@ -534,7 +650,7 @@
 
     <content-body: param>
       <a action="new" to="&model" param="new-link">
-        <ht key="sweep.actions.new">New Sweep</ht>
+        <ht key="scan_type.actions.new">New Scan type</ht>
       </a>
 
       <page-nav param="top-page-nav"/>
@@ -549,68 +665,404 @@
 </def>
 
 
-<def tag="new-page" for="Sweep">
-  <page merge title="#{ht 'sweep.new.title', :default=>[' New Sweep'] }">
-    <body: class="new-page sweep" param/>
+<def tag="new-page" for="ScanType">
+  <page merge title="#{ht 'scan_type.new.title', :default=>[' New Scan type'] }">
+    <body: class="new-page scan-type" param/>
 
     <content-header: param>
       <h2 param="heading">
-        <ht key="sweep.new.heading">
-          New Sweep
+        <ht key="scan_type.new.heading">
+          New Scan type
         </ht>
       </h2>
     </content-header:>
 
     <content-body: param>
       <form param>
-        <submit: label="#{ht 'sweep.actions.create', :default=>['Create Sweep']}"/>
+        <submit: label="#{ht 'scan_type.actions.create', :default=>['Create Scan type']}"/>
       </form>
     </content-body:>
   </page>
 </def>
 
 
-<def tag="show-page" for="Sweep">
-  <page merge title="#{ht 'sweep.show.title', :default=>['Sweep'], :name => name(:no_wrapper => true) }" without-aside >
+<def tag="show-page" for="ScanType">
+  <page merge title="#{ht 'scan_type.show.title', :default=>['Scan type'], :name => name(:no_wrapper => true) }" without-aside >
 
-    <body: class="show-page sweep" param/>
+    <body: class="show-page scan-type" param/>
 
     <content-header: param>
       <h2 param="heading">
-        <ht key="sweep.show.heading" name="#{name(:no_wrapper => true)}">
-          Sweep <name/>
+        <ht key="scan_type.show.heading" name="#{name(:no_wrapper => true)}">
+          Scan type <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="scan_type.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Scan type
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <view:description param="description" />
+    </content-body:>
+
+  </page>
+</def>
+
+
+<def tag="edit-page" for="ScanType">
+  <page merge title="#{ht 'scan_type.edit.title', :default=>['Edit Scan type'], :name => name(:no_wrapper => true) }">
+
+    <body: class="edit-page scan-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="scan_type.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Scan type
+        </ht>
+      </h2>
+      <delete-button label="#{ht 'scan_type.actions.delete', :default=>['Remove This Scan type']}" param/>
+    </content-header:>
+
+    <content-body: param>
+      <form param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+
+
+
+<!-- ====== Scan Pages ====== -->
+
+<def tag="index-page" for="Scan">
+  <page merge title="#{ht 'scan.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page scan" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="scan.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="scan.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&model" param="new-link">
+        <ht key="scan.actions.new">New Scan</ht>
+      </a>
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+
+
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-page" for="Scan">
+  <page merge title="#{ht 'scan.new.title', :default=>[' New Scan'] }">
+    <body: class="new-page scan" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="scan.new.heading">
+          New Scan
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <form param>
+        <submit: label="#{ht 'scan.actions.create', :default=>['Create Scan']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="show-page" for="Scan">
+  <page merge title="#{ht 'scan.show.title', :default=>['Scan'], :name => name(:no_wrapper => true) }" without-aside >
+
+    <body: class="show-page scan" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="scan.show.heading" name="#{name(:no_wrapper => true)}">
+          Scan <name/>
         </ht>
       </h2>
 
       <record-flags fields="double_sampling" param/>
 
       <a action="edit" if="&can_edit?" param="edit-link">
-        <ht key="sweep.actions.edit" name="#{name(:no_wrapper => true)}">
-          Edit Sweep
+        <ht key="scan.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Scan
         </ht>
       </a>
     </content-header:>
 
     <content-body: param>
-      <field-list fields="fov, sweep_type, window" param/>
+      <field-list fields="fov, scan_type, window" param/>
     </content-body:>
 
   </page>
 </def>
 
 
-<def tag="edit-page" for="Sweep">
-  <page merge title="#{ht 'sweep.edit.title', :default=>['Edit Sweep'], :name => name(:no_wrapper => true) }">
+<def tag="edit-page" for="Scan">
+  <page merge title="#{ht 'scan.edit.title', :default=>['Edit Scan'], :name => name(:no_wrapper => true) }">
 
-    <body: class="edit-page sweep" param/>
+    <body: class="edit-page scan" param/>
 
     <content-header: param>
       <h2 param="heading">
-        <ht key="sweep.edit.heading" name="#{name(:no_wrapper => true)}">
-          Edit Sweep
+        <ht key="scan.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Scan
         </ht>
       </h2>
-      <delete-button label="#{ht 'sweep.actions.delete', :default=>['Remove This Sweep']}" param/>
+      <delete-button label="#{ht 'scan.actions.delete', :default=>['Remove This Scan']}" param/>
+    </content-header:>
+
+    <content-body: param>
+      <form param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+
+
+
+<!-- ====== SerpentScanType Pages ====== -->
+
+<def tag="index-page" for="SerpentScanType">
+  <page merge title="#{ht 'serpent_scan_type.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page serpent-scan-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="serpent_scan_type.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="serpent_scan_type.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&model" param="new-link">
+        <ht key="serpent_scan_type.actions.new">New Serpent scan type</ht>
+      </a>
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+
+
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-page" for="SerpentScanType">
+  <page merge title="#{ht 'serpent_scan_type.new.title', :default=>[' New Serpent scan type'] }">
+    <body: class="new-page serpent-scan-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="serpent_scan_type.new.heading">
+          New Serpent scan type
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <form param>
+        <submit: label="#{ht 'serpent_scan_type.actions.create', :default=>['Create Serpent scan type']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="show-page" for="SerpentScanType">
+  <page merge title="#{ht 'serpent_scan_type.show.title', :default=>['Serpent scan type'], :name => name(:no_wrapper => true) }" without-aside >
+
+    <body: class="show-page serpent-scan-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="serpent_scan_type.show.heading" name="#{name(:no_wrapper => true)}">
+          Serpent scan type <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="serpent_scan_type.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Serpent scan type
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <view:description param="description" />
+    </content-body:>
+
+  </page>
+</def>
+
+
+<def tag="edit-page" for="SerpentScanType">
+  <page merge title="#{ht 'serpent_scan_type.edit.title', :default=>['Edit Serpent scan type'], :name => name(:no_wrapper => true) }">
+
+    <body: class="edit-page serpent-scan-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="serpent_scan_type.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Serpent scan type
+        </ht>
+      </h2>
+      <delete-button label="#{ht 'serpent_scan_type.actions.delete', :default=>['Remove This Serpent scan type']}" param/>
+    </content-header:>
+
+    <content-body: param>
+      <form param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+
+
+
+<!-- ====== SpiralScanType Pages ====== -->
+
+<def tag="index-page" for="SpiralScanType">
+  <page merge title="#{ht 'spiral_scan_type.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page spiral-scan-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="spiral_scan_type.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="spiral_scan_type.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&model" param="new-link">
+        <ht key="spiral_scan_type.actions.new">New Spiral scan type</ht>
+      </a>
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+
+
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-page" for="SpiralScanType">
+  <page merge title="#{ht 'spiral_scan_type.new.title', :default=>[' New Spiral scan type'] }">
+    <body: class="new-page spiral-scan-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="spiral_scan_type.new.heading">
+          New Spiral scan type
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <form param>
+        <submit: label="#{ht 'spiral_scan_type.actions.create', :default=>['Create Spiral scan type']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="show-page" for="SpiralScanType">
+  <page merge title="#{ht 'spiral_scan_type.show.title', :default=>['Spiral scan type'], :name => name(:no_wrapper => true) }" without-aside >
+
+    <body: class="show-page spiral-scan-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="spiral_scan_type.show.heading" name="#{name(:no_wrapper => true)}">
+          Spiral scan type <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="spiral_scan_type.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Spiral scan type
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <view:description param="description" />
+    </content-body:>
+
+  </page>
+</def>
+
+
+<def tag="edit-page" for="SpiralScanType">
+  <page merge title="#{ht 'spiral_scan_type.edit.title', :default=>['Edit Spiral scan type'], :name => name(:no_wrapper => true) }">
+
+    <body: class="edit-page spiral-scan-type" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="spiral_scan_type.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Spiral scan type
+        </ht>
+      </h2>
+      <delete-button label="#{ht 'spiral_scan_type.actions.delete', :default=>['Remove This Spiral scan type']}" param/>
     </content-header:>
 
     <content-body: param>
