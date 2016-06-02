@@ -13,14 +13,24 @@ class ScanType < ActiveRecord::Base
 
   has_many :scans, :dependent => :destroy, :inverse_of => :scan_type
 
-  def next_step(x,y,c,minx,miny,maxx,maxy)
+  def next_step(x,y,c,minx,miny,maxx,maxy,initdir)
     nc=c+1
-    nx=x+1
-    if (nx>maxx) then
-      nx=minx
-      ny=y+1
+    if (initdir!=:y_dir) then
+      nx=x+1
+      if (nx>maxx) then
+        nx=minx
+        ny=y+1
+      else
+        ny=y
+      end
     else
-      ny=y
+      ny=y+1
+      if (ny>maxy) then
+        ny=miny
+        nx=x+1
+      else
+        nx=x
+      end      
     end
     x=nx
     y=ny

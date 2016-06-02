@@ -5,23 +5,43 @@ class SerpentScanType < ScanType
   end
 
 
-  def next_step(x,y,c,minx,miny,maxx,maxy)
+  def next_step(x,y,c,minx,miny,maxx,maxy,initdir)
     nc=c+1
-    if (((y-miny) % 2) == 0) then
-      nx=x+1
-      if (nx>maxx) then
-        nx=maxx
-        ny=y+1
+    if (initdir!=:y_dir) then
+      if (((y-miny) % 2) == 0) then
+        nx=x+1
+        if (nx>maxx) then
+          nx=maxx
+          ny=y+1
+        else
+          ny=y
+        end
       else
-        ny=y
+        nx=x-1
+        if (nx<minx) then
+          nx=minx
+          ny=y+1
+        else
+          ny=y
+        end
       end
     else
-      nx=x-1
-      if (nx<minx) then
-        nx=minx
+      if (((x-minx) % 2) == 0) then
         ny=y+1
+        if (ny>maxy) then
+          ny=maxy
+          nx=x+1
+        else
+          nx=x
+        end
       else
-        ny=y
+        ny=y-1
+        if (ny<miny) then
+          ny=miny
+          nx=x+1
+        else
+          nx=x
+        end
       end
     end
     x=nx

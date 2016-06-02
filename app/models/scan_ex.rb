@@ -37,7 +37,7 @@ class ScanEx < ActiveRecord::Base
     return self.scan.scan_type.next_step(x,y,c,
       step_min_x,step_min_y,
       step_min_x+step_number_x-1,
-      step_min_y+step_number_y-1)
+      step_min_y+step_number_y-1,step_init_coord)
   end
 
   def overflown?(x,y,c)

@@ -88,7 +88,7 @@ class SpiralScanType < ScanType
      return ret,x,y
   end
 
-  def next_step(x,y,c,minx,miny,maxx,maxy)
+  def next_step(x,y,c,minx,miny,maxx,maxy,initdir)
     print "Busco el siguiente paso para ["+x.to_s+","+y.to_s+"] y c="+c.to_s+"\n"
     nc=c+1
     if (nc==1) then
