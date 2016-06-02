@@ -68,8 +68,8 @@ def dbprepare(dbc):
 
 ###### Automatically generated code ###########
 
-sweep_ex_id = <%= @sweep_ex.id.to_s %>
-steps = [ <%= raw(@sweep_ex.step_list_py) %> ]
+sweep_ex_id = <%= @scan_ex.id.to_s %>
+steps = [ <%= raw(@scan_ex.step_list_py) %> ]
 
 ###### Automatically generated steps table ###########
 ###### END Automatically generated code ###########
@@ -115,7 +115,7 @@ else:
     ret = True
     dbc = db.cursor()
     ret=dbprepare(dbc)
-    
+
 if (ret==False):
     done = -1
     print "Database ERROR! Aborting"
