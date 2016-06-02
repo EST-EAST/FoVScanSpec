@@ -7,18 +7,18 @@ en:
       nav_item: "FoVs"
   window:
       nav_item: "Wins"
-  sweep:
-      nav_item: "Sweeps"
-  sweep_ex:
-      nav_item: "SweepEx"
+  scan:
+      nav_item: "Scans"
+  scan_ex:
+      nav_item: "ScanEx"
       index:
           heading:      
-              "Executable Sweep Index"
-  sweep_eng_run: 
-      nav_item: "SweepEngRun"
+              "Executable Scan Index"
+  scan_eng_run: 
+      nav_item: "ScanEngRun"
       index:
           heading:
-              "Sweep Engineering Run index"
+              "Scan Engineering Run index"
 #  attributes:
 #    created_at: Created at
 #    updated_at: Updated at

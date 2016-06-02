@@ -13,48 +13,96 @@
 
 
 
-<def tag="form" for="SweepEngRun">
+<def tag="form" for="RasterScanType">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="name, max_l1_speed, max_l2_speed, max_l3_speed, sweep_ex" param/>
+    <field-list fields="name, description" param/>
     <div param="actions">
-      <submit label="#{ht 'sweep_eng_run.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+      <submit label="#{ht 'raster_scan_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
   </form>
 </def>
 
 
 
-<def tag="form" for="SweepExLog">
+<def tag="form" for="ScanEngRun">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="step, x, y, x_coord, y_coord, m1, m2, m3, timestr, dtinit, dtend, m1_fdback, m2_fdback, m3_fdback, sweep_eng_run" param/>
+    <field-list fields="name, max_l1_speed, max_l2_speed, max_l3_speed, scan_ex" param/>
     <div param="actions">
-      <submit label="#{ht 'sweep_ex_log.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+      <submit label="#{ht 'scan_eng_run.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
   </form>
 </def>
 
 
 
-<def tag="form" for="SweepEx">
+<def tag="form" for="ScanExLog">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="name, step_size_x, step_min_x, step_number_x, step_dir_x, step_init_x, step_size_y, step_min_y, step_number_y, step_dir_y, step_init_y, step_init_coord, repetitions, sweep" param/>
+    <field-list fields="step, x, y, x_coord, y_coord, mx, my, mcomp, timestr, dtinit, dtend, mx_fdback, my_fdback, mcomp_fdback, scan_eng_run" param/>
     <div param="actions">
-      <submit label="#{ht 'sweep_ex.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+      <submit label="#{ht 'scan_ex_log.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
   </form>
 </def>
 
 
 
-<def tag="form" for="Sweep">
+<def tag="form" for="ScanEx">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="double_sampling, fov, sweep_type, window" param/>
+    <field-list fields="name, step_size_x, step_min_x, step_number_x, step_dir_x, step_init_x, step_size_y, step_min_y, step_number_y, step_dir_y, step_init_y, step_init_coord, repetitions, scan" param/>
     <div param="actions">
-      <submit label="#{ht 'sweep.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+      <submit label="#{ht 'scan_ex.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+
+
+<def tag="form" for="ScanType">
+  <form merge param="default">
+    <error-messages param/>
+    <field-list fields="name, description" param/>
+    <div param="actions">
+      <submit label="#{ht 'scan_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+
+
+<def tag="form" for="Scan">
+  <form merge param="default">
+    <error-messages param/>
+    <field-list fields="double_sampling, fov, scan_type, window" param/>
+    <div param="actions">
+      <submit label="#{ht 'scan.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+
+
+<def tag="form" for="SerpentScanType">
+  <form merge param="default">
+    <error-messages param/>
+    <field-list fields="name, description" param/>
+    <div param="actions">
+      <submit label="#{ht 'serpent_scan_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+
+
+<def tag="form" for="SpiralScanType">
+  <form merge param="default">
+    <error-messages param/>
+    <field-list fields="name, description" param/>
+    <div param="actions">
+      <submit label="#{ht 'spiral_scan_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
   </form>
 </def>

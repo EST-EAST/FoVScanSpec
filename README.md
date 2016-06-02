@@ -1,2 +1,2 @@
-# sweepconfig
-Sweep configurator for FoV scanning systems
+# scanconfig
+Scan configurator for FoV scanning systems

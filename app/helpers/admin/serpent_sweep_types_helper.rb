@@ -1,2 +1,0 @@
-module Admin::SerpentSweepTypesHelper
-end

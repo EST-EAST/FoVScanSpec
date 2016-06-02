@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160512164136) do
+ActiveRecord::Schema.define(version: 20160601171018) do
 
   create_table "fovs", force: :cascade do |t|
     t.string   "name"
@@ -19,29 +19,28 @@ ActiveRecord::Schema.define(version: 20160512164136) do
     t.float    "size_y"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "sweeps_count", default: 0, null: false
+    t.integer  "scans_count", default: 0, null: false
   end
 
-  create_table "sweep_eng_runs", force: :cascade do |t|
+  create_table "scan_eng_runs", force: :cascade do |t|
     t.string   "name"
     t.float    "max_l1_speed"
     t.float    "max_l2_speed"
     t.float    "max_l3_speed"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "sweep_ex_id"
-    t.integer  "sweep_ex_logs_count", default: 0, null: false
+    t.integer  "scan_ex_id"
   end
 
-  add_index "sweep_eng_runs", ["sweep_ex_id"], name: "index_sweep_eng_runs_on_sweep_ex_id"
+  add_index "scan_eng_runs", ["scan_ex_id"], name: "index_scan_eng_runs_on_scan_ex_id"
 
-  create_table "sweep_ex_logs", force: :cascade do |t|
-    t.float    "m1"
-    t.float    "m2"
-    t.float    "m3"
+  create_table "scan_ex_logs", force: :cascade do |t|
+    t.float    "mx"
+    t.float    "my"
+    t.float    "mcomp"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "sweep_eng_run_id"
+    t.integer  "scan_eng_run_id"
     t.integer  "step"
     t.integer  "x"
     t.integer  "y"
@@ -50,14 +49,14 @@ ActiveRecord::Schema.define(version: 20160512164136) do
     t.string   "timestr"
     t.datetime "dtinit"
     t.datetime "dtend"
-    t.float    "m1_fdback"
-    t.float    "m2_fdback"
-    t.float    "m3_fdback"
+    t.float    "mx_fdback"
+    t.float    "my_fdback"
+    t.float    "mcomp_fdback"
   end
 
-  add_index "sweep_ex_logs", ["sweep_eng_run_id"], name: "index_sweep_ex_logs_on_sweep_eng_run_id"
+  add_index "scan_ex_logs", ["scan_eng_run_id"], name: "index_scan_ex_logs_on_scan_eng_run_id"
 
-  create_table "sweep_exes", force: :cascade do |t|
+  create_table "scan_exes", force: :cascade do |t|
     t.string   "name"
     t.float    "step_size_x"
     t.integer  "step_number_x"
@@ -71,38 +70,58 @@ ActiveRecord::Schema.define(version: 20160512164136) do
     t.integer  "repetitions"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "sweep_id"
-    t.integer  "sweep_eng_runs_count", default: 0, null: false
+    t.integer  "scan_id"
+    t.integer  "scan_eng_runs_count", default: 0, null: false
     t.integer  "step_min_x"
     t.integer  "step_min_y"
   end
 
-  add_index "sweep_exes", ["sweep_id"], name: "index_sweep_exes_on_sweep_id"
+  add_index "scan_exes", ["scan_id"], name: "index_scan_exes_on_scan_id"
 
-  create_table "sweep_types", force: :cascade do |t|
+  create_table "scan_types", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "sweeps_count", default: 0, null: false
+    t.integer  "scans_count", default: 0, null: false
     t.string   "type"
   end
 
-  add_index "sweep_types", ["type"], name: "index_sweep_types_on_type"
+  add_index "scan_types", ["type"], name: "index_scan_types_on_type"
 
-  create_table "sweeps", force: :cascade do |t|
+  create_table "scans", force: :cascade do |t|
     t.boolean  "double_sampling"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "fov_id"
     t.integer  "window_id"
-    t.integer  "sweep_type_id"
-    t.integer  "sweep_exes_count", default: 0, null: false
+    t.integer  "scan_type_id"
+    t.integer  "scan_exes_count", default: 0, null: false
   end
 
-  add_index "sweeps", ["fov_id"], name: "index_sweeps_on_fov_id"
-  add_index "sweeps", ["sweep_type_id"], name: "index_sweeps_on_sweep_type_id"
-  add_index "sweeps", ["window_id"], name: "index_sweeps_on_window_id"
+  add_index "scans", ["fov_id"], name: "index_scans_on_fov_id"
+  add_index "scans", ["scan_type_id"], name: "index_scans_on_scan_type_id"
+  add_index "scans", ["window_id"], name: "index_scans_on_window_id"
+
+  create_table "sweep_ex_logs", force: :cascade do |t|
+    t.float    "mx"
+    t.float    "my"
+    t.float    "mcomp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "sweep_eng_run_id"
+    t.integer  "step"
+    t.integer  "x"
+    t.integer  "y"
+    t.float    "x_coord"
+    t.float    "y_coord"
+    t.string   "timestr"
+    t.datetime "dtinit"
+    t.datetime "dtend"
+    t.float    "mx_fdback"
+    t.float    "my_fdback"
+    t.float    "mcomp_fdback"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "crypted_password",          limit: 40
@@ -126,7 +145,7 @@ ActiveRecord::Schema.define(version: 20160512164136) do
     t.float    "size_y"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "sweeps_count", default: 0, null: false
+    t.integer  "scans_count", default: 0, null: false
   end
 
 end

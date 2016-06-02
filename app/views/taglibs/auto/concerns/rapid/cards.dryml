@@ -9,8 +9,8 @@
   </card>
 </def>
 
-<def tag="card" for="RasterSweepType">
-  <card class="raster-sweep-type" param="default" merge>
+<def tag="card" for="RasterScanType">
+  <card class="raster-scan-type" param="default" merge>
     <header: param>
       <h4 param="heading"><name/></h4>
     </header:>
@@ -20,67 +20,67 @@
   </card>
 </def>
 
-<def tag="card" for="SerpentSweepType">
-  <card class="serpent-sweep-type" param="default" merge>
-    <header: param>
-      <h4 param="heading"><name/></h4>
-    </header:>
-    <body: param>
-      <view:description param="description"/>
-    </body:>
-  </card>
-</def>
-
-<def tag="card" for="SpiralSweepType">
-  <card class="spiral-sweep-type" param="default" merge>
-    <header: param>
-      <h4 param="heading"><name/></h4>
-    </header:>
-    <body: param>
-      <view:description param="description"/>
-    </body:>
-  </card>
-</def>
-
-<def tag="card" for="Sweep">
-  <card class="sweep" param="default" merge>
+<def tag="card" for="Scan">
+  <card class="scan" param="default" merge>
     <header: param>
       <h4 param="heading"><name/></h4>
     </header:>
   </card>
 </def>
 
-<def tag="card" for="SweepEngRun">
-  <card class="sweep-eng-run" param="default" merge>
+<def tag="card" for="ScanEngRun">
+  <card class="scan-eng-run" param="default" merge>
     <header: param>
       <h4 param="heading"><name/></h4>
     </header:>
     <body: param>
-      <ht key="sweep_ex_log.collection.count" count="&this.sweep_ex_logs.size">
-         <count:sweep_ex_logs param/>
+      <ht key="scan_ex_log.collection.count" count="&this.scan_ex_logs.size">
+         <count:scan_ex_logs param/>
       </ht>
     </body:>
   </card>
 </def>
 
-<def tag="card" for="SweepEx">
-  <card class="sweep-ex" param="default" merge>
+<def tag="card" for="ScanEx">
+  <card class="scan-ex" param="default" merge>
     <header: param>
       <h4 param="heading"><name/></h4>
     </header:>
   </card>
 </def>
 
-<def tag="card" for="SweepExLog">
-  <card class="sweep-ex-log" param="default" merge>
+<def tag="card" for="ScanExLog">
+  <card class="scan-ex-log" param="default" merge>
     <header: param>
       <h4 param="heading"><name/></h4>
     </header:>
   </card>
 </def>
 
-<def tag="card" for="SweepType">
-  <card class="sweep-type" param="default" merge>
+<def tag="card" for="ScanType">
+  <card class="scan-type" param="default" merge>
+    <header: param>
+      <h4 param="heading"><name/></h4>
+    </header:>
+    <body: param>
+      <view:description param="description"/>
+    </body:>
+  </card>
+</def>
+
+<def tag="card" for="SerpentScanType">
+  <card class="serpent-scan-type" param="default" merge>
+    <header: param>
+      <h4 param="heading"><name/></h4>
+    </header:>
+    <body: param>
+      <view:description param="description"/>
+    </body:>
+  </card>
+</def>
+
+<def tag="card" for="SpiralScanType">
+  <card class="spiral-scan-type" param="default" merge>
     <header: param>
       <h4 param="heading"><name/></h4>
     </header:>

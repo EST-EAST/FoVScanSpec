@@ -6,12 +6,12 @@ class Fov < ActiveRecord::Base
     name   :string
     size_x :float
     size_y :float
-    sweeps_count :integer, :default => 0, :null => false
+    scans_count :integer, :default => 0, :null => false
     timestamps
   end
-  attr_accessible :name, :size_x, :size_y, :sweeps
+  attr_accessible :name, :size_x, :size_y, :scans
 
-  has_many :sweeps, :dependent => :destroy, :inverse_of => :fov
+  has_many :scans, :dependent => :destroy, :inverse_of => :fov
 
   # --- Permissions --- #
 
