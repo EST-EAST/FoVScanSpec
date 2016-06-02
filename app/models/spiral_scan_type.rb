@@ -92,11 +92,17 @@ class SpiralScanType < ScanType
     print "Busco el siguiente paso para ["+x.to_s+","+y.to_s+"] y c="+c.to_s+"\n"
     nc=c+1
     if (nc==1) then
-      @direction = SPIRAL_DIR_X_POS
       @overflown = false
       init_table(x,y,c,minx,miny,maxx,maxy)
-      nx=x+1
-      ny=y
+      if (initdir!=:y_dir) then
+        @direction = SPIRAL_DIR_X_POS
+        nx=x+1
+        ny=y
+      else
+        @direction = SPIRAL_DIR_Y_POS
+        ny=y+1
+        nx=x
+      end
       @table[nx][ny]=true
       @table[x][y]=true
     else
