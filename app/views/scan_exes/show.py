@@ -137,8 +137,8 @@ def dbinsert(dbcon, cur_step, step_x, step_y, step_x_coord, step_y_coord, mx_set
                                           "created_at", "updated_at"]
             engrunsheet[1, 0].value = run_id
             item = [timestamp, ex_id,
-                    sweepconfig.cte_use_cvcam or sweepconfig.cte_use_photocam or sweepconfig.cte_use_gphoto2,
-                    sweepconfig.cte_stabilization_time, sweepconfig.cte_debug, sweepconfig.cte_proto_rev,
+                    str(sweepconfig.cte_use_cvcam or sweepconfig.cte_use_photocam or sweepconfig.cte_use_gphoto2),
+                    sweepconfig.cte_stabilization_time, str(sweepconfig.cte_debug), sweepconfig.cte_proto_rev,
                     sws.cte_vx, sws.cte_vy, sws.cte_vcomp, sws.cte_vhx, sws.cte_vhy, sws.cte_vhcomp,
                     sws.cte_vix, sws.cte_viy, sws.cte_vicomp,
                     sws.cte_lsx_scale, sws.cte_lsy_scale, sws.cte_lscomp_scale,
