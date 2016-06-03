@@ -23,7 +23,23 @@ class ScanExLog < ActiveRecord::Base
 
   belongs_to :scan_eng_run, :inverse_of => :scan_ex_logs
   
+  def self.import_attributes
+    ret=ScanExLog.accessible_attributes.clone
+    ret.delete("scan_eng_run_id")
+    ret.delete("scan_eng_run")
+    #ret.delete("flow_type")
+    ret.delete("")
+    return ret
+  end
+
+  def deltatime
+    dtend-dtinit
+  end
   
+  def title
+    #""+step.to_s+": x:"+x_coord.to_s+" y:"+y_coord.to_s+" m1:"+mx_fdback.to_s+" m2:"+my_fdback.to_s+" m3:"+mcomp_fdback.to_s+" time:"+deltatime.to_s
+    step.to_s
+  end
   # --- Permissions --- #
 
   def create_permitted?

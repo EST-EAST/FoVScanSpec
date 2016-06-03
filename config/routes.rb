@@ -60,4 +60,7 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  
+  resources :scan_eng_run_imports
+  
 end

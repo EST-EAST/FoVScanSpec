@@ -4,7 +4,7 @@ class ScanEngRunImport
   include ActiveModel::Conversion
   include ActiveModel::Validations
 
-  attr_accessor :file, :project_id, :project
+  attr_accessor :file, :scan_eng_run_id, :scan_eng_run
 
   def initialize(attributes = {})
     attributes.each { |name, value| send("#{name}=", value) }
@@ -33,9 +33,9 @@ class ScanEngRunImport
 =begin      
       row = Hash[[header, ucanca_sheet.row(i)].transpose]
       if (row["name"]!=nil && row["name"]!="")
-        conv = project.datum_conversions.find_by_name(row["name"]) || project.datum_conversions.find_by_name(row["old_name"]) || DatumConversion.new
+        conv = scan_eng_run.datum_conversions.find_by_name(row["name"]) || scan_eng_run.datum_conversions.find_by_name(row["old_name"]) || DatumConversion.new
         conv.attributes = row.to_hash.slice(*DatumConversion.import_attributes)
-        conv.project=self.project
+        conv.scan_eng_run=self.scan_eng_run
         ftype=FlowType.find_by_name(row["flow_type"])
         print "\nrow:"+row["flow_type"]
         conv.flow_type=ftype        
@@ -55,63 +55,25 @@ class ScanEngRunImport
         nil
       end
 =end    
-      end
+    end
 
 
-    ucanca_sheet=spreadsheet.sheet('ExLogs')
+    ucanca_sheet=spreadsheet.sheet('ExLog')
     header = ucanca_sheet.row(1)
     (2..ucanca_sheet.last_row).map do |i|
-=begin      
       print "\ntrato "+i.to_s
       row = Hash[[header, ucanca_sheet.row(i)].transpose]
-      if (row["name"]!=nil && row["name"]!="")
-        flow = project.flows.find_by_name(row["name"]) || project.flows.find_by_name(row["old_name"]) || Flow.new
-        flow.attributes = row.to_hash.slice(*Flow.import_attributes)
-        flow.name=row["name"]
-        flow.project_id=self.project_id
-        dir=FlowDirection.find_by_name(row["primary_flow_direction"])
-        flow.primary_flow_direction=dir
-        ftype=FlowType.find_by_name(row["flow_type"])
-        print "\nrow:"+row["flow_type"]
-        flow.flow_type=ftype
-        conv=DatumConversion.find_by_name(row["conversion"])
-        flow.datum_conversion=conv
-        print "\nImportamos: "+flow.attributes.to_s
-        if (flow.valid?)
-          flow.save!
-          subs=project.sub_systems.find_by_abbrev(row["sub_system"]) 
-          if subs==nil 
-            subs=project.sub_systems.new
-            subs.name=(row["sub_system"])
-            subs.abbrev=(row["sub_system"])
-            subs.layer=Layer.find_by_level(1)
-            if subs.valid?
-              subs.save!
-            end
-          end
-          # Let's see if we have to create a connector
-          con=subs.connectors.find_by_name(row["connector"]) 
-          if con == nil
-            con=subs.connectors.new
-            con.name=row["connector"];
-            if con.valid?
-              con.save!          
-            end
-          end
-          # Let's see if we have to create a sub_system_flow
-          ssf=con.sub_system_flows.find_by_flow_id(flow.id)
-          if ssf==nil 
-            ssf=con.sub_system_flows.new
-            ssf.flow=flow
-          end
-          ssf.flow_direction=dir
-          ssf.context_name=row["context_name"]
-          if ssf.valid?
-            ssf.save!
-          end
-          flow
+      if (row["step"]!=nil && row["step"]!="")
+        exlog = scan_eng_run.scan_ex_logs.find_by_id(row["step"]) || ScanExLog.new
+        exlog.attributes = row.to_hash.slice(*ScanExLog.import_attributes)
+        exlog.step=row["step"]
+        exlog.scan_eng_run_id=self.scan_eng_run_id
+        print "\nImportamos: "+exlog.attributes.to_s
+        if (exlog.valid?)
+          exlog.save!
+          exlog
         else
-          flow.errors.full_messages.each do |message|
+          exlog.errors.full_messages.each do |message|
             errors.add :base, "Row #{i+2}: #{message}"
           end
           nil
@@ -120,7 +82,6 @@ class ScanEngRunImport
       else
         nil
       end
-=end      
     end
   end
 

@@ -33,6 +33,16 @@ you can place common code in this file. -->
 
 <!-- EXTENSION ZONE -->
 
+<extend tag="index-page" for="ScanEngRun">
+  <old-index-page merge>
+      <collection: replace>
+        <table-plus: fields="this,scan_ex,total_time">
+          <empty-message:>No eng runs</empty-message:>
+        </table-plus>
+      </collection:>      
+  </old-index-page>
+</extend>
+
 <extend tag="show-page" for="ScanEngRun">
   <old-show-page merge>
     <append-aside:>
@@ -53,6 +63,20 @@ you can place common code in this file. -->
       </table-->
       <view:scan_ex.step_list_text/>
     </append-aside:>
+      <append-content:>
+            <div class="import-section" if="&can_update?(@scan_eng_run)">
+              Scan Eng Run data importers:
+              <ul>
+                <li><%= link_to "Import Scan Ex Log", :only_path => :true, :controller => :scan_eng_run_imports, :action => :new, :scan_eng_run_id => @scan_eng_run %></li>
+              </ul>
+            </div>
+          
+      </append-content:>
+      <collection: replace>
+        <table-plus:scan_ex_logs fields="this, deltatime, x, y, mx_fdback, my_fdback, mcomp_fdback">
+          <empty-message:>No ex logs</empty-message:>
+        </table-plus>
+      </collection:>      
   </old-show-page>
 </extend>
 

@@ -6,9 +6,11 @@
     <header class="content-header hero-unit">
       <h1>Welcome to <app-name/></h1>
       <section class="welcome-message">
-        <h3>Congratulations! Your Hobo Rails App is up and running</h3>
+        <h3>A tool to manage FoV scan operations</h3>
         <ul>
-          <li>To customise this page: edit app/views/front/index.dryml</li>
+          <li>Specify a scanning operation</li>
+          <li>Upload the scanning operation log data</li>
+          <li>Analyse and validate the scanning operation</li>
         </ul>
 
         <% if User.count == 0 -%>

@@ -2,23 +2,23 @@
 # e.g.
 
 en:
-  hello: "Hello world"
   fov:
-      nav_item: "FoVs"
+#      nav_item: "FoVs"
   window:
-      nav_item: "Wins"
+#      nav_item: "Wins"
   scan:
-      nav_item: "Scans"
+#      nav_item: "Scans"
   scan_ex:
-      nav_item: "ScanEx"
+#      nav_item: "ScanEx"
       index:
           heading:      
               "Executable Scan Index"
   scan_eng_run: 
-      nav_item: "ScanEngRun"
+#      nav_item: "ScanEngRun"
       index:
           heading:
               "Scan Engineering Run index"
+              
 #  attributes:
 #    created_at: Created at
 #    updated_at: Updated at

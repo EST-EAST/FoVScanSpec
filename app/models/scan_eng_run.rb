@@ -17,6 +17,14 @@ class ScanEngRun < ActiveRecord::Base
 
   children :scan_ex_logs
   
+  def total_time
+    sum=0
+    scan_ex_logs.each {|exlog|
+      sum+=exlog.deltatime
+    }
+    return sum
+  end
+  
   # --- Permissions --- #
 
   def create_permitted?

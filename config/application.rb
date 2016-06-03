@@ -6,7 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module OptExp
+module FovScanManager
   class Application < Rails::Application
     # Hobo: the admin subsite loads admin.css & admin.js
     config.assets.precompile += %w(admin.css admin.js)
