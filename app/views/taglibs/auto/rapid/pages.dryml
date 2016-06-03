@@ -316,7 +316,7 @@
         </ht>
       </h2>
 
-      <record-flags fields="" param/>
+      <record-flags fields="use_cam, use_sim" param/>
 
       <a action="edit" if="&can_edit?" param="edit-link">
         <ht key="scan_eng_run.actions.edit" name="#{name(:no_wrapper => true)}">
@@ -326,7 +326,7 @@
     </content-header:>
 
     <content-body: param>
-      <field-list fields="max_l1_speed, max_l2_speed, max_l3_speed, scan_ex" param/>
+      <field-list fields="stab_time, proto_rev, ls1_va, ls2_va, ls3_va, ls1_vh, ls2_vh, ls3_vh, ls1_vi, ls2_vi, ls3_vi, ls1_scale, ls2_scale, ls3_scale, ls1_min, ls2_min, ls3_min, ls1_max, ls2_max, ls3_max, ls1_zero, ls2_zero, ls3_zero, scan_ex" param/>
       <section param="collection-section">
         <h3 param="collection-heading">
           <ht key="scan_ex_log.collection.heading" count="&this.scan_ex_logs.count" >

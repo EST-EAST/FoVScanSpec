@@ -3,6 +3,17 @@
 <p>A text file (CSV), OpenOffice (ODS) or Excel (XLS,XLSX)  file can be used to import records. The first row should be the column name. The following columns are allowed.</p>
 
 <ul>
+  <% ScanEngRun.columns.each do |column| %>
+    <% if column.name.in? [*ScanEngRun.import_attributes] %>
+      <li>
+        <strong><%= column.name %></strong> -
+        <%= column.type.to_s.titleize %> type
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+
+<ul>
   <% ScanExLog.columns.each do |column| %>
     <% if column.name.in? [*ScanExLog.import_attributes] %>
       <li>
@@ -11,7 +22,6 @@
       </li>
     <% end %>
   <% end %>
-      <li>[optional]<strong>old_name</strong> - String type</li>
 </ul>
 
 <p>If <strong>old_name</strong> column is supplied (same type as <strong>name</strong> column) it will update the matching record instead of creating a new one.</p>
@@ -30,11 +40,6 @@
 
   <div class="field">
     <%= f.file_field :file %>
-    <% if params[:scan_eng_run_id] %>
-      <%= f.hidden_field :scan_eng_run_id , :value =>params[:scan_eng_run_id]%>
-    <% else %>
-      <p><%= f.select :scan_eng_run_id, scan_eng_run_tree_options_for_select(ScanEngRun.all, :selected => @scan_eng_run_import.scan_eng_run) %></p>
-    <% end %>
   </div>
   <div class="buttons"><%= f.submit "Import" %></div>
 <% end %>

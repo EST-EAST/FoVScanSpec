@@ -25,8 +25,8 @@ class ScanExLog < ActiveRecord::Base
   
   def self.import_attributes
     ret=ScanExLog.accessible_attributes.clone
-    ret.delete("scan_eng_run_id")
-    ret.delete("scan_eng_run")
+    #ret.delete("scan_eng_run_id")
+    #ret.delete("scan_eng_run")
     #ret.delete("flow_type")
     ret.delete("")
     return ret

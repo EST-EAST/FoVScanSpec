@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160601171018) do
+ActiveRecord::Schema.define(version: 20160603110152) do
 
   create_table "fovs", force: :cascade do |t|
     t.string   "name"
@@ -24,12 +24,34 @@ ActiveRecord::Schema.define(version: 20160601171018) do
 
   create_table "scan_eng_runs", force: :cascade do |t|
     t.string   "name"
-    t.float    "max_l1_speed"
-    t.float    "max_l2_speed"
-    t.float    "max_l3_speed"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "scan_ex_id"
+    t.boolean  "use_cam"
+    t.float    "stab_time"
+    t.boolean  "use_sim"
+    t.integer  "proto_rev"
+    t.float    "ls1_va"
+    t.float    "ls2_va"
+    t.float    "ls3_va"
+    t.float    "ls1_vh"
+    t.float    "ls2_vh"
+    t.float    "ls3_vh"
+    t.float    "ls1_vi"
+    t.float    "ls2_vi"
+    t.float    "ls3_vi"
+    t.float    "ls1_scale"
+    t.float    "ls2_scale"
+    t.float    "ls3_scale"
+    t.integer  "ls1_min"
+    t.integer  "ls2_min"
+    t.integer  "ls3_min"
+    t.integer  "ls1_max"
+    t.integer  "ls2_max"
+    t.integer  "ls3_max"
+    t.integer  "ls1_zero"
+    t.integer  "ls2_zero"
+    t.integer  "ls3_zero"
   end
 
   add_index "scan_eng_runs", ["scan_ex_id"], name: "index_scan_eng_runs_on_scan_ex_id"
@@ -102,26 +124,6 @@ ActiveRecord::Schema.define(version: 20160601171018) do
   add_index "scans", ["fov_id"], name: "index_scans_on_fov_id"
   add_index "scans", ["scan_type_id"], name: "index_scans_on_scan_type_id"
   add_index "scans", ["window_id"], name: "index_scans_on_window_id"
-
-  create_table "sweep_ex_logs", force: :cascade do |t|
-    t.float    "mx"
-    t.float    "my"
-    t.float    "mcomp"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "sweep_eng_run_id"
-    t.integer  "step"
-    t.integer  "x"
-    t.integer  "y"
-    t.float    "x_coord"
-    t.float    "y_coord"
-    t.string   "timestr"
-    t.datetime "dtinit"
-    t.datetime "dtend"
-    t.float    "mx_fdback"
-    t.float    "my_fdback"
-    t.float    "mcomp_fdback"
-  end
 
   create_table "users", force: :cascade do |t|
     t.string   "crypted_password",          limit: 40

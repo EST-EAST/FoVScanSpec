@@ -4,7 +4,7 @@ class ScanEngRunImport
   include ActiveModel::Conversion
   include ActiveModel::Validations
 
-  attr_accessor :file, :scan_eng_run_id, :scan_eng_run
+  attr_accessor :file
 
   def initialize(attributes = {})
     attributes.each { |name, value| send("#{name}=", value) }
@@ -30,22 +30,17 @@ class ScanEngRunImport
     ucanca_sheet=spreadsheet.sheet('EngRun')
     header = ucanca_sheet.row(1)
     (2..ucanca_sheet.last_row).map do |i|
-=begin      
       row = Hash[[header, ucanca_sheet.row(i)].transpose]
       if (row["name"]!=nil && row["name"]!="")
-        conv = scan_eng_run.datum_conversions.find_by_name(row["name"]) || scan_eng_run.datum_conversions.find_by_name(row["old_name"]) || DatumConversion.new
-        conv.attributes = row.to_hash.slice(*DatumConversion.import_attributes)
-        conv.scan_eng_run=self.scan_eng_run
-        ftype=FlowType.find_by_name(row["flow_type"])
-        print "\nrow:"+row["flow_type"]
-        conv.flow_type=ftype        
-
-        print "\Importamos: "+conv.attributes.to_s
-        if (conv.valid?)
-          conv.save!
-          conv
+        scan_eng_run = ScanEngRun.find_by_name(row["name"]) || ScanEngRun.new
+        scan_eng_run.attributes = row.to_hash.slice(*ScanEngRun.import_attributes)
+        print "Row: "+row.to_s
+        print "\Importamos: "+scan_eng_run.attributes.to_s
+        if (scan_eng_run.valid?)
+          scan_eng_run.save!
+          scan_eng_run
         else
-          conv.errors.full_messages.each do |message|
+          scan_eng_run.errors.full_messages.each do |message|
             errors.add :base, "Row #{i+2}: #{message}"
           end
           nil
@@ -54,7 +49,6 @@ class ScanEngRunImport
       else
         nil
       end
-=end    
     end
 
 
@@ -64,10 +58,10 @@ class ScanEngRunImport
       print "\ntrato "+i.to_s
       row = Hash[[header, ucanca_sheet.row(i)].transpose]
       if (row["step"]!=nil && row["step"]!="")
+        scan_eng_run = ScanEngRun.find_by_name(row["timestr"])
         exlog = scan_eng_run.scan_ex_logs.find_by_id(row["step"]) || ScanExLog.new
         exlog.attributes = row.to_hash.slice(*ScanExLog.import_attributes)
-        exlog.step=row["step"]
-        exlog.scan_eng_run_id=self.scan_eng_run_id
+        exlog.scan_eng_run=scan_eng_run
         print "\nImportamos: "+exlog.attributes.to_s
         if (exlog.valid?)
           exlog.save!

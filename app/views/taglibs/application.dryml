@@ -4,117 +4,114 @@ you can place common code in this file. -->
 <!-- REDEFINITION ZONE WHEN NO INHERITANCE IS POSSIBLE -->
 
 <def tag="show-page" for="ScanEx">
-  <page merge title="#{ht 'scan_ex.show.title', :default=>['Scan ex'], :name => name(:no_wrapper => true) }" >
+    <page merge title="#{ht 'scan_ex.show.title', :default=>['Scan ex'], :name => name(:no_wrapper => true) }" >
 
-    <body: class="show-page scan-ex" param/>
+        <body: class="show-page scan-ex" param/>
 
-    <content-header: param>
-      <h2 param="heading">
-        <ht key="scan_ex.show.heading" name="#{name(:no_wrapper => true)}">
-          Scan ex <name/>
-        </ht>
-      </h2>
+        <content-header: param>
+            <h2 param="heading">
+                <ht key="scan_ex.show.heading" name="#{name(:no_wrapper => true)}">
+                    Scan ex <name/>
+                </ht>
+            </h2>
 
-      <record-flags fields="" param/>
+            <record-flags fields="" param/>
 
-      <a action="edit" if="&can_edit?" param="edit-link">
-        <ht key="scan_ex.actions.edit" name="#{name(:no_wrapper => true)}">
-          Edit Scan ex
-        </ht>
-      </a>
-    </content-header:>
+            <a action="edit" if="&can_edit?" param="edit-link">
+                <ht key="scan_ex.actions.edit" name="#{name(:no_wrapper => true)}">
+                    Edit Scan ex
+                </ht>
+            </a>
+        </content-header:>
 
-    <content-body: param>
-      <field-list fields="step_size_x, step_number_x, step_dir_x, step_size_y, step_number_y, step_dir_y, step_init_coord, step_init_x, step_init_y, repetitions, scan" param/>
-    </content-body:>
+        <content-body: param>
+            <field-list fields="step_size_x, step_number_x, step_dir_x, step_size_y, step_number_y, step_dir_y, step_init_coord, step_init_x, step_init_y, repetitions, scan" param/>
+        </content-body:>
 
-  </page>
+    </page>
 </def>
 
 <!-- EXTENSION ZONE -->
 
 <extend tag="index-page" for="ScanEngRun">
-  <old-index-page merge>
-      <collection: replace>
-        <table-plus: fields="this,scan_ex,total_time">
-          <empty-message:>No eng runs</empty-message:>
-        </table-plus>
-      </collection:>      
-  </old-index-page>
+    <old-index-page merge>
+        <collection: replace>
+            <table-plus: fields="this,scan_ex,total_time">
+                <empty-message:>No eng runs</empty-message:>
+                </table-plus>
+        </collection:>      
+        <append-content:>
+            Scan Eng Run data importers:
+            <ul>
+                <li><%= link_to "Import Scan Ex Log", :only_path => :true, :controller => :scan_eng_run_imports, :action => :new %></li>
+            </ul>
+        </append-content:>      
+    </old-index-page>
 </extend>
 
 <extend tag="show-page" for="ScanEngRun">
-  <old-show-page merge>
-    <append-aside:>
-      <%= link_to "SVG diagram #{@scan_eng_run.scan_ex.name}", :only_path => true, :controller => :scan_exes, :action => :show, :format => 'svg', :id => @scan_eng_run.scan_ex.id %>
-      <!--iframe src="./#{this.id}.svg" seamless="true"/-->
-      <embed src="../scan_exes/#{this.scan_ex.id}.svg" type="image/svg+xml" />
-      <b>Point list:</b><br/>
-      <!--table>
-      < % @scan_ex.step_coords_list.each{|s| % >
-          <tr>
-              <td style="border-style:groove;border-width:1px">< %=s[:c].to_s% ></td>  
-              <td style="border-style:groove;border-width:1px">< %=s[:x].to_s% ></td>
-              <td style="border-style:groove;border-width:1px">< %=s[:y].to_s% ></td>  
-              <td style="border-style:groove;border-width:1px">< %=s[:x_coord].to_s% ></td>  
-              <td style="border-style:groove;border-width:1px">< %=s[:y_coord].to_s% ></td>  
-          </tr>
-      < %  } % >
-      </table-->
-      <view:scan_ex.step_list_text/>
-    </append-aside:>
-      <append-content:>
-            <div class="import-section" if="&can_update?(@scan_eng_run)">
-              Scan Eng Run data importers:
-              <ul>
-                <li><%= link_to "Import Scan Ex Log", :only_path => :true, :controller => :scan_eng_run_imports, :action => :new, :scan_eng_run_id => @scan_eng_run %></li>
-              </ul>
-            </div>
-          
-      </append-content:>
-      <collection: replace>
-        <table-plus:scan_ex_logs fields="this, deltatime, x, y, mx_fdback, my_fdback, mcomp_fdback">
-          <empty-message:>No ex logs</empty-message:>
-        </table-plus>
-      </collection:>      
-  </old-show-page>
+    <old-show-page merge>
+        <append-aside:>
+            <%= link_to "SVG diagram #{@scan_eng_run.scan_ex.name}", :only_path => true, :controller => :scan_exes, :action => :show, :format => 'svg', :id => @scan_eng_run.scan_ex.id %>
+            <!--iframe src="./#{this.id}.svg" seamless="true"/-->
+            <embed src="../scan_exes/#{this.scan_ex.id}.svg" type="image/svg+xml" />
+            <b>Point list:</b><br/>
+            <!--table>
+            < % @scan_ex.step_coords_list.each{|s| % >
+                <tr>
+                    <td style="border-style:groove;border-width:1px">< %=s[:c].to_s% ></td>  
+                    <td style="border-style:groove;border-width:1px">< %=s[:x].to_s% ></td>
+                    <td style="border-style:groove;border-width:1px">< %=s[:y].to_s% ></td>  
+                    <td style="border-style:groove;border-width:1px">< %=s[:x_coord].to_s% ></td>  
+                    <td style="border-style:groove;border-width:1px">< %=s[:y_coord].to_s% ></td>  
+                </tr>
+            < %  } % >
+            </table-->
+            <view:scan_ex.step_list_text/>
+        </append-aside:>
+        <collection: replace>
+            <table-plus:scan_ex_logs fields="this, deltatime, x_coord, y_coord, mx_fdback, my_fdback, mcomp_fdback">
+                <empty-message:>No ex logs</empty-message:>
+                </table-plus>
+        </collection:>      
+    </old-show-page>
 </extend>
 
 <extend tag="show-page" for="ScanEx">
-  <old-show-page merge>
-    <append-aside:>
-      <%= link_to "SVG diagram #{@scan_ex.name}", :only_path => true, :controller => :scan_exes, :action => :show, :format => 'svg', :id => @scan_ex.id %>
-      <!--iframe src="./#{this.id}.svg" seamless="true"/-->
-      <embed src="./#{this.id}.svg" type="image/svg+xml" />
-      <br/><%= link_to "Python program #{@scan_ex.name}", :only_path => true, :controller => :scan_exes, :action => :show, :format => 'py', :id => @scan_ex.id %>
-      <br/><b>Point list:</b><br/>
-      <!--table>
-      < % @scan_ex.step_coords_list.each{|s| % >
-          <tr>
-              <td style="border-style:groove;border-width:1px">< %=s[:c].to_s% ></td>  
-              <td style="border-style:groove;border-width:1px">< %=s[:x].to_s% ></td>
-              <td style="border-style:groove;border-width:1px">< %=s[:y].to_s% ></td>  
-              <td style="border-style:groove;border-width:1px">< %=s[:x_coord].to_s% ></td>  
-              <td style="border-style:groove;border-width:1px">< %=s[:y_coord].to_s% ></td>  
-          </tr>
-      < %  } % >
-      </table-->
-      <view:step_list_text/>
-    </append-aside:>
-  </old-show-page>
+    <old-show-page merge>
+        <append-aside:>
+            <%= link_to "SVG diagram #{@scan_ex.name}", :only_path => true, :controller => :scan_exes, :action => :show, :format => 'svg', :id => @scan_ex.id %>
+            <!--iframe src="./#{this.id}.svg" seamless="true"/-->
+            <embed src="./#{this.id}.svg" type="image/svg+xml" />
+            <br/><%= link_to "Python program #{@scan_ex.name}", :only_path => true, :controller => :scan_exes, :action => :show, :format => 'py', :id => @scan_ex.id %>
+            <br/><b>Point list:</b><br/>
+            <!--table>
+            < % @scan_ex.step_coords_list.each{|s| % >
+                <tr>
+                    <td style="border-style:groove;border-width:1px">< %=s[:c].to_s% ></td>  
+                    <td style="border-style:groove;border-width:1px">< %=s[:x].to_s% ></td>
+                    <td style="border-style:groove;border-width:1px">< %=s[:y].to_s% ></td>  
+                    <td style="border-style:groove;border-width:1px">< %=s[:x_coord].to_s% ></td>  
+                    <td style="border-style:groove;border-width:1px">< %=s[:y_coord].to_s% ></td>  
+                </tr>
+            < %  } % >
+            </table-->
+            <view:step_list_text/>
+        </append-aside:>
+    </old-show-page>
 </extend>
 
 
 
 <extend tag="card" for="Scan">
-  <old-card merge>
-    <append-body:>
-      <ul>
-        <li><a:fov/>: X FoV Size: <view:fov.size_x/> Y Fov Size: <view:fov.size_y/></li>
-        <li><a:window/>: X Window Size: <view:window.size_x/> Y Window Size: <view:window.size_y/></li>
-        <li><a:scan_type/>: X steps: <view:steps_x/> Y steps: <view:steps_y/> </li>
-      </ul>
-    </append-body:>
-  </old-card>
+    <old-card merge>
+        <append-body:>
+            <ul>
+                <li><a:fov/>: X FoV Size: <view:fov.size_x/> Y Fov Size: <view:fov.size_y/></li>
+                <li><a:window/>: X Window Size: <view:window.size_x/> Y Window Size: <view:window.size_y/></li>
+                <li><a:scan_type/>: X steps: <view:steps_x/> Y steps: <view:steps_y/> </li>
+            </ul>
+        </append-body:>
+    </old-card>
 </extend>
 

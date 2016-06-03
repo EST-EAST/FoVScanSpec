@@ -28,7 +28,7 @@
 <def tag="form" for="ScanEngRun">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="name, max_l1_speed, max_l2_speed, max_l3_speed, scan_ex" param/>
+    <field-list fields="name, use_cam, stab_time, use_sim, proto_rev, ls1_va, ls2_va, ls3_va, ls1_vh, ls2_vh, ls3_vh, ls1_vi, ls2_vi, ls3_vi, ls1_scale, ls2_scale, ls3_scale, ls1_min, ls2_min, ls3_min, ls1_max, ls2_max, ls3_max, ls1_zero, ls2_zero, ls3_zero, scan_ex" param/>
     <div param="actions">
       <submit label="#{ht 'scan_eng_run.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
