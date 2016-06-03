@@ -33,6 +33,8 @@ class ScanEx < ActiveRecord::Base
 
   has_many :scan_eng_runs, :dependent => :destroy, :inverse_of => :scan_ex
 
+  children :scan_eng_runs,:scan_eng_runs
+  
   def next_step(x,y,c)
     return self.scan.scan_type.next_step(x,y,c,
       step_min_x,step_min_y,
@@ -45,6 +47,32 @@ class ScanEx < ActiveRecord::Base
       step_min_x,step_min_y,
       step_min_x+step_number_x-1,
       step_min_y+step_number_y-1)
+  end
+  
+  def step_max_x
+    step_min_x+step_number_x-1
+  end
+  
+  def step_max_y
+    step_min_y+step_number_y-1
+  end
+  
+  def window_size
+    if (step_dir_x==:positive) then
+      minx=step_init_x-(step_size_x*(-step_min_x))-(scan.window.size_x/2)
+      maxx=step_init_x+(step_size_x*(step_max_x))+(scan.window.size_x/2)
+    else
+      maxx=step_init_x+(step_size_x*(-step_min_x))+(scan.window.size_x/2)
+      minx=step_init_x-(step_size_x*(step_max_x))-(scan.window.size_x/2)
+    end
+    if (step_dir_y==:positive) then
+      miny=step_init_y-(step_size_y*(-step_min_y))-(scan.window.size_y/2)
+      maxy=step_init_y+(step_size_y*(step_max_y))+(scan.window.size_y/2)
+    else
+      maxy=step_init_y+(step_size_y*(-step_min_y))+(scan.window.size_y/2)
+      miny=step_init_y-(step_size_y*(step_max_y))-(scan.window.size_y/2)
+    end
+    return minx,maxx,miny,maxy
   end
   
   def initial_step
@@ -92,11 +120,11 @@ class ScanEx < ActiveRecord::Base
     slist = step_coords_list
     ret = ""
     slist.each { |s|
-          ret+=s[:c].to_s+": ["+
-            s[:x].to_s+","+
-            s[:y].to_s+"] -> ["+
-            s[:x_coord].to_s+","+
-            s[:y_coord].to_s+"]\n"    
+      ret+=s[:c].to_s+": ["+
+        s[:x].to_s+","+
+        s[:y].to_s+"] -> ["+
+        s[:x_coord].to_s+","+
+        s[:y_coord].to_s+"]\n"    
     }
     return ret
   end
@@ -105,14 +133,24 @@ class ScanEx < ActiveRecord::Base
     slist = step_coords_list
     ret = ""
     slist.each { |s|
-          ret+="{ 'c': ("+s[:c].to_s+"),"
-          ret+="'x': ("+s[:x].to_s+"),"
-          ret+="'y': ("+s[:y].to_s+"),"
-          ret+="'x_coord': ("+s[:x_coord].to_s+"),"
-          ret+="'y_coord': ("+s[:y_coord].to_s+") },"    
+      ret+="{ 'c': ("+s[:c].to_s+"),"
+      ret+="'x': ("+s[:x].to_s+"),"
+      ret+="'y': ("+s[:y].to_s+"),"
+      ret+="'x_coord': ("+s[:x_coord].to_s+"),"
+      ret+="'y_coord': ("+s[:y_coord].to_s+") },"    
     }
     return ret
   end
+  
+  def to_csv(options = {})
+    CSV.generate(options) do |csv|
+      csv << ['step','x','y','x_coord','y_coord']
+      step_coords_list.each{ |step|
+        csv << [step[:c],step[:x],step[:y],step[:x_coord],step[:y_coord]]
+      }
+    end
+  end
+  
   
   def to_svg
 
@@ -128,7 +166,7 @@ class ScanEx < ActiveRecord::Base
     winy=scan.window.size_y * scale
 
     initx=step_init_x * scale
-    inity=step_init_y * scale
+    inity=step_init_y * (-scale)
     
     stepx=self.step_size_x * scale
     stepy=self.step_size_y * scale
@@ -164,8 +202,8 @@ class ScanEx < ActiveRecord::Base
           y_coord = s[:y_coord]
 
           doc.g id:"step"+step_x.to_s+"_"+step_y.to_s do
-            doc.rect x:(x_coord*scale-winx/2), y:(y_coord*scale-winy/2), width:winx, height:winy, style:stfov, id:"win"
-            doc.text_ id:"label", x:((x_coord*scale)-winx/10), y:((y_coord*scale)+winy/4), style:stlabel do
+            doc.rect x:(x_coord*scale-winx/2), y:(y_coord*(-scale)-winy/2), width:winx, height:winy, style:stfov, id:"win"
+            doc.text_ id:"label", x:((x_coord*scale)-winx/10), y:((y_coord*(-scale))+winy/4), style:stlabel do
               doc.tspan step_counter.to_s
             end
           end

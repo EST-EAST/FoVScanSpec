@@ -575,7 +575,7 @@
 
 
 <def tag="show-page" for="ScanEx">
-  <page merge title="#{ht 'scan_ex.show.title', :default=>['Scan ex'], :name => name(:no_wrapper => true) }" without-aside >
+  <page merge title="#{ht 'scan_ex.show.title', :default=>['Scan ex'], :name => name(:no_wrapper => true) }" >
 
     <body: class="show-page scan-ex" param/>
 
@@ -597,7 +597,27 @@
 
     <content-body: param>
       <field-list fields="step_size_x, step_min_x, step_number_x, step_dir_x, step_init_x, step_size_y, step_min_y, step_number_y, step_dir_y, step_init_y, step_init_coord, repetitions, scan" param/>
+      <section param="collection-section">
+        <h3 param="collection-heading">
+          <ht key="scan_eng_run.collection.heading" count="&this.scan_eng_runs.count" >
+            <human-collection-name collection="scan_eng_runs" your/>
+          </ht>
+        </h3>
+
+        <collection:scan_eng_runs param/>
+      </section>
     </content-body:>
+
+    <aside: param>
+      <section param="scan_eng_runs-collection-section">
+        <h3 param="scan_eng_runs-collection-heading">
+          <ht key="scan_eng_run.collection.heading" count="&this.scan_eng_runs.count" >
+            <human-collection-name collection="scan_eng_runs" your/>
+          </ht>
+        </h3>
+        <collection:scan_eng_runs  param="scan_eng_runs-collection"/>
+      </section>
+    </aside:>
 
   </page>
 </def>

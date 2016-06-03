@@ -43,6 +43,11 @@
     <header: param>
       <h4 param="heading"><name/></h4>
     </header:>
+    <body: param>
+      <ht key="scan_eng_run.collection.count" count="&this.scan_eng_runs.size">
+         <count:scan_eng_runs param/>
+      </ht>
+    </body:>
   </card>
 </def>
 
