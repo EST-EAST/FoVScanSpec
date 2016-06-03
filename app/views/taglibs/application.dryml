@@ -80,7 +80,7 @@ you can place common code in this file. -->
 <extend tag="index-page" for="ScanEngRun">
     <old-index-page merge>
         <collection: replace>
-            <table-plus: fields="this,scan_ex,total_time">
+            <table-plus: fields="this,scan_ex,total_time,use_cam,use_sim">
                 <empty-message:>No eng runs</empty-message:>
                 </table-plus>
         </collection:>      
