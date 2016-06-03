@@ -72,13 +72,25 @@ sqlprepare = "CREATE TABLE IF NOT EXISTS \"scan_ex_logs\" (\"id\" INTEGER PRIMAR
              "\"x_coord\" float, \"y_coord\" float, \"timestr\" varchar, \"dtinit\" datetime, \"dtend\" datetime, " + \
              "\"mx_fdback\" float, \"my_fdback\" float, \"mcomp_fdback\" float);"
 
-sqlsentence2 = "INSERT INTO \"scan_eng_runs\" (\"name\", \"max_l1_speed\", \"max_l2_speed\", \"max_l3_speed\", " + \
-               "\"created_at\", \"updated_at\", \"scan_ex_id\") VALUES (?, ?, ?, ?, ?, ?, ?) "
+sqlsentence2 = "INSERT INTO \"scan_eng_runs\" (\"name\", \"scan_ex_id\", " + \
+    "\"use_cam\", \"stab_time\", \"use_sim\", \"proto_rev\", " + \
+    "\"ls1_va\", \"ls2_va\", \"ls3_va\", " + \
+    "\"ls1_vh\", \"ls2_vh\", \"ls3_vh\", " + \
+    "\"ls1_vi\", \"ls2_vi\", \"ls3_vi\", " + \
+    "\"ls1_scale\", \"ls2_scale\", \"ls3_scale\", " + \
+    "\"ls1_min\", \"ls2_min\", \"ls3_min\", " + \
+    "\"ls1_max\", \"ls2_max\", \"ls3_max\", " + \
+    "\"ls1_zero\", \"ls2_zero\", \"ls3_zero\", " + \
+    "\"created_at\", \"updated_at\") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?," + \
+    "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
 
 sqlprepare2 = "CREATE TABLE IF NOT EXISTS \"scan_eng_runs\" (\"id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + \
-              "\"name\" varchar, \"max_l1_speed\" float, \"max_l2_speed\" float, \"max_l3_speed\" float, " + \
-              "\"created_at\" datetime, \"updated_at\" datetime, \"scan_ex_id\" integer);"
-
+    "\"name\" varchar, \"created_at\" datetime, \"updated_at\" datetime, \"scan_ex_id\" integer, " + \
+    "\"use_cam\" boolean, \"stab_time\" float, \"use_sim\" boolean, \"proto_rev\" integer, \"ls1_va\" float, " + \
+    "\"ls2_va\" float, \"ls3_va\" float, \"ls1_vh\" float, \"ls2_vh\" float, \"ls3_vh\" float, \"ls1_vi\" float, " + \
+    "\"ls2_vi\" float, \"ls3_vi\" float, \"ls1_scale\" float, \"ls2_scale\" float, \"ls3_scale\" float, " + \
+    "\"ls1_min\" integer, \"ls2_min\" integer, \"ls3_min\" integer, \"ls1_max\" integer, \"ls2_max\" integer, " + \
+    "\"ls3_max\" integer, \"ls1_zero\" integer, \"ls2_zero\" integer, \"ls3_zero\" integer);"
 firstDbSentence = True
 sweep_eng_run_id = None
 
@@ -97,33 +109,77 @@ def dbinsert(dbcon, cur_step, step_x, step_y, step_x_coord, step_y_coord, mx_set
     sdtinit = str(dt_init)
 
     if firstDbSentence:
-        item = [timestamp, 100, 100, 100, dt_end, dt_end, ex_id]
+        item = [timestamp, ex_id,
+                sweepconfig.cte_use_cvcam or sweepconfig.cte_use_photocam or sweepconfig.cte_use_gphoto2,
+                sweepconfig.cte_stabilization_time, sweepconfig.cte_debug, sweepconfig.cte_proto_rev,
+                sws.cte_vx, sws.cte_vy, sws.cte_vcomp, sws.cte_vhx, sws.cte_vhy, sws.cte_vhcomp,
+                sws.cte_vix, sws.cte_viy, sws.cte_vicomp,
+                sws.cte_lsx_scale, sws.cte_lsy_scale, sws.cte_lscomp_scale,
+                sws.cte_lsx_min, sws.cte_lsy_min, sws.cte_lscomp_min,
+                sws.cte_lsx_max, sws.cte_lsy_max, sws.cte_lscomp_max,
+                sws.cte_lsx_zero, sws.cte_lsy_zero, sws.cte_lscomp_zero,
+                dt_end, dt_end]
         if sweepconfig.cte_verbose:
             print(sqlsentence2)
         dbcon.execute(sqlsentence2, item)
         run_id = dbcon.lastrowid
         firstDbSentence = False
         if sweepconfig.cte_export_ods:
-            engrunsheet[0, 0:8].values = ["id", "name", "max_l1_speed", "max_l2_speed", "max_l3_speed", "created_at",
-                                          "updated_at", "scan_ex_id"]
+            engrunsheet[0, 0:30].values = ["id", "name", "scan_ex_id", "use_cam", "stab_time",
+                                          "use_sim", "proto_rev",
+                                          "ls1_va", "ls2_va", "ls3_va",
+                                          "ls1_vh", "ls2_vh", "ls3_vh",
+                                          "ls1_vi", "ls2_vi", "ls3_vi",
+                                          "ls1_scale", "ls2_scale", "ls3_scale",
+                                          "ls1_min", "ls2_min", "ls3_min",
+                                          "ls1_max", "ls2_max", "ls3_max",
+                                          "ls1_zero", "ls2_zero", "ls3_zero",
+                                          "created_at", "updated_at"]
             engrunsheet[1, 0].value = run_id
-            item = [timestamp, 100, 100, 100, sdtcam, sdtcam, ex_id]
-            engrunsheet[1, 1:8].values = item
+            item = [timestamp, ex_id,
+                    sweepconfig.cte_use_cvcam or sweepconfig.cte_use_photocam or sweepconfig.cte_use_gphoto2,
+                    sweepconfig.cte_stabilization_time, sweepconfig.cte_debug, sweepconfig.cte_proto_rev,
+                    sws.cte_vx, sws.cte_vy, sws.cte_vcomp, sws.cte_vhx, sws.cte_vhy, sws.cte_vhcomp,
+                    sws.cte_vix, sws.cte_viy, sws.cte_vicomp,
+                    sws.cte_lsx_scale, sws.cte_lsy_scale, sws.cte_lscomp_scale,
+                    sws.cte_lsx_min, sws.cte_lsy_min, sws.cte_lscomp_min,
+                    sws.cte_lsx_max, sws.cte_lsy_max, sws.cte_lscomp_max,
+                    sws.cte_lsx_zero, sws.cte_lsy_zero, sws.cte_lscomp_zero,
+                    sdtcam, sdtcam]
+
+            engrunsheet[1, 1:30].values = item
             exlogsheet[0, 0:18].values = ["id", "step", "x", "y", "x_coord", "y_coord", "mx", "my", "mcomp",
                                           "mx_fdback", "my_fdback", "mcomp_fdback", "timestr", "scan_eng_run_id",
                                           "dtinit", "dtend", "created_at", "updated_at"]
         if sweepconfig.cte_export_openpyxl:
             idx = 0
-            item = ["id", "name", "max_l1_speed", "max_l2_speed", "max_l3_speed", "created_at",
-                    "updated_at", "scan_ex_id"]
-            for row in engrunsheet.iter_rows('A1:H1'):
+            item = ["id", "name", "scan_ex_id", "use_cam", "stab_time",
+                                          "use_sim", "proto_rev",
+                                          "ls1_va", "ls2_va", "ls3_va",
+                                          "ls1_vh", "ls2_vh", "ls3_vh",
+                                          "ls1_vi", "ls2_vi", "ls3_vi",
+                                          "ls1_scale", "ls2_scale", "ls3_scale",
+                                          "ls1_min", "ls2_min", "ls3_min",
+                                          "ls1_max", "ls2_max", "ls3_max",
+                                          "ls1_zero", "ls2_zero", "ls3_zero",
+                                          "created_at", "updated_at"]
+            for row in engrunsheet.iter_rows('A1:AD1'):
                 for cell in row:
                     cell.value = item[idx]
                     idx += 1
             engrunsheet['A2'] = run_id
             idx = 0
-            item = [timestamp, 100, 100, 100, sdtcam, sdtcam, ex_id]
-            for row in engrunsheet.iter_rows('B2:H2'):
+            item = [timestamp, ex_id,
+                    sweepconfig.cte_use_cvcam or sweepconfig.cte_use_photocam or sweepconfig.cte_use_gphoto2,
+                    sweepconfig.cte_stabilization_time, sweepconfig.cte_debug, sweepconfig.cte_proto_rev,
+                    sws.cte_vx, sws.cte_vy, sws.cte_vcomp, sws.cte_vhx, sws.cte_vhy, sws.cte_vhcomp,
+                    sws.cte_vix, sws.cte_viy, sws.cte_vicomp,
+                    sws.cte_lsx_scale, sws.cte_lsy_scale, sws.cte_lscomp_scale,
+                    sws.cte_lsx_min, sws.cte_lsy_min, sws.cte_lscomp_min,
+                    sws.cte_lsx_max, sws.cte_lsy_max, sws.cte_lscomp_max,
+                    sws.cte_lsx_zero, sws.cte_lsy_zero, sws.cte_lscomp_zero,
+                    sdtcam, sdtcam]
+            for row in engrunsheet.iter_rows('B2:AD2'):
                 for cell in row:
                     if sweepconfig.cte_verbose:
                         print("idx: " + str(idx))
@@ -134,6 +190,7 @@ def dbinsert(dbcon, cur_step, step_x, step_y, step_x_coord, step_y_coord, mx_set
                     "mx_fdback", "my_fdback", "mcomp_fdback", "timestr", "scan_eng_run_id",
                     "dtinit", "dtend", "created_at", "updated_at"]
             idx = 0
+            print "**************************************"
             for row in exlogsheet.iter_rows('A1:R1'):
                 for cell in row:
                     cell.value = item[idx]
@@ -190,7 +247,7 @@ def dbprepare(dbcon):
         engrunsheet = doc.create_sheet()
         engrunsheet.title = 'EngRun'
         exlogsheet = doc.create_sheet()
-        exlogsheet.title = 'EngLog'
+        exlogsheet.title = 'ExLog'
         ws = doc.active
         doc.remove_sheet(ws)
     return True
@@ -336,4 +393,3 @@ if sweepconfig.cte_use_cvcam:
     cv2.destroyAllWindows()
 
 sws.motorClose()
-
