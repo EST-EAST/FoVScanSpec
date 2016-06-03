@@ -1,0 +1,137 @@
+class ScanEngRunImport 
+  # switch to ActiveModel::Model in Rails 4
+  extend ActiveModel::Naming
+  include ActiveModel::Conversion
+  include ActiveModel::Validations
+
+  attr_accessor :file, :project_id, :project
+
+  def initialize(attributes = {})
+    attributes.each { |name, value| send("#{name}=", value) }
+  end
+
+  def persisted?
+    false
+  end
+
+  def save
+    imported_scan_eng_runs
+    true
+  end
+
+  def imported_scan_eng_runs
+    @imported_scan_eng_runs ||= load_imported_scan_eng_runs
+  end
+
+  def imported_scan_eng_runs
+    spreadsheet = open_spreadsheet
+
+    # Recurrence Times
+    ucanca_sheet=spreadsheet.sheet('EngRun')
+    header = ucanca_sheet.row(1)
+    (2..ucanca_sheet.last_row).map do |i|
+=begin      
+      row = Hash[[header, ucanca_sheet.row(i)].transpose]
+      if (row["name"]!=nil && row["name"]!="")
+        conv = project.datum_conversions.find_by_name(row["name"]) || project.datum_conversions.find_by_name(row["old_name"]) || DatumConversion.new
+        conv.attributes = row.to_hash.slice(*DatumConversion.import_attributes)
+        conv.project=self.project
+        ftype=FlowType.find_by_name(row["flow_type"])
+        print "\nrow:"+row["flow_type"]
+        conv.flow_type=ftype        
+
+        print "\Importamos: "+conv.attributes.to_s
+        if (conv.valid?)
+          conv.save!
+          conv
+        else
+          conv.errors.full_messages.each do |message|
+            errors.add :base, "Row #{i+2}: #{message}"
+          end
+          nil
+        end
+        # Let's see if we have to create a subsystem
+      else
+        nil
+      end
+=end    
+      end
+
+
+    ucanca_sheet=spreadsheet.sheet('ExLogs')
+    header = ucanca_sheet.row(1)
+    (2..ucanca_sheet.last_row).map do |i|
+=begin      
+      print "\ntrato "+i.to_s
+      row = Hash[[header, ucanca_sheet.row(i)].transpose]
+      if (row["name"]!=nil && row["name"]!="")
+        flow = project.flows.find_by_name(row["name"]) || project.flows.find_by_name(row["old_name"]) || Flow.new
+        flow.attributes = row.to_hash.slice(*Flow.import_attributes)
+        flow.name=row["name"]
+        flow.project_id=self.project_id
+        dir=FlowDirection.find_by_name(row["primary_flow_direction"])
+        flow.primary_flow_direction=dir
+        ftype=FlowType.find_by_name(row["flow_type"])
+        print "\nrow:"+row["flow_type"]
+        flow.flow_type=ftype
+        conv=DatumConversion.find_by_name(row["conversion"])
+        flow.datum_conversion=conv
+        print "\nImportamos: "+flow.attributes.to_s
+        if (flow.valid?)
+          flow.save!
+          subs=project.sub_systems.find_by_abbrev(row["sub_system"]) 
+          if subs==nil 
+            subs=project.sub_systems.new
+            subs.name=(row["sub_system"])
+            subs.abbrev=(row["sub_system"])
+            subs.layer=Layer.find_by_level(1)
+            if subs.valid?
+              subs.save!
+            end
+          end
+          # Let's see if we have to create a connector
+          con=subs.connectors.find_by_name(row["connector"]) 
+          if con == nil
+            con=subs.connectors.new
+            con.name=row["connector"];
+            if con.valid?
+              con.save!          
+            end
+          end
+          # Let's see if we have to create a sub_system_flow
+          ssf=con.sub_system_flows.find_by_flow_id(flow.id)
+          if ssf==nil 
+            ssf=con.sub_system_flows.new
+            ssf.flow=flow
+          end
+          ssf.flow_direction=dir
+          ssf.context_name=row["context_name"]
+          if ssf.valid?
+            ssf.save!
+          end
+          flow
+        else
+          flow.errors.full_messages.each do |message|
+            errors.add :base, "Row #{i+2}: #{message}"
+          end
+          nil
+        end
+        # Let's see if we have to create a subsystem
+      else
+        nil
+      end
+=end      
+    end
+  end
+
+  def open_spreadsheet
+    case File.extname(file.original_filename)
+    when ".csv" then Roo::Csv.new(file.path,{:file_warning => :ignore})
+    when ".xls" then Roo::Excel.new(file.path,{:file_warning => :ignore})
+    when ".xlsx" then Roo::Excelx.new(file.path,{:file_warning => :ignore})
+    when ".ods" then Roo::OpenOffice.new(file.path,{:file_warning => :ignore})
+    else raise "Unknown file type: #{file.original_filename}"
+    end
+  end
+
+end
