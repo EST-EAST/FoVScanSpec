@@ -31,6 +31,50 @@ you can place common code in this file. -->
     </page>
 </def>
 
+<def tag="show-page" for="ScanEngRun">
+  <page merge title="#{ht 'scan_eng_run.show.title', :default=>['Scan eng run'], :name => name(:no_wrapper => true) }" >
+
+    <body: class="show-page scan-eng-run" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="scan_eng_run.show.heading" name="#{name(:no_wrapper => true)}">
+          Scan eng run <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="use_cam, use_sim" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="scan_eng_run.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Scan eng run
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <field-list fields="stab_time, proto_rev, ls1_va, ls2_va, ls3_va, ls1_vh, ls2_vh, ls3_vh, ls1_vi, ls2_vi, ls3_vi, ls1_scale, ls2_scale, ls3_scale, ls1_min, ls2_min, ls3_min, ls1_max, ls2_max, ls3_max, ls1_zero, ls2_zero, ls3_zero, scan_ex" param/>
+      <section param="collection-section">
+        <h3 param="collection-heading">
+          <ht key="scan_ex_log.collection.heading" count="&this.scan_ex_logs.count" >
+            <human-collection-name collection="scan_ex_logs" your/>
+          </ht>
+        </h3>
+
+        <collection:scan_ex_logs param/>
+
+        <a:scan_ex_logs action="new" if="&can_create?(@scan_eng_run.scan_ex_logs)" param="new-link">
+          <ht key="scan_ex_log.actions.new" count="1">
+            New Scan Ex Log
+          </ht>
+        </a:scan_ex_logs>
+      </section>
+    </content-body:>
+
+  </page>
+</def>
+
+
 <!-- EXTENSION ZONE -->
 
 <extend tag="index-page" for="ScanEngRun">
