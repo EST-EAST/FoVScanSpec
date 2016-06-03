@@ -44,6 +44,24 @@ class ScanEngRun < ActiveRecord::Base
 
   children :scan_ex_logs
   
+  
+  def steps_vs_time
+    data = []
+    scan_ex_logs.each {|exlog|
+      data << [exlog.step,exlog.deltatime]
+    }
+    return data
+  end
+  
+  def to_csv(options = {})
+    CSV.generate(options) do |csv|
+      csv << ScanExLog.column_names
+      scan_ex_logs.each do |exlog|
+        csv << exlog.attributes.values_at(*ScanExLog.column_names)
+      end
+    end
+  end
+  
   def total_time
     sum=0
     scan_ex_logs.each {|exlog|

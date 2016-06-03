@@ -3,7 +3,7 @@ you can place common code in this file. -->
 
 <!-- REDEFINITION ZONE WHEN NO INHERITANCE IS POSSIBLE -->
 
-<def tag="show-page" for="ScanEx">
+<!--def tag="show-page" for="ScanEx">
     <page merge title="#{ht 'scan_ex.show.title', :default=>['Scan ex'], :name => name(:no_wrapper => true) }" >
 
         <body: class="show-page scan-ex" param/>
@@ -29,51 +29,86 @@ you can place common code in this file. -->
         </content-body:>
 
     </page>
-</def>
+</def-->
 
 <def tag="show-page" for="ScanEngRun">
-  <page merge title="#{ht 'scan_eng_run.show.title', :default=>['Scan eng run'], :name => name(:no_wrapper => true) }" >
+    <page merge title="#{ht 'scan_eng_run.show.title', :default=>['Scan eng run'], :name => name(:no_wrapper => true) }" >
 
-    <body: class="show-page scan-eng-run" param/>
+        <body: class="show-page scan-eng-run" param/>
 
-    <content-header: param>
-      <h2 param="heading">
-        <ht key="scan_eng_run.show.heading" name="#{name(:no_wrapper => true)}">
-          Scan eng run <name/>
-        </ht>
-      </h2>
+        <content-header: param>
+            <h2 param="heading">
+                <ht key="scan_eng_run.show.heading" name="#{name(:no_wrapper => true)}">
+                    Scan eng run <name/>
+                </ht>
+            </h2>
 
-      <record-flags fields="use_cam, use_sim" param/>
+            <record-flags fields="use_cam, use_sim" param/>
 
-      <a action="edit" if="&can_edit?" param="edit-link">
-        <ht key="scan_eng_run.actions.edit" name="#{name(:no_wrapper => true)}">
-          Edit Scan eng run
-        </ht>
-      </a>
-    </content-header:>
+            <a action="edit" if="&can_edit?" param="edit-link">
+                <ht key="scan_eng_run.actions.edit" name="#{name(:no_wrapper => true)}">
+                    Edit Scan eng run
+                </ht>
+            </a>
+        </content-header:>
 
-    <content-body: param>
-      <field-list fields="stab_time, proto_rev, ls1_va, ls2_va, ls3_va, ls1_vh, ls2_vh, ls3_vh, ls1_vi, ls2_vi, ls3_vi, ls1_scale, ls2_scale, ls3_scale, ls1_min, ls2_min, ls3_min, ls1_max, ls2_max, ls3_max, ls1_zero, ls2_zero, ls3_zero, scan_ex" param/>
-      <section param="collection-section">
-        <h3 param="collection-heading">
-          <ht key="scan_ex_log.collection.heading" count="&this.scan_ex_logs.count" >
-            <human-collection-name collection="scan_ex_logs" your/>
-          </ht>
-        </h3>
+        <content-body: param>
+            <field-list fields="stab_time, proto_rev, ls1_va, ls2_va, ls3_va, ls1_vh, ls2_vh, ls3_vh, ls1_vi, ls2_vi, ls3_vi, ls1_scale, ls2_scale, ls3_scale, ls1_min, ls2_min, ls3_min, ls1_max, ls2_max, ls3_max, ls1_zero, ls2_zero, ls3_zero, scan_ex" param/>
+            <section param="collection-section">
+                <h3 param="collection-heading">
+                    <ht key="scan_ex_log.collection.heading" count="&this.scan_ex_logs.count" >
+                        <human-collection-name collection="scan_ex_logs" your/>
+                    </ht>
+                </h3>
 
-        <collection:scan_ex_logs param/>
+                <collection:scan_ex_logs param/>
 
-        <a:scan_ex_logs action="new" if="&can_create?(@scan_eng_run.scan_ex_logs)" param="new-link">
-          <ht key="scan_ex_log.actions.new" count="1">
-            New Scan Ex Log
-          </ht>
-        </a:scan_ex_logs>
-      </section>
-    </content-body:>
+                <a:scan_ex_logs action="new" if="&can_create?(@scan_eng_run.scan_ex_logs)" param="new-link">
+                    <ht key="scan_ex_log.actions.new" count="1">
+                        New Scan Ex Log
+                    </ht>
+                </a:scan_ex_logs>
+            </section>
+        </content-body:>
 
-  </page>
+    </page>
 </def>
 
+<def tag="index-page" for="ScanEngRun">
+    <page merge title="#{ht 'scan_eng_run.index.title', :default=>[model.model_name.human(:count=>100)] }">
+        <body: class="index-page scan-eng-run" param/>
+
+        <content-header: param>
+            <h2 param="heading">
+                <ht key="scan_eng_run.index.heading">
+                    <model-name-human model="&model"/>
+                </ht>
+            </h2>
+
+            <p param="count" if>
+            <ht key="scan_eng_run.collection.count" count="&collection_count">
+                <count summary/>
+            </ht>
+            </p>
+        </content-header:>
+
+        <content-body: param>
+            <a action="new" to="&model" param="new-link">
+                <ht key="scan_eng_run.actions.new">New Scan eng run</ht>
+            </a>
+
+            <page-nav param="top-page-nav"/>
+
+            <collection param/>
+
+            <page-nav param="bottom-page-nav"/>
+
+        </content-body:>
+        <aside:>
+            <%= pie_chart ScanEngRun.group(:scan_ex).count, :width => "200px" %>
+        </aside:>
+    </page>
+</def>
 
 <!-- EXTENSION ZONE -->
 
@@ -81,6 +116,8 @@ you can place common code in this file. -->
     <old-index-page merge>
         <collection: replace>
             <table-plus: fields="this,scan_ex,total_time,use_cam,use_sim">
+                <header: replace>
+                </header:>
                 <empty-message:>No eng runs</empty-message:>
                 </table-plus>
         </collection:>      
@@ -99,22 +136,33 @@ you can place common code in this file. -->
             <%= link_to "SVG diagram #{@scan_eng_run.scan_ex.name}", :only_path => true, :controller => :scan_exes, :action => :show, :format => 'svg', :id => @scan_eng_run.scan_ex.id %>
             <!--iframe src="./#{this.id}.svg" seamless="true"/-->
             <embed src="../scan_exes/#{this.scan_ex.id}.svg" type="image/svg+xml" />
-            <b>Point list:</b><br/>
-            <!--table>
-            < % @scan_ex.step_coords_list.each{|s| % >
-                <tr>
-                    <td style="border-style:groove;border-width:1px">< %=s[:c].to_s% ></td>  
-                    <td style="border-style:groove;border-width:1px">< %=s[:x].to_s% ></td>
-                    <td style="border-style:groove;border-width:1px">< %=s[:y].to_s% ></td>  
-                    <td style="border-style:groove;border-width:1px">< %=s[:x_coord].to_s% ></td>  
-                    <td style="border-style:groove;border-width:1px">< %=s[:y_coord].to_s% ></td>  
-                </tr>
-            < %  } % >
-            </table-->
-            <view:scan_ex.step_list_text/>
+            <b>Steps vs Time:</b><br/>
+            <%= column_chart @scan_eng_run.steps_vs_time%>
+            <div id="chartContainer">
+                <script src="http://d3js.org/d3.v3.min.js"></script>
+                <script src="http://dimplejs.org/dist/dimple.v2.2.0.min.js"></script>
+                <script type="text/javascript">
+                          var svg = dimple.newSvg("#chartContainer", 590, 400);
+                          d3.tsv("./<%=@scan_eng_run.id%>.tsv", function (data) {
+                          var myChart = new dimple.chart(svg, data);
+                                  myChart.setBounds(75, 30, 490, 330)
+                                  myChart.addMeasureAxis("x", "x");
+                                  var y = myChart.addMeasureAxis("y", "y");
+                                  y.addOrderRule("y");
+                                  myChart.addSeries("step", dimple.plot.bubble);
+                                  var s = myChart.addSeries(["step"], dimple.plot.line);
+                                  s.addOrderRule("step");
+                                  s.aggregate = dimple.aggregateMethod.avg;
+                                  //myChart.addLegend(180, 10, 360, 20, "right");
+                                  //var s = myChart.addSeries("step", dimple.plot.line);
+                                  myChart.draw();
+                          });</script>
+            </div>        
         </append-aside:>
         <collection: replace>
             <table-plus:scan_ex_logs fields="this, deltatime, x_coord, y_coord, mx_fdback, my_fdback, mcomp_fdback">
+                <header: replace>
+                </header:>
                 <empty-message:>No ex logs</empty-message:>
                 </table-plus>
         </collection:>      
@@ -123,25 +171,122 @@ you can place common code in this file. -->
 
 <extend tag="show-page" for="ScanEx">
     <old-show-page merge>
-        <append-aside:>
+        <collection: replace>
+            <table-plus:scan_eng_runs fields="this,total_time,use_cam,use_sim">
+                <empty-message:>No eng runs</empty-message:>
+                <header: replace>
+                </header:>
+                </table-plus>
+        </collection:>
+        <aside:>
             <%= link_to "SVG diagram #{@scan_ex.name}", :only_path => true, :controller => :scan_exes, :action => :show, :format => 'svg', :id => @scan_ex.id %>
             <!--iframe src="./#{this.id}.svg" seamless="true"/-->
             <embed src="./#{this.id}.svg" type="image/svg+xml" />
+            <div id="chartContainer">
+                <script src="http://d3js.org/d3.v3.min.js"></script>
+                <script src="http://dimplejs.org/dist/dimple.v2.2.0.min.js"></script>
+                <script type="text/javascript">
+                          var svg = dimple.newSvg("#chartContainer", 590, 400);
+                          d3.tsv("./<%=@scan_ex.id%>.tsv", function (data) {
+
+                          var series,
+                                  // Set a background and foreground chart
+                                  charts = [
+                                          new dimple.chart(svg, null),
+                                          new dimple.chart(svg, data)
+                                  ],
+                                  lastDate = null,
+                                  owners = dimple.getUniqueValues(data, "x");
+                                  // Define 2 nearly identical charts.  It's essential
+                                  // for this that the max and minimum values are fixed
+                                  // and unmoving otherwise the background chart will get
+                                  // out of sync with the foreground the background chart's
+                                  // axes are hidden and it's colors are faded.  Both have
+                                  // their borders set to white, which looks better on this chart
+                                  charts.forEach(function (chart, i) {
+                                  var x, y, z;
+                                          chart.setBounds(60, 30, 510, 330);
+                                          x = chart.addMeasureAxis("x", "x_coord");
+<% minx,maxx,miny,maxy=@scan_ex.window_size %>
+                                  x.overrideMax = <%= maxx.to_s %>;
+                                          x.overrideMin = <%= minx.to_s %>;
+                                          x.hidden = (i === 0);
+                                          y = chart.addMeasureAxis("y", "y_coord");
+                                          y.overrideMax = <%= maxy.to_s %>;
+                                          y.overrideMin = <%= miny.to_s %>; ;
+                                          y.hidden = (i === 0);
+                                          //z = chart.addMeasureAxis("z", "step");
+                                          //z.overrideMax = 20;
+                                  }, this);
+                                  // Define a storyboard on the main chart, this will iterate
+                                  // all dates and redraw for each, the callback will build the
+                                  // the background chart
+                                  myStoryboard = charts[1].setStoryboard("step", function (d) {
+                          // Use the last date variable to manage the previous tick's data
+                          if (lastDate !== null) {
+                          // Pull the previous data
+                          var lastData = dimple.filterData(data, "step", lastDate);
+                                  // Add a series to the background chart to display old position
+                                  var lastSeries = charts[0].addSeries("step", dimple.plot.bubble);
+                                  // Average suits these measures better
+                                  lastSeries.aggregate = dimple.aggregateMethod.avg;
+                                  // Give each series its own data at different periods
+                                  lastSeries.data = lastData;
+                                  // Draw the background chart
+                                  charts[0].draw();
+                                  // Class all shapes as .historic
+                                  lastSeries.shapes.attr("class", "historic");
+                                  // Reduce all opacity and remove once opacity drops below 5%
+                                  d3.selectAll(".historic")
+                                  .each(function () {
+                                  var shape = d3.select(this),
+                                          opacity = shape.style("opacity") - 0.02;
+                                          if (opacity <%=raw("<")%> 0.1) {
+                                  shape.remove();
+                                  } else {
+                                  shape.style("opacity", opacity);
+                                  }
+                                  });
+                          }
+                          lastDate = d;
+                          });
+                                  myStoryboard.frameDuration = 200;
+                                  // Add the primary series to the main chart
+                                  series = charts[1].addSeries(1, dimple.plot.bubble)
+                                  series.aggregate = dimple.aggregateMethod.avg;
+                                  // Draw the main chart
+                                  charts[1].draw();
+                                  // Add some border weight to the main series so it separates a bit from
+                                  // the former period shadows
+                                  d3.selectAll("circle").style("stroke-width", 2);
+                          });
+                          d3.tsv("./<%=@scan_ex.id%>.tsv", function (data) {
+                          var myChart = new dimple.chart(svg, data);
+                                  myChart.setBounds(60, 30, 510, 330)
+                                  var x = myChart.addMeasureAxis("x", "x_coord");
+                                  x.overrideMax = <%= maxx.to_s %>;
+                                  x.overrideMin = <%= minx.to_s %>;
+                                  //x.hidden = (i === 0);
+                                  var y = myChart.addMeasureAxis("y", "y_coord");
+                                  y.addOrderRule("y");
+                                  y.overrideMax = <%= maxy.to_s %>;
+                                  y.overrideMin = <%= miny.to_s %>; ;
+                                  //y.hidden = (i === 0);
+                                  //myChart.addSeries("step", dimple.plot.bubble);
+                                  var s = myChart.addSeries(["step"], dimple.plot.line);
+                                  s.addOrderRule("step");
+                                  s.aggregate = dimple.aggregateMethod.avg;
+                                  //myChart.addLegend(180, 10, 360, 20, "right");
+                                  //var s = myChart.addSeries("step", dimple.plot.line);
+                                  //myChart.setStoryboard(["step"]);
+                                  myChart.draw();
+                          });
+                </script>
+            </div>           
             <br/><%= link_to "Python program #{@scan_ex.name}", :only_path => true, :controller => :scan_exes, :action => :show, :format => 'py', :id => @scan_ex.id %>
             <br/><b>Point list:</b><br/>
-            <!--table>
-            < % @scan_ex.step_coords_list.each{|s| % >
-                <tr>
-                    <td style="border-style:groove;border-width:1px">< %=s[:c].to_s% ></td>  
-                    <td style="border-style:groove;border-width:1px">< %=s[:x].to_s% ></td>
-                    <td style="border-style:groove;border-width:1px">< %=s[:y].to_s% ></td>  
-                    <td style="border-style:groove;border-width:1px">< %=s[:x_coord].to_s% ></td>  
-                    <td style="border-style:groove;border-width:1px">< %=s[:y_coord].to_s% ></td>  
-                </tr>
-            < %  } % >
-            </table-->
             <view:step_list_text/>
-        </append-aside:>
+        </aside:>
     </old-show-page>
 </extend>
 

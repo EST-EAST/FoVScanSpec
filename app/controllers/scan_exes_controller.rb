@@ -13,13 +13,13 @@ class ScanExesController < ApplicationController
       }
       format.html
       format.py
+      format.tsv { send_data @scan_ex.to_csv(col_sep: "\t")  }
     end
   end
-
   def index
-	hobo_index do |format|
-		format.html
-		format.py
-	end
+    hobo_index do |format|
+      format.html
+      format.py
+    end
   end 
 end

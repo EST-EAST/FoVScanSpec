@@ -59,3 +59,6 @@ gem 'jquery-ui-themes', '~> 0.0.4'
 gem 'hobo_clean_admin', '2.2.5'
 
 gem 'roo'
+gem 'chartkick'
+gem 'morrisjs-rails'
+gem 'raphael-rails'

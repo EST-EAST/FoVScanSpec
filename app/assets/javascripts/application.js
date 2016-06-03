@@ -9,3 +9,7 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require_tree ./application
+//= require Chart.bundle
+//= require chartkick
+//= require raphael
+//= require morris

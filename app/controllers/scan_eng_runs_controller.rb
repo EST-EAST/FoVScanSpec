@@ -2,14 +2,21 @@ class ScanEngRunsController < ApplicationController
   protect_from_forgery
   skip_before_action :verify_authenticity_token, if: :json_request?
 
-  hobo_model_controller
+    hobo_model_controller
 
-  public :render
+    public :render
 
-  auto_actions :all
+    auto_actions :all
 
-  def json_request?
+    def show
+      hobo_show do |format|
+        format.html
+        format.tsv { send_data @scan_eng_run.to_csv(col_sep: "\t")  }
+      end
+    end     
+    
+    def json_request?
       # request.format.json?
       true
+    end
   end
-end
