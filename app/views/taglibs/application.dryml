@@ -139,7 +139,7 @@ you can place common code in this file. -->
             <b>Steps vs Time:</b><br/>
             <%= column_chart @scan_eng_run.steps_vs_time%>
             <div id="chartContainer">
-                <script src="http://d3js.org/d3.v3.min.js"></script>
+                <script src="/assets/d3.min.js"></script>
                 <script src="http://dimplejs.org/dist/dimple.v2.2.0.min.js"></script>
                 <script type="text/javascript">
                           var svg = dimple.newSvg("#chartContainer", 590, 400);
@@ -183,7 +183,7 @@ you can place common code in this file. -->
             <!--iframe src="./#{this.id}.svg" seamless="true"/-->
             <embed src="./#{this.id}.svg" type="image/svg+xml" />
             <div id="chartContainer">
-                <script src="http://d3js.org/d3.v3.min.js"></script>
+                <script src="/assets/d3.min.js"></script>
                 <script src="http://dimplejs.org/dist/dimple.v2.2.0.min.js"></script>
                 <script type="text/javascript">
                           var svg = dimple.newSvg("#chartContainer", 590, 400);
@@ -197,6 +197,7 @@ you can place common code in this file. -->
                                   ],
                                   lastDate = null,
                                   owners = dimple.getUniqueValues(data, "x");
+                                  steplist = dimple.getUniqueValues(data, "step");
                                   // Define 2 nearly identical charts.  It's essential
                                   // for this that the max and minimum values are fixed
                                   // and unmoving otherwise the background chart will get
@@ -251,6 +252,10 @@ you can place common code in this file. -->
                           lastDate = d;
                           });
                                   myStoryboard.frameDuration = 200;
+                                  //steplistindex=0;
+                                  //myStoryboard.onTick = function (e) {
+                                    //myStoryboard.frameDuration=steplist[steplistindex++];
+                                  //};
                                   // Add the primary series to the main chart
                                   series = charts[1].addSeries(1, dimple.plot.bubble)
                                   series.aggregate = dimple.aggregateMethod.avg;

@@ -102,6 +102,7 @@
     </content-header:>
 
     <content-body: param>
+      <field-list fields="size_x, size_y" param/>
     </content-body:>
 
   </page>
@@ -315,7 +316,7 @@
         </ht>
       </h2>
 
-      <record-flags fields="" param/>
+      <record-flags fields="use_cam, use_sim" param/>
 
       <a action="edit" if="&can_edit?" param="edit-link">
         <ht key="scan_eng_run.actions.edit" name="#{name(:no_wrapper => true)}">
@@ -325,7 +326,7 @@
     </content-header:>
 
     <content-body: param>
-      <field-list fields="scan_ex" param/>
+      <field-list fields="stab_time, proto_rev, ls1_va, ls2_va, ls3_va, ls1_vh, ls2_vh, ls3_vh, ls1_vi, ls2_vi, ls3_vi, ls1_scale, ls2_scale, ls3_scale, ls1_min, ls2_min, ls3_min, ls1_max, ls2_max, ls3_max, ls1_zero, ls2_zero, ls3_zero, scan_ex" param/>
       <section param="collection-section">
         <h3 param="collection-heading">
           <ht key="scan_ex_log.collection.heading" count="&this.scan_ex_logs.count" >
@@ -453,6 +454,7 @@
     </content-header:>
 
     <content-body: param>
+      <field-list fields="step, x, y, x_coord, y_coord, mx, my, mcomp, timestr, dtinit, dtend, mx_fdback, my_fdback, mcomp_fdback" param/>
     </content-body:>
 
   </page>
@@ -594,7 +596,7 @@
     </content-header:>
 
     <content-body: param>
-      <field-list fields="scan" param/>
+      <field-list fields="step_size_x, step_min_x, step_number_x, step_dir_x, step_init_x, step_size_y, step_min_y, step_number_y, step_dir_y, step_init_y, step_init_coord, repetitions, scan" param/>
       <section param="collection-section">
         <h3 param="collection-heading">
           <ht key="scan_eng_run.collection.heading" count="&this.scan_eng_runs.count" >
@@ -828,7 +830,7 @@
         </ht>
       </h2>
 
-      <record-flags fields="" param/>
+      <record-flags fields="double_sampling" param/>
 
       <a action="edit" if="&can_edit?" param="edit-link">
         <ht key="scan.actions.edit" name="#{name(:no_wrapper => true)}">
@@ -1168,7 +1170,7 @@
         </ht>
       </h2>
 
-      <record-flags fields="" param/>
+      <record-flags fields="administrator" param/>
 
       <a action="edit" if="&can_edit?" param="edit-link">
         <ht key="user.actions.edit" name="#{name(:no_wrapper => true)}">
@@ -1178,6 +1180,7 @@
     </content-header:>
 
     <content-body: param>
+      <field-list fields="email_address, state" param/>
     </content-body:>
 
   </page>
@@ -1331,6 +1334,7 @@
     </content-header:>
 
     <content-body: param>
+      <field-list fields="size_x, size_y" param/>
     </content-body:>
 
   </page>
