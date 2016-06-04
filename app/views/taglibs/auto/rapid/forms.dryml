@@ -4,7 +4,7 @@
 <def tag="form" for="Fov">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="name, size_x, size_y" param/>
+    <field-list fields="" param/>
     <div param="actions">
       <submit label="#{ht 'fov.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
@@ -16,7 +16,7 @@
 <def tag="form" for="RasterScanType">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="name, description" param/>
+    <field-list fields="" param/>
     <div param="actions">
       <submit label="#{ht 'raster_scan_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
@@ -28,7 +28,7 @@
 <def tag="form" for="ScanEngRun">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="name, use_cam, stab_time, use_sim, proto_rev, ls1_va, ls2_va, ls3_va, ls1_vh, ls2_vh, ls3_vh, ls1_vi, ls2_vi, ls3_vi, ls1_scale, ls2_scale, ls3_scale, ls1_min, ls2_min, ls3_min, ls1_max, ls2_max, ls3_max, ls1_zero, ls2_zero, ls3_zero, scan_ex" param/>
+    <field-list fields="scan_ex" param/>
     <div param="actions">
       <submit label="#{ht 'scan_eng_run.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
@@ -40,7 +40,7 @@
 <def tag="form" for="ScanExLog">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="step, x, y, x_coord, y_coord, mx, my, mcomp, timestr, dtinit, dtend, mx_fdback, my_fdback, mcomp_fdback, scan_eng_run" param/>
+    <field-list fields="scan_eng_run" param/>
     <div param="actions">
       <submit label="#{ht 'scan_ex_log.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
@@ -52,7 +52,7 @@
 <def tag="form" for="ScanEx">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="name, step_size_x, step_min_x, step_number_x, step_dir_x, step_init_x, step_size_y, step_min_y, step_number_y, step_dir_y, step_init_y, step_init_coord, repetitions, scan" param/>
+    <field-list fields="scan" param/>
     <div param="actions">
       <submit label="#{ht 'scan_ex.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
@@ -64,7 +64,7 @@
 <def tag="form" for="ScanType">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="name, description" param/>
+    <field-list fields="" param/>
     <div param="actions">
       <submit label="#{ht 'scan_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
@@ -76,7 +76,7 @@
 <def tag="form" for="Scan">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="double_sampling, fov, scan_type, window" param/>
+    <field-list fields="fov, scan_type, window" param/>
     <div param="actions">
       <submit label="#{ht 'scan.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
@@ -88,7 +88,7 @@
 <def tag="form" for="SerpentScanType">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="name, description" param/>
+    <field-list fields="" param/>
     <div param="actions">
       <submit label="#{ht 'serpent_scan_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
@@ -100,7 +100,7 @@
 <def tag="form" for="SpiralScanType">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="name, description" param/>
+    <field-list fields="" param/>
     <div param="actions">
       <submit label="#{ht 'spiral_scan_type.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
@@ -112,7 +112,7 @@
 <def tag="form" for="User">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="name, email_address, administrator, state" param/>
+    <field-list fields="" param/>
     <div param="actions">
       <submit label="#{ht 'user.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
@@ -145,7 +145,7 @@
 <def tag="form" for="Window">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="name, size_x, size_y" param/>
+    <field-list fields="" param/>
     <div param="actions">
       <submit label="#{ht 'window.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
