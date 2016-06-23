@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160603110152) do
+ActiveRecord::Schema.define(version: 20160623094717) do
 
   create_table "fovs", force: :cascade do |t|
     t.string   "name"
@@ -52,6 +52,9 @@ ActiveRecord::Schema.define(version: 20160603110152) do
     t.integer  "ls1_zero"
     t.integer  "ls2_zero"
     t.integer  "ls3_zero"
+    t.float    "comp_factor_x", default: 1.0
+    t.float    "comp_factor_y", default: 1.0
+    t.float    "comp_divisor",  default: 2.0
   end
 
   add_index "scan_eng_runs", ["scan_ex_id"], name: "index_scan_eng_runs_on_scan_ex_id"

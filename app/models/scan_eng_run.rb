@@ -29,6 +29,9 @@ class ScanEngRun < ActiveRecord::Base
     ls1_zero       :integer
     ls2_zero       :integer
     ls3_zero       :integer
+    comp_factor_x  :float, :default => 1.0
+    comp_factor_y  :float, :default => 1.0
+    comp_divisor   :float, :default => 2.0
     
     timestamps
   end
@@ -37,7 +40,7 @@ class ScanEngRun < ActiveRecord::Base
     :ls3_va, :ls1_vh, :ls2_vh, :ls3_vh, :ls1_vi, :ls2_vi, 
     :ls3_vi, :ls1_scale, :ls2_scale, :ls3_scale, :ls1_min, 
     :ls2_min, :ls3_min, :ls1_max, :ls2_max, :ls3_max, :ls1_zero, :ls2_zero, 
-    :ls3_zero
+    :ls3_zero, :comp_factor_x, :comp_factor_y, :comp_divisor
 
   belongs_to :scan_ex, :inverse_of => :scan_eng_runs
   has_many :scan_ex_logs, :dependent => :destroy, :inverse_of => :scan_eng_run
