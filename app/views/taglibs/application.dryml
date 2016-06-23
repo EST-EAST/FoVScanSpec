@@ -53,7 +53,7 @@ you can place common code in this file. -->
         </content-header:>
 
         <content-body: param>
-            <field-list fields="stab_time, proto_rev, ls1_va, ls2_va, ls3_va, ls1_vh, ls2_vh, ls3_vh, ls1_vi, ls2_vi, ls3_vi, ls1_scale, ls2_scale, ls3_scale, ls1_min, ls2_min, ls3_min, ls1_max, ls2_max, ls3_max, ls1_zero, ls2_zero, ls3_zero, scan_ex" param/>
+            <field-list fields="stab_time, proto_rev, ls1_va, ls2_va, ls3_va, ls1_vh, ls2_vh, ls3_vh, ls1_vi, ls2_vi, ls3_vi, ls1_scale, ls2_scale, ls3_scale, ls1_min, ls2_min, ls3_min, ls1_max, ls2_max, ls3_max, ls1_zero, ls2_zero, ls3_zero, comp_factor_x, comp_factor_y, comp_divisor, scan_ex" param/>
             <section param="collection-section">
                 <h3 param="collection-heading">
                     <ht key="scan_ex_log.collection.heading" count="&this.scan_ex_logs.count" >
