@@ -81,8 +81,9 @@ sqlsentence2 = "INSERT INTO \"scan_eng_runs\" (\"name\", \"scan_ex_id\", " + \
     "\"ls1_min\", \"ls2_min\", \"ls3_min\", " + \
     "\"ls1_max\", \"ls2_max\", \"ls3_max\", " + \
     "\"ls1_zero\", \"ls2_zero\", \"ls3_zero\", " + \
+    "\"comp_factor_x\", \"comp_factor_y\", \"comp_divisor\", " + \
     "\"created_at\", \"updated_at\") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?," + \
-    "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
+    "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
 
 sqlprepare2 = "CREATE TABLE IF NOT EXISTS \"scan_eng_runs\" (\"id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + \
     "\"name\" varchar, \"created_at\" datetime, \"updated_at\" datetime, \"scan_ex_id\" integer, " + \
@@ -90,7 +91,8 @@ sqlprepare2 = "CREATE TABLE IF NOT EXISTS \"scan_eng_runs\" (\"id\" INTEGER PRIM
     "\"ls2_va\" float, \"ls3_va\" float, \"ls1_vh\" float, \"ls2_vh\" float, \"ls3_vh\" float, \"ls1_vi\" float, " + \
     "\"ls2_vi\" float, \"ls3_vi\" float, \"ls1_scale\" float, \"ls2_scale\" float, \"ls3_scale\" float, " + \
     "\"ls1_min\" integer, \"ls2_min\" integer, \"ls3_min\" integer, \"ls1_max\" integer, \"ls2_max\" integer, " + \
-    "\"ls3_max\" integer, \"ls1_zero\" integer, \"ls2_zero\" integer, \"ls3_zero\" integer);"
+    "\"ls3_max\" integer, \"ls1_zero\" integer, \"ls2_zero\" integer, \"ls3_zero\" integer, " + \
+    "\"comp_factor_x\" float, \"comp_factor_y\" float, \"comp_divisor\" float);"
 firstDbSentence = True
 sweep_eng_run_id = None
 
@@ -118,6 +120,7 @@ def dbinsert(dbcon, cur_step, step_x, step_y, step_x_coord, step_y_coord, mx_set
                 sws.cte_lsx_min, sws.cte_lsy_min, sws.cte_lscomp_min,
                 sws.cte_lsx_max, sws.cte_lsy_max, sws.cte_lscomp_max,
                 sws.cte_lsx_zero, sws.cte_lsy_zero, sws.cte_lscomp_zero,
+                sws.cte_comp_factor_x, sws.cte_comp_factor_y, sws.cte_comp_divisor,
                 dt_end, dt_end]
         if sweepconfig.cte_verbose:
             print(sqlsentence2)
@@ -125,7 +128,7 @@ def dbinsert(dbcon, cur_step, step_x, step_y, step_x_coord, step_y_coord, mx_set
         run_id = dbcon.lastrowid
         firstDbSentence = False
         if sweepconfig.cte_export_ods:
-            engrunsheet[0, 0:30].values = ["id", "name", "scan_ex_id", "use_cam", "stab_time",
+            engrunsheet[0, 0:33].values = ["id", "name", "scan_ex_id", "use_cam", "stab_time",
                                           "use_sim", "proto_rev",
                                           "ls1_va", "ls2_va", "ls3_va",
                                           "ls1_vh", "ls2_vh", "ls3_vh",
@@ -134,6 +137,7 @@ def dbinsert(dbcon, cur_step, step_x, step_y, step_x_coord, step_y_coord, mx_set
                                           "ls1_min", "ls2_min", "ls3_min",
                                           "ls1_max", "ls2_max", "ls3_max",
                                           "ls1_zero", "ls2_zero", "ls3_zero",
+                                          "comp_factor_x", "comp_factor_y", "comp_divisor",
                                           "created_at", "updated_at"]
             engrunsheet[1, 0].value = run_id
             item = [timestamp, ex_id,
@@ -145,9 +149,10 @@ def dbinsert(dbcon, cur_step, step_x, step_y, step_x_coord, step_y_coord, mx_set
                     sws.cte_lsx_min, sws.cte_lsy_min, sws.cte_lscomp_min,
                     sws.cte_lsx_max, sws.cte_lsy_max, sws.cte_lscomp_max,
                     sws.cte_lsx_zero, sws.cte_lsy_zero, sws.cte_lscomp_zero,
+                    sws.cte_comp_factor_x, sws.cte_comp_factor_y, sws.cte_comp_divisor,
                     sdtcam, sdtcam]
 
-            engrunsheet[1, 1:30].values = item
+            engrunsheet[1, 1:33].values = item
             exlogsheet[0, 0:18].values = ["id", "step", "x", "y", "x_coord", "y_coord", "mx", "my", "mcomp",
                                           "mx_fdback", "my_fdback", "mcomp_fdback", "timestr", "scan_eng_run_id",
                                           "dtinit", "dtend", "created_at", "updated_at"]
@@ -162,8 +167,9 @@ def dbinsert(dbcon, cur_step, step_x, step_y, step_x_coord, step_y_coord, mx_set
                                           "ls1_min", "ls2_min", "ls3_min",
                                           "ls1_max", "ls2_max", "ls3_max",
                                           "ls1_zero", "ls2_zero", "ls3_zero",
+                                          "comp_factor_x", "comp_factor_y", "comp_divisor",
                                           "created_at", "updated_at"]
-            for row in engrunsheet.iter_rows('A1:AD1'):
+            for row in engrunsheet.iter_rows('A1:AG1'):
                 for cell in row:
                     cell.value = item[idx]
                     idx += 1
@@ -178,8 +184,9 @@ def dbinsert(dbcon, cur_step, step_x, step_y, step_x_coord, step_y_coord, mx_set
                     sws.cte_lsx_min, sws.cte_lsy_min, sws.cte_lscomp_min,
                     sws.cte_lsx_max, sws.cte_lsy_max, sws.cte_lscomp_max,
                     sws.cte_lsx_zero, sws.cte_lsy_zero, sws.cte_lscomp_zero,
+                    sws.cte_comp_factor_x, sws.cte_comp_factor_y, sws.cte_comp_divisor,
                     sdtcam, sdtcam]
-            for row in engrunsheet.iter_rows('B2:AD2'):
+            for row in engrunsheet.iter_rows('B2:AG2'):
                 for cell in row:
                     if sweepconfig.cte_verbose:
                         print("idx: " + str(idx))
