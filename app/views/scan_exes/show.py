@@ -64,7 +64,7 @@ def stepDone():
 sqlsentence = "INSERT INTO \"scan_ex_logs\" (\"step_order\", \"iteration\", \"step\", \"x\", \"y\", " + \
               "\"x_coord\", \"y_coord\", \"mx\", \"my\", \"mcomp\", \"mx_fdback\", \"my_fdback\", \"mcomp_fdback\", " + \
               "\"timestr\", \"scan_eng_run_id\", \"dtinit\", \"dtend\", \"created_at\", \"updated_at\") VALUES " + \
-              "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
+              "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
 
 sqlprepare = "CREATE TABLE IF NOT EXISTS \"scan_ex_logs\" (\"id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + \
              "\"mx\" float, \"my\" float, \"mcomp\" float, \"created_at\" datetime, \"updated_at\" datetime, " + \
@@ -102,7 +102,7 @@ doc = None
 docrow = 0
 
 
-def dbinsert(dbcon, cur_step_order, cur_iteration, cur_step, step_x, step_y, step_x_coord, step_y_coord, mx_setpoint, my_setpoint, mcomp_setpoint,
+def dbinsert(dbcon, cur_step_order, cur_iter, cur_step, step_x, step_y, step_x_coord, step_y_coord, mx_setpoint, my_setpoint, mcomp_setpoint,
              mx_pos, my_pos, mcomp_pos, timestamp, dt_init, dt_end, ex_id, run_id):
     global firstDbSentence
     global docrow
@@ -153,7 +153,7 @@ def dbinsert(dbcon, cur_step_order, cur_iteration, cur_step, step_x, step_y, ste
                     sdtcam, sdtcam]
 
             engrunsheet[1, 1:33].values = item
-            exlogsheet[0, 0:18].values = ["id", "step_order", "iteration", "step", "x", "y", "x_coord", "y_coord", "mx", "my", "mcomp",
+            exlogsheet[0, 0:20].values = ["id", "step_order", "iteration", "step", "x", "y", "x_coord", "y_coord", "mx", "my", "mcomp",
                                           "mx_fdback", "my_fdback", "mcomp_fdback", "timestr", "scan_eng_run_id",
                                           "dtinit", "dtend", "created_at", "updated_at"]
         if sweepconfig.cte_export_openpyxl:
@@ -198,7 +198,7 @@ def dbinsert(dbcon, cur_step_order, cur_iteration, cur_step, step_x, step_y, ste
                     "dtinit", "dtend", "created_at", "updated_at"]
             idx = 0
             print "**************************************"
-            for row in exlogsheet.iter_rows('A1:R1'):
+            for row in exlogsheet.iter_rows('A1:T1'):
                 for cell in row:
                     cell.value = item[idx]
                     idx += 1
@@ -219,14 +219,14 @@ def dbinsert(dbcon, cur_step_order, cur_iteration, cur_step, step_x, step_y, ste
         item = [cur_step_order, cur_iter, cur_step, step_x, step_y, step_x_coord, step_y_coord, mx_setpoint, my_setpoint, mcomp_setpoint, mx_pos,
                 my_pos, mcomp_pos, timestamp, run_id, sdtinit, sdtcam, sdtcam, sdtcam]
         exlogsheet[docrow, 0].value = dbcon.lastrowid
-        exlogsheet[docrow, 1:18].values = item
+        exlogsheet[docrow, 1:20].values = item
 
     if sweepconfig.cte_export_openpyxl:
         item = [cur_step_order, cur_iter, cur_step, step_x, step_y, step_x_coord, step_y_coord, mx_setpoint, my_setpoint, mcomp_setpoint, mx_pos,
                 my_pos, mcomp_pos, timestamp, run_id, sdtinit, sdtcam, sdtcam, sdtcam]
         exlogsheet['A' + str(docrow + 1)] = dbcon.lastrowid
         idx = 0
-        for row in exlogsheet.iter_rows('B' + str(docrow + 1) + ':R' + str(docrow + 1)):
+        for row in exlogsheet.iter_rows('B' + str(docrow + 1) + ':T' + str(docrow + 1)):
             for cell in row:
                 cell.value = item[idx]
                 idx += 1
