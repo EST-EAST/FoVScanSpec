@@ -1,13 +1,5 @@
 class AddScanexRelationships < ActiveRecord::Migration
   def self.up
-    change_column :fovs, :scans_count, :integer, :null => false, :default => 0
-
-    change_column :windows, :scans_count, :integer, :null => false, :default => 0
-
-    change_column :scan_types, :scans_count, :integer, :null => false, :default => 0
-
-    change_column :users, :administrator, :boolean, :default => false
-
     add_column :scan_exes, :step_init_coord, :string
     add_column :scan_exes, :step_init_x, :float
     add_column :scan_exes, :step_init_y, :float
@@ -20,14 +12,6 @@ class AddScanexRelationships < ActiveRecord::Migration
   end
 
   def self.down
-    change_column :fovs, :scans_count, :integer, default: 0, null: false
-
-    change_column :windows, :scans_count, :integer, default: 0, null: false
-
-    change_column :scan_types, :scans_count, :integer, default: 0, null: false
-
-    change_column :users, :administrator, :boolean, default: false
-
     remove_column :scan_exes, :step_init_coord
     remove_column :scan_exes, :step_init_x
     remove_column :scan_exes, :step_init_y

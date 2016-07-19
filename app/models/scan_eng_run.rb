@@ -29,9 +29,9 @@ class ScanEngRun < ActiveRecord::Base
     ls1_zero       :integer
     ls2_zero       :integer
     ls3_zero       :integer
-    comp_factor_x  :float, :default => 1.0
-    comp_factor_y  :float, :default => 1.0
-    comp_divisor   :float, :default => 2.0
+    comp_factor_x  :float, default:1.0
+    comp_factor_y  :float, default:1.0
+    comp_divisor   :float, default:2.0
     
     timestamps
   end

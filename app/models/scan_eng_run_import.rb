@@ -58,8 +58,14 @@ class ScanEngRunImport
       print "\ntrato "+i.to_s
       row = Hash[[header, ucanca_sheet.row(i)].transpose]
       if (row["step"]!=nil && row["step"]!="")
+        step=row["step"].to_i
+        if (row["step_order"]!=nil && row["step_order"]!="")then
+          sto=row["step_order"]
+        else
+          sto=step
+        end
         scan_eng_run = ScanEngRun.find_by_name(row["timestr"])
-        exlog = scan_eng_run.scan_ex_logs.find_by_id(row["step"]) || ScanExLog.new
+        exlog = scan_eng_run.scan_ex_logs.find_by_step_order(sto) || ScanExLog.new
         exlog.attributes = row.to_hash.slice(*ScanExLog.import_attributes)
         exlog.scan_eng_run=scan_eng_run
         print "\nImportamos: "+exlog.attributes.to_s

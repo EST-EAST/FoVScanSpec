@@ -4,7 +4,7 @@ class Scan < ActiveRecord::Base
 
   fields do
     double_sampling :boolean
-    scan_exes_count :integer, :default => 0, :null => false
+    scan_exes_count :integer, default:0, null:false
     timestamps
   end
   attr_accessible :double_sampling, :fov, :fov_id, :window, :window_id, :scan_type, :scan_type_id

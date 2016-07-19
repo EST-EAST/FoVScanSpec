@@ -310,6 +310,7 @@
     <body: class="show-page scan-eng-run" param/>
 
     <content-header: param>
+      <a:scan_ex param="parent-link">&laquo; <ht key="scan_eng_run.actions.back_to_parent" parent="Scan ex" name="&this">Back to <name/></ht></a:scan_ex>
       <h2 param="heading">
         <ht key="scan_eng_run.show.heading" name="#{name(:no_wrapper => true)}">
           Scan eng run <name/>
@@ -326,7 +327,7 @@
     </content-header:>
 
     <content-body: param>
-      <field-list fields="stab_time, proto_rev, ls1_va, ls2_va, ls3_va, ls1_vh, ls2_vh, ls3_vh, ls1_vi, ls2_vi, ls3_vi, ls1_scale, ls2_scale, ls3_scale, ls1_min, ls2_min, ls3_min, ls1_max, ls2_max, ls3_max, ls1_zero, ls2_zero, ls3_zero, scan_ex" param/>
+      <field-list fields="stab_time, proto_rev, ls1_va, ls2_va, ls3_va, ls1_vh, ls2_vh, ls3_vh, ls1_vi, ls2_vi, ls3_vi, ls1_scale, ls2_scale, ls3_scale, ls1_min, ls2_min, ls3_min, ls1_max, ls2_max, ls3_max, ls1_zero, ls2_zero, ls3_zero, comp_factor_x, comp_factor_y, comp_divisor" param/>
       <section param="collection-section">
         <h3 param="collection-heading">
           <ht key="scan_ex_log.collection.heading" count="&this.scan_ex_logs.count" >
@@ -454,7 +455,7 @@
     </content-header:>
 
     <content-body: param>
-      <field-list fields="step, x, y, x_coord, y_coord, mx, my, mcomp, timestr, dtinit, dtend, mx_fdback, my_fdback, mcomp_fdback" param/>
+      <field-list fields="iteration, step, step_order, x, y, x_coord, y_coord, mx, my, mcomp, timestr, dtinit, dtend, mx_fdback, my_fdback, mcomp_fdback" param/>
     </content-body:>
 
   </page>

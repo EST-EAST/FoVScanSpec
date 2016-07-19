@@ -30,18 +30,6 @@ class EngrunAttributesUpdated < ActiveRecord::Migration
     remove_column :scan_eng_runs, :max_l1_speed
     remove_column :scan_eng_runs, :max_l2_speed
     remove_column :scan_eng_runs, :max_l3_speed
-
-    change_column :scan_exes, :scan_eng_runs_count, :integer, :null => false, :default => 0
-
-    change_column :scans, :scan_exes_count, :integer, :null => false, :default => 0
-
-    change_column :fovs, :scans_count, :integer, :null => false, :default => 0
-
-    change_column :windows, :scans_count, :integer, :null => false, :default => 0
-
-    change_column :scan_types, :scans_count, :integer, :null => false, :default => 0
-
-    change_column :users, :administrator, :boolean, :default => false
   end
 
   def self.down
@@ -73,18 +61,6 @@ class EngrunAttributesUpdated < ActiveRecord::Migration
     add_column :scan_eng_runs, :max_l1_speed, :float
     add_column :scan_eng_runs, :max_l2_speed, :float
     add_column :scan_eng_runs, :max_l3_speed, :float
-
-    change_column :scan_exes, :scan_eng_runs_count, :integer, default: 0, null: false
-
-    change_column :scans, :scan_exes_count, :integer, default: 0, null: false
-
-    change_column :fovs, :scans_count, :integer, default: 0, null: false
-
-    change_column :windows, :scans_count, :integer, default: 0, null: false
-
-    change_column :scan_types, :scans_count, :integer, default: 0, null: false
-
-    change_column :users, :administrator, :boolean, default: false
 
     create_table "sweep_ex_logs", force: :cascade do |t|
       t.float    "mx"

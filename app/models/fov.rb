@@ -6,7 +6,7 @@ class Fov < ActiveRecord::Base
     name   :string
     size_x :float
     size_y :float
-    scans_count :integer, :default => 0, :null => false
+    scans_count :integer, default: 0, null: false
     timestamps
   end
   attr_accessible :name, :size_x, :size_y, :scans

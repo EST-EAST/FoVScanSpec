@@ -6,20 +6,6 @@ class AddMotorFeedbackToLogs < ActiveRecord::Migration
     add_column :scan_ex_logs, :m1_fdback, :float
     add_column :scan_ex_logs, :m2_fdback, :float
     add_column :scan_ex_logs, :m3_fdback, :float
-
-    change_column :scan_eng_runs, :scan_ex_logs_count, :integer, :null => false, :default => 0
-
-    change_column :scan_exes, :scan_eng_runs_count, :integer, :null => false, :default => 0
-
-    change_column :scans, :scan_exes_count, :integer, :null => false, :default => 0
-
-    change_column :fovs, :scans_count, :integer, :null => false, :default => 0
-
-    change_column :windows, :scans_count, :integer, :null => false, :default => 0
-
-    change_column :scan_types, :scans_count, :integer, :null => false, :default => 0
-
-    change_column :users, :administrator, :boolean, :default => false
   end
 
   def self.down
@@ -29,19 +15,5 @@ class AddMotorFeedbackToLogs < ActiveRecord::Migration
     remove_column :scan_ex_logs, :m1_fdback
     remove_column :scan_ex_logs, :m2_fdback
     remove_column :scan_ex_logs, :m3_fdback
-
-    change_column :scan_eng_runs, :scan_ex_logs_count, :integer, default: 0, null: false
-
-    change_column :scan_exes, :scan_eng_runs_count, :integer, default: 0, null: false
-
-    change_column :scans, :scan_exes_count, :integer, default: 0, null: false
-
-    change_column :fovs, :scans_count, :integer, default: 0, null: false
-
-    change_column :windows, :scans_count, :integer, default: 0, null: false
-
-    change_column :scan_types, :scans_count, :integer, default: 0, null: false
-
-    change_column :users, :administrator, :boolean, default: false
   end
 end

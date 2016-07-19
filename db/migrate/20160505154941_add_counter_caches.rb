@@ -5,8 +5,6 @@ class AddCounterCaches < ActiveRecord::Migration
     add_column :windows, :scans_count, :integer, :default => 0, :null => false
 
     add_column :scan_types, :scans_count, :integer, :default => 0, :null => false
-
-    change_column :users, :administrator, :boolean, :default => false
   end
 
   def self.down
@@ -15,7 +13,5 @@ class AddCounterCaches < ActiveRecord::Migration
     remove_column :windows, :scans_count
 
     remove_column :scan_types, :scans_count
-
-    change_column :users, :administrator, :boolean, default: false
   end
 end

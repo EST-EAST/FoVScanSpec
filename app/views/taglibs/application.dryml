@@ -151,7 +151,7 @@ you can place common code in this file. -->
                                   y.addOrderRule("y");
                                   myChart.addSeries("step", dimple.plot.bubble);
                                   var s = myChart.addSeries(["step"], dimple.plot.line);
-                                  s.addOrderRule("step");
+                                  s.addOrderRule("step_order");
                                   s.aggregate = dimple.aggregateMethod.avg;
                                   //myChart.addLegend(180, 10, 360, 20, "right");
                                   //var s = myChart.addSeries("step", dimple.plot.line);

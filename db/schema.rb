@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160623094717) do
+ActiveRecord::Schema.define(version: 20160719103050) do
 
   create_table "fovs", force: :cascade do |t|
     t.string   "name"
@@ -77,6 +77,8 @@ ActiveRecord::Schema.define(version: 20160623094717) do
     t.float    "mx_fdback"
     t.float    "my_fdback"
     t.float    "mcomp_fdback"
+    t.integer  "iteration",       default: 0
+    t.integer  "step_order"
   end
 
   add_index "scan_ex_logs", ["scan_eng_run_id"], name: "index_scan_ex_logs_on_scan_eng_run_id"

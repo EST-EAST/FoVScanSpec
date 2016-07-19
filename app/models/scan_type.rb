@@ -5,7 +5,7 @@ class ScanType < ActiveRecord::Base
   fields do
     name        :string
     description :text
-    scans_count :integer, :default => 0, :null => false
+    scans_count :integer, default:0, null:false
     type        :string
     timestamps
   end

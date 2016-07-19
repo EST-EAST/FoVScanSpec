@@ -23,7 +23,7 @@ class ScanEx < ActiveRecord::Base
 
     step_init_coord  ScanEx::ScanCoord
     repetitions      :integer
-    scan_eng_runs_count :integer, :default => 0, :null => false
+    scan_eng_runs_count :integer, default:0, null:false
     timestamps
   end
 
@@ -132,13 +132,16 @@ class ScanEx < ActiveRecord::Base
   def step_list_py
     slist = step_coords_list
     ret = ""
-    slist.each { |s|
-      ret+="{ 'c': ("+s[:c].to_s+"),"
-      ret+="'x': ("+s[:x].to_s+"),"
-      ret+="'y': ("+s[:y].to_s+"),"
-      ret+="'x_coord': ("+s[:x_coord].to_s+"),"
-      ret+="'y_coord': ("+s[:y_coord].to_s+") },"    
-    }
+    self.repetitions.times do |i|
+      slist.each { |s|
+        ret+="{ 'i': ("+i.to_s+"),"
+        ret+="'c': ("+s[:c].to_s+"),"
+        ret+="'x': ("+s[:x].to_s+"),"
+        ret+="'y': ("+s[:y].to_s+"),"
+        ret+="'x_coord': ("+s[:x_coord].to_s+"),"
+        ret+="'y_coord': ("+s[:y_coord].to_s+") },"    
+      }
+    end
     return ret
   end
   
