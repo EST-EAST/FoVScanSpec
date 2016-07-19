@@ -372,8 +372,8 @@ while (done != -1) and (curStep < endStep):
             gphoto2capture.capture(sweepconfig.cte_gphoto2_framePath, strg, False)
             capture_done = True
 
-	# Shots a second picture after second stabilization time
-	if sweepconfig.cte_second_picture:
+        # Shots a second picture after second stabilization time
+        if sweepconfig.cte_second_picture:
             sleep(sweepconfig.cte_stabilization_time_pic2)
             if sweepconfig.cte_use_cvcam:
                 ret, frame = cam.read()
@@ -430,3 +430,4 @@ if sweepconfig.cte_use_cvcam:
     cv2.destroyAllWindows()
 
 sws.motorClose()
+
