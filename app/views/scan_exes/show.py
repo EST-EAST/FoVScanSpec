@@ -49,6 +49,13 @@ def commandMotor(x, y):
     return sws.commandMotor(x, y)
 
 
+# ## Commands the motor to a given position
+def commandMotorUnits(x, y, z):
+    if sweepconfig.cte_verbose:
+       print ("Command Motor in raw units X: " + str(x) + " Y: " + str(y) + " Z: " + str(z))
+    return sws.commandMotorUnits(x, y, z)
+
+
 # ## Investigate if the current movement has been executed
 # ## you can also include here the user interaction, allowing
 # ## him/her to quit the scanning operation
@@ -64,7 +71,7 @@ def stepDone():
 sqlsentence = "INSERT INTO \"scan_ex_logs\" (\"step_order\", \"iteration\", \"step\", \"x\", \"y\", " + \
               "\"x_coord\", \"y_coord\", \"z_coord\", \"mx\", \"my\", \"mcomp\", \"mx_fdback\", \"my_fdback\", \"mcomp_fdback\", " + \
               "\"timestr\", \"scan_eng_run_id\", \"dtinit\", \"dtend\", \"created_at\", \"updated_at\") VALUES " + \
-              "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
+              "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
 
 sqlprepare = "CREATE TABLE IF NOT EXISTS \"scan_ex_logs\" (\"id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + \
              "\"mx\" float, \"my\" float, \"mcomp\" float, \"created_at\" datetime, \"updated_at\" datetime, " + \
@@ -335,6 +342,7 @@ if not ret:
 # until ESC key is pressed
 # or steps have finished
 endStep = len(steps)
+
 # endStep = 4
 while (done != -1) and (curStep < endStep):
     # In stepX and stepY we have the step positions to be done
@@ -347,7 +355,7 @@ while (done != -1) and (curStep < endStep):
     stepZcoord = steps[curStep]['z_coord']
     # Command motor position for this step
     dtinit = datetime.now()
-    if (cte_use_raw_units):
+    if (not(cte_use_raw_units)):
         if (cte_z_y_exchange):
             done, mx, my, mcomp = commandMotor(stepXcoord, stepZcoord)
         else:
@@ -356,11 +364,11 @@ while (done != -1) and (curStep < endStep):
         if (cte_z_y_exchange):
             done, mx, my, mcomp = commandMotorUnits(stepXcoord, stepZcoord, stepYcoord)
         else:
-            done, mx, my, mcomp = commandMotorUnits(stepXcoord, stepYcoord, stepZcoord)        
+            done, mx, my, mcomp = commandMotorUnits(stepXcoord, stepYcoord, stepZcoord)
     # Wait command to end
     while done == 0:
         done = stepDone()
-    # END Command motor position for this step    
+    # END Command motor position for this step
     if done != -1:
         # Acquire image
         dtcam = datetime.now()
@@ -427,7 +435,7 @@ while (done != -1) and (curStep < endStep):
         mx_fdback, my_fdback, mcomp_fdback = sws.motorPositions()
         print ("Iteration: "+str(iteration)+"Step: "+str(step)+" Motor | mx: " + str(mx_fdback) + ", my: " + str(my_fdback) + ", mcomp: " + str(mcomp_fdback))
         # BD information store
-        sweep_eng_run_id = dbinsert(dbc, curStep, iteration, step, stepX, stepY, stepXcoord, stepYcoord, mx, my, mcomp, mx_fdback,
+        sweep_eng_run_id = dbinsert(dbc, curStep, iteration, step, stepX, stepY, stepXcoord, stepYcoord, stepZcoord, mx, my, mcomp, mx_fdback,
                                     my_fdback, mcomp_fdback, timestr, dtinit, dtcam, sweep_ex_id, sweep_eng_run_id)
         curStep += 1
 
