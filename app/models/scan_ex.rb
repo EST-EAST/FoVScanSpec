@@ -24,10 +24,11 @@ class ScanEx < ActiveRecord::Base
     step_init_coord  ScanEx::ScanCoord
     repetitions      :integer
     scan_eng_runs_count :integer, default:0, null:false
+    z_y_exchange     :boolean, :default => false
     timestamps
   end
 
-  attr_accessible :name, :step_size_x, :step_min_x, :step_number_x, :step_dir_x, :step_size_y, :step_min_y, :step_number_y, :step_dir_y, :step_init_coord, :step_init_x, :step_init_y, :repetitions, :scan, :scan_id
+  attr_accessible :name, :step_size_x, :step_min_x, :step_number_x, :step_dir_x, :step_size_y, :step_min_y, :step_number_y, :step_dir_y, :step_init_coord, :step_init_x, :step_init_y, :repetitions, :scan, :scan_id, :z_y_exchange
 
   belongs_to :scan, :inverse_of => :scan_exes, :counter_cache => true
 
@@ -161,9 +162,20 @@ class ScanEx < ActiveRecord::Base
   
   def to_svg
     # Prepare the values to draw
-    scale=5000
+    if self.z_y_exchange then
+      scale=80.0*(1.0/[scan.fov.size_x,scan.fov.size_z].min)
+    else
+      scale=80.0*(1.0/[scan.fov.size_x,scan.fov.size_y].min)
+    end
+    
+    zerox,zeroy,zeroz = scan.fov.zero
+    zerox *= scale
+    zeroy *= scale
+    zeroz *= scale
+    
     x=scan.fov.size_x * scale
     y=scan.fov.size_y * scale
+    z=scan.fov.size_z * scale
 
     winx=scan.window.size_x * scale
     winy=scan.window.size_y * scale
@@ -174,19 +186,40 @@ class ScanEx < ActiveRecord::Base
     stepx=self.step_size_x * scale
     stepy=self.step_size_y * scale
 
+    if (scan.fov.inverse_x) then
+      zerox=-zerox
+      initx=-initx
+      stepx=-stepx
+    end
+    if (scan.fov.inverse_y) then
+      zeroy=-zeroy
+      inity=-inity
+      stepy=-stepy
+    end
+    if (scan.fov.inverse_z) then
+      zeroz=-zeroz
+      initz=-initz
+      stepz=-stepz
+    end
+    
+    if self.z_y_exchange==true then
+      y = z
+      zeroy = zeroz
+    end
+    
     # Create the XML tree
     b = Nokogiri::XML::Builder.new do |doc|
-      box=(-(x/2)).to_s+" "+(-(y/2)).to_s+" "+(x*1.1).to_s+" "+(y*1.1).to_s
+      box=(-zerox).to_s+" "+(-zeroy).to_s+" "+((x)*1.5).to_s+" "+((y)*1.5).to_s
       doc.svg xmlns:"http://www.w3.org/2000/svg", viewBox:box do
         # Draw a reticle with red lines
-        dm="m "+(-x/2).to_s+" 0 h "+x.to_s
+        dm="m "+(-zerox).to_s+" 0 h "+x.to_s
         streticle="stroke:red;stroke-width:0.1"
         doc.path d:dm, id:"Xaxis", style:streticle
-        dm="m 0 "+(-y/2).to_s+" v "+y.to_s
+        dm="m 0 "+(-zeroy).to_s+" v "+y.to_s
         doc.path d:dm, id:"Yaxis", style:streticle
         # Print the FoV
         stfov="opacity:0.18300003;fill:#abc9ff;fill-opacity:1;stroke:#000000;stroke-width:0.55699998;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-        doc.rect x:(-x/2), y:(-y/2), width:x, height:y, style:stfov, id:"fov"
+        doc.rect x:(-zerox), y:(-zeroy), width:x, height:y, style:stfov, id:"fov"
         # Print the window
         doc.rect x:(-winx/2), y:(-winy/2), width:winx, height:winy, style:stfov, id:"window"
 

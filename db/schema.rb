@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160719103050) do
+ActiveRecord::Schema.define(version: 20160728190119) do
 
   create_table "fovs", force: :cascade do |t|
     t.string   "name"
@@ -19,7 +19,14 @@ ActiveRecord::Schema.define(version: 20160719103050) do
     t.float    "size_y"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "scans_count", default: 0, null: false
+    t.integer  "scans_count", default: 0,     null: false
+    t.float    "zero_x"
+    t.float    "zero_y"
+    t.boolean  "inverse_x",   default: false
+    t.boolean  "inverse_y",   default: false
+    t.float    "size_z"
+    t.float    "zero_z"
+    t.boolean  "inverse_z",   default: false
   end
 
   create_table "scan_eng_runs", force: :cascade do |t|
@@ -98,9 +105,10 @@ ActiveRecord::Schema.define(version: 20160719103050) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "scan_id"
-    t.integer  "scan_eng_runs_count", default: 0, null: false
+    t.integer  "scan_eng_runs_count", default: 0,     null: false
     t.integer  "step_min_x"
     t.integer  "step_min_y"
+    t.boolean  "z_y_exchange",        default: false
   end
 
   add_index "scan_exes", ["scan_id"], name: "index_scan_exes_on_scan_id"
