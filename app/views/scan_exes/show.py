@@ -62,14 +62,14 @@ def stepDone():
 
 
 sqlsentence = "INSERT INTO \"scan_ex_logs\" (\"step_order\", \"iteration\", \"step\", \"x\", \"y\", " + \
-              "\"x_coord\", \"y_coord\", \"mx\", \"my\", \"mcomp\", \"mx_fdback\", \"my_fdback\", \"mcomp_fdback\", " + \
+              "\"x_coord\", \"y_coord\", \"z_coord\", \"mx\", \"my\", \"mcomp\", \"mx_fdback\", \"my_fdback\", \"mcomp_fdback\", " + \
               "\"timestr\", \"scan_eng_run_id\", \"dtinit\", \"dtend\", \"created_at\", \"updated_at\") VALUES " + \
               "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
 
 sqlprepare = "CREATE TABLE IF NOT EXISTS \"scan_ex_logs\" (\"id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + \
              "\"mx\" float, \"my\" float, \"mcomp\" float, \"created_at\" datetime, \"updated_at\" datetime, " + \
              "\"scan_eng_run_id\" integer, \"step_order\" integer, \"iteration\" integer, \"step\" integer, \"x\" integer, \"y\" integer, " + \
-             "\"x_coord\" float, \"y_coord\" float, \"timestr\" varchar, \"dtinit\" datetime, \"dtend\" datetime, " + \
+             "\"x_coord\" float, \"y_coord\" float, \"z_coord\" float, \"timestr\" varchar, \"dtinit\" datetime, \"dtend\" datetime, " + \
              "\"mx_fdback\" float, \"my_fdback\" float, \"mcomp_fdback\" float);"
 
 sqlsentence2 = "INSERT INTO \"scan_eng_runs\" (\"name\", \"scan_ex_id\", " + \
@@ -102,7 +102,7 @@ doc = None
 docrow = 0
 
 
-def dbinsert(dbcon, cur_step_order, cur_iter, cur_step, step_x, step_y, step_x_coord, step_y_coord, mx_setpoint, my_setpoint, mcomp_setpoint,
+def dbinsert(dbcon, cur_step_order, cur_iter, cur_step, step_x, step_y, step_x_coord, step_y_coord, step_z_coord, mx_setpoint, my_setpoint, mcomp_setpoint,
              mx_pos, my_pos, mcomp_pos, timestamp, dt_init, dt_end, ex_id, run_id):
     global firstDbSentence
     global docrow
@@ -153,7 +153,7 @@ def dbinsert(dbcon, cur_step_order, cur_iter, cur_step, step_x, step_y, step_x_c
                     sdtcam, sdtcam]
 
             engrunsheet[1, 1:33].values = item
-            exlogsheet[0, 0:20].values = ["id", "step_order", "iteration", "step", "x", "y", "x_coord", "y_coord", "mx", "my", "mcomp",
+            exlogsheet[0, 0:21].values = ["id", "step_order", "iteration", "step", "x", "y", "x_coord", "y_coord", "z_coord", "mx", "my", "mcomp",
                                           "mx_fdback", "my_fdback", "mcomp_fdback", "timestr", "scan_eng_run_id",
                                           "dtinit", "dtend", "created_at", "updated_at"]
         if sweepconfig.cte_export_openpyxl:
@@ -193,12 +193,12 @@ def dbinsert(dbcon, cur_step_order, cur_iter, cur_step, step_x, step_y, step_x_c
                     cell.value = item[idx]
                     idx += 1
 
-            item = ["id", "step_order", "iteration", "step", "x", "y", "x_coord", "y_coord", "mx", "my", "mcomp",
+            item = ["id", "step_order", "iteration", "step", "x", "y", "x_coord", "y_coord", "z_coord", "mx", "my", "mcomp",
                     "mx_fdback", "my_fdback", "mcomp_fdback", "timestr", "scan_eng_run_id",
                     "dtinit", "dtend", "created_at", "updated_at"]
             idx = 0
             print "**************************************"
-            for row in exlogsheet.iter_rows('A1:T1'):
+            for row in exlogsheet.iter_rows('A1:U1'):
                 for cell in row:
                     cell.value = item[idx]
                     idx += 1
@@ -211,22 +211,22 @@ def dbinsert(dbcon, cur_step_order, cur_iter, cur_step, step_x, step_y, step_x_c
 
         docrow += 1
 
-    item = [cur_step_order, cur_iter, cur_step, step_x, step_y, step_x_coord, step_y_coord, mx_setpoint, my_setpoint, mcomp_setpoint, mx_pos,
+    item = [cur_step_order, cur_iter, cur_step, step_x, step_y, step_x_coord, step_y_coord, step_z_coord, mx_setpoint, my_setpoint, mcomp_setpoint, mx_pos,
             my_pos, mcomp_pos, timestamp, run_id, dt_init, dt_end, dt_end, dt_end]
     dbcon.execute(sqlsentence, item)
 
     if sweepconfig.cte_export_ods:
-        item = [cur_step_order, cur_iter, cur_step, step_x, step_y, step_x_coord, step_y_coord, mx_setpoint, my_setpoint, mcomp_setpoint, mx_pos,
+        item = [cur_step_order, cur_iter, cur_step, step_x, step_y, step_x_coord, step_y_coord, step_z_coord, mx_setpoint, my_setpoint, mcomp_setpoint, mx_pos,
                 my_pos, mcomp_pos, timestamp, run_id, sdtinit, sdtcam, sdtcam, sdtcam]
         exlogsheet[docrow, 0].value = dbcon.lastrowid
-        exlogsheet[docrow, 1:20].values = item
+        exlogsheet[docrow, 1:21].values = item
 
     if sweepconfig.cte_export_openpyxl:
-        item = [cur_step_order, cur_iter, cur_step, step_x, step_y, step_x_coord, step_y_coord, mx_setpoint, my_setpoint, mcomp_setpoint, mx_pos,
+        item = [cur_step_order, cur_iter, cur_step, step_x, step_y, step_x_coord, step_y_coord, step_z_coord, mx_setpoint, my_setpoint, mcomp_setpoint, mx_pos,
                 my_pos, mcomp_pos, timestamp, run_id, sdtinit, sdtcam, sdtcam, sdtcam]
         exlogsheet['A' + str(docrow + 1)] = dbcon.lastrowid
         idx = 0
-        for row in exlogsheet.iter_rows('B' + str(docrow + 1) + ':T' + str(docrow + 1)):
+        for row in exlogsheet.iter_rows('B' + str(docrow + 1) + ':U' + str(docrow + 1)):
             for cell in row:
                 cell.value = item[idx]
                 idx += 1
@@ -263,6 +263,18 @@ def dbprepare(dbcon):
 # ##### END Functions ############
 
 # ##### Automatically generated code ###########
+
+<% if (@scan_ex.z_y_exchange) then %>
+cte_z_y_exchange = True
+<% else %>
+cte_z_y_exchange = False
+<% end %>
+
+<% if (@scan_ex.scan.fov.raw_units) then %>
+cte_use_raw_units = True
+<% else %>
+cte_use_raw_units = False
+<% end %>
 
 sweep_ex_id = <%= @scan_ex.id.to_s %>
 steps = [ <%= raw(@scan_ex.step_list_py) %> ]
@@ -332,9 +344,19 @@ while (done != -1) and (curStep < endStep):
     stepY = steps[curStep]['y']
     stepXcoord = steps[curStep]['x_coord']
     stepYcoord = steps[curStep]['y_coord']
+    stepZcoord = steps[curStep]['z_coord']
     # Command motor position for this step
     dtinit = datetime.now()
-    done, mx, my, mcomp = commandMotor(stepXcoord, stepYcoord)
+    if (cte_use_raw_units):
+        if (cte_z_y_exchange):
+            done, mx, my, mcomp = commandMotor(stepXcoord, stepZcoord)
+        else:
+            done, mx, my, mcomp = commandMotor(stepXcoord, stepYcoord)
+    else:
+        if (cte_z_y_exchange):
+            done, mx, my, mcomp = commandMotorUnits(stepXcoord, stepZcoord, stepYcoord)
+        else:
+            done, mx, my, mcomp = commandMotorUnits(stepXcoord, stepYcoord, stepZcoord)        
     # Wait command to end
     while done == 0:
         done = stepDone()

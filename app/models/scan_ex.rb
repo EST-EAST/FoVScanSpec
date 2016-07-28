@@ -104,15 +104,25 @@ class ScanEx < ActiveRecord::Base
   
   def step_coords_list
     slist = step_list
+    zerox,zeroy,zeroz = scan.fov.zero
     ret = []
     slist.each { |s|  
       step_x = s[:x]
       step_y = s[:y]
       step_counter = s[:c]
-      ret << {:x => step_x, :y => step_y, :c => step_counter, 
-        :x_coord => (step_init_x+(step_x*step_size_x)),
-        :y_coord => (step_init_y+(step_y*step_size_y))
-      }
+      if (self.z_y_exchange) then
+        ret << {:x => step_x, :y => step_y, :c => step_counter, 
+          :x_coord => (step_init_x+(step_x*step_size_x)),
+          :y_coord => (zeroy),
+          :z_coord => (step_init_y+(step_y*step_size_y))
+        }
+      else
+        ret << {:x => step_x, :y => step_y, :c => step_counter, 
+          :x_coord => (step_init_x+(step_x*step_size_x)),
+          :y_coord => (step_init_y+(step_y*step_size_y)),
+          :z_coord => (zeroz)
+        }
+      end
     }
     return ret
   end
@@ -125,7 +135,8 @@ class ScanEx < ActiveRecord::Base
         s[:x].to_s+","+
         s[:y].to_s+"] -> ["+
         s[:x_coord].to_s+","+
-        s[:y_coord].to_s+"]\n"    
+        s[:y_coord].to_s+","+
+        s[:z_coord].to_s+"]\n"    
     }
     return ret
   end
@@ -140,7 +151,8 @@ class ScanEx < ActiveRecord::Base
         ret+="'x': ("+s[:x].to_s+"),"
         ret+="'y': ("+s[:y].to_s+"),"
         ret+="'x_coord': ("+s[:x_coord].to_s+"),"
-        ret+="'y_coord': ("+s[:y_coord].to_s+") },"    
+        ret+="'y_coord': ("+s[:y_coord].to_s+"),"
+        ret+="'z_coord': ("+s[:z_coord].to_s+") },"    
       }
     end
     return ret
@@ -148,9 +160,9 @@ class ScanEx < ActiveRecord::Base
   
   def to_csv(options = {})
     CSV.generate(options) do |csv|
-      csv << ['step','x','y','x_coord','y_coord']
+      csv << ['step','x','y','x_coord','y_coord', 'z_coord']
       step_coords_list.each{ |step|
-        csv << [step[:c],step[:x],step[:y],step[:x_coord],step[:y_coord]]
+        csv << [step[:c],step[:x],step[:y],step[:x_coord],step[:y_coord],step[:z_coord]]
       }
     end
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160728190119) do
+ActiveRecord::Schema.define(version: 20160728200727) do
 
   create_table "fovs", force: :cascade do |t|
     t.string   "name"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20160728190119) do
     t.float    "size_z"
     t.float    "zero_z"
     t.boolean  "inverse_z",   default: false
+    t.boolean  "raw_units",   default: false
   end
 
   create_table "scan_eng_runs", force: :cascade do |t|

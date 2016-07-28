@@ -13,10 +13,12 @@ class Fov < ActiveRecord::Base
     inverse_x :boolean, :default => false
     inverse_y :boolean, :default => false
     inverse_z :boolean, :default => false
+    raw_units :boolean, :default => false
     scans_count :integer, default: 0, null: false
     timestamps
   end
-  attr_accessible :name, :size_x, :size_y, :size_z, :scans, :zero_x, :zero_y, :zero_z, :inverse_x, :inverse_y, :inverse_z
+  attr_accessible :name, :size_x, :size_y, :size_z, :scans, :zero_x, :zero_y, 
+    :zero_z, :inverse_x, :inverse_y, :inverse_z, :raw_units
 
   has_many :scans, :dependent => :destroy, :inverse_of => :fov
 
