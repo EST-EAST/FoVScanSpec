@@ -120,7 +120,7 @@ def dbinsert(dbcon, cur_step_order, cur_iter, cur_step, step_x, step_y, step_x_c
     if firstDbSentence:
         item = [timestamp, ex_id,
                 scanconfig.cte_use_cvcam or scanconfig.cte_use_photocam or scanconfig.cte_use_gphoto2,
-                scanconfig.cte_stabilization_time, scanconfig.cte_debug, scanconfig.cte_proto_rev,
+                scanconfig.cte_stabilization_time, scanconfig.cte_use_motorsim, scanconfig.cte_proto_rev,
                 sws.cte_vx, sws.cte_vy, sws.cte_vcomp, sws.cte_vhx, sws.cte_vhy, sws.cte_vhcomp,
                 sws.cte_vix, sws.cte_viy, sws.cte_vicomp,
                 sws.cte_lsx_scale, sws.cte_lsy_scale, sws.cte_lscomp_scale,
@@ -149,7 +149,7 @@ def dbinsert(dbcon, cur_step_order, cur_iter, cur_step, step_x, step_y, step_x_c
             engrunsheet[1, 0].value = run_id
             item = [timestamp, ex_id,
                     str(scanconfig.cte_use_cvcam or scanconfig.cte_use_photocam or scanconfig.cte_use_gphoto2),
-                    scanconfig.cte_stabilization_time, str(scanconfig.cte_debug), scanconfig.cte_proto_rev,
+                    scanconfig.cte_stabilization_time, str(scanconfig.cte_use_motorsim), scanconfig.cte_proto_rev,
                     sws.cte_vx, sws.cte_vy, sws.cte_vcomp, sws.cte_vhx, sws.cte_vhy, sws.cte_vhcomp,
                     sws.cte_vix, sws.cte_viy, sws.cte_vicomp,
                     sws.cte_lsx_scale, sws.cte_lsy_scale, sws.cte_lscomp_scale,
@@ -184,7 +184,7 @@ def dbinsert(dbcon, cur_step_order, cur_iter, cur_step, step_x, step_y, step_x_c
             idx = 0
             item = [timestamp, ex_id,
                     scanconfig.cte_use_cvcam or scanconfig.cte_use_photocam or scanconfig.cte_use_gphoto2,
-                    scanconfig.cte_stabilization_time, scanconfig.cte_debug, scanconfig.cte_proto_rev,
+                    scanconfig.cte_stabilization_time, scanconfig.cte_use_motorsim, scanconfig.cte_proto_rev,
                     sws.cte_vx, sws.cte_vy, sws.cte_vcomp, sws.cte_vhx, sws.cte_vhy, sws.cte_vhcomp,
                     sws.cte_vix, sws.cte_viy, sws.cte_vicomp,
                     sws.cte_lsx_scale, sws.cte_lsy_scale, sws.cte_lscomp_scale,
