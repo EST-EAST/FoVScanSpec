@@ -50,10 +50,10 @@ def commandMotor(x, y):
 
 
 # ## Commands the motor to a given position
-def commandMotorUnits(x, y, z):
+def commandMotorUnits3D(x, y, z):
     if scanconfig.cte_verbose:
        print ("Command Motor in raw units X: " + str(x) + " Y: " + str(y) + " Z: " + str(z))
-    return sws.commandMotorUnits(x, y, z)
+    return sws.commandMotorUnits3D(x, y, z)
 
 
 # ## Investigate if the current movement has been executed
@@ -353,6 +353,39 @@ while (done != -1) and (curStep < endStep):
     stepXcoord = steps[curStep]['x_coord']
     stepYcoord = steps[curStep]['y_coord']
     stepZcoord = steps[curStep]['z_coord']
+    # If any of the axis is affected by backslash, a previous movement is needed in order to force the system to be
+    # aligned with the privileged position
+    if sws.backSlashPresent():
+        if curStep == 0:
+            print ("BEGIN Initial step to be backslash free")
+            if not cte_use_raw_units:
+                if cte_z_y_exchange:
+                    backslash_step_x, backslash_step_y, backslash_step_z = sws.calculateBackslashStepXY(stepXcoord,
+                                                                                                        stepZcoord)
+                else:
+                    backslash_step_x, backslash_step_y, backslash_step_z = sws.calculateBackslashStepXY(stepXcoord,
+                                                                                                        stepYcoord)
+
+                print ("Performed backslash step 2D")
+                done, mx, my, mcomp = commandMotorUnits3D(backslash_step_x, backslash_step_y, backslash_step_z)
+            else:
+                if cte_z_y_exchange:
+                    backslash_step_x, backslash_step_y, backslash_step_z = sws.calculateBackslashStep(stepXcoord,
+                                                                                                      stepZcoord,
+                                                                                                      stepYcoord)
+                else:
+                    backslash_step_x, backslash_step_y, backslash_step_z = sws.calculateBackslashStep(stepXcoord,
+                                                                                                      stepYcoord,
+                                                                                                      stepZcoord)
+
+                print ("Performed backslash step 3D")
+                done, mx, my, mcomp = commandMotorUnits3D(backslash_step_x, backslash_step_y, backslash_step_z)
+            # Wait command to end
+            while done == 0:
+                done = stepDone()
+            print ("END Initial step to be backslash free")
+
+
     # Command motor position for this step
     dtinit = datetime.now()
     if (not(cte_use_raw_units)):
@@ -362,9 +395,9 @@ while (done != -1) and (curStep < endStep):
             done, mx, my, mcomp = commandMotor(stepXcoord, stepYcoord)
     else:
         if (cte_z_y_exchange):
-            done, mx, my, mcomp = commandMotorUnits(stepXcoord, stepZcoord, stepYcoord)
+            done, mx, my, mcomp = commandMotorUnits3D(stepXcoord, stepZcoord, stepYcoord)
         else:
-            done, mx, my, mcomp = commandMotorUnits(stepXcoord, stepYcoord, stepZcoord)
+            done, mx, my, mcomp = commandMotorUnits3D(stepXcoord, stepYcoord, stepZcoord)
     # Wait command to end
     while done == 0:
         done = stepDone()
@@ -460,4 +493,3 @@ if scanconfig.cte_use_cvcam:
     cv2.destroyAllWindows()
 
 sws.motorClose()
-
