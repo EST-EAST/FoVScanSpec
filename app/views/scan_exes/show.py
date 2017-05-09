@@ -385,7 +385,6 @@ while (done != -1) and (curStep < endStep):
                 done = stepDone()
             print ("END Initial step to be backslash free")
 
-
     # Command motor position for this step
     dtinit = datetime.now()
     if (not(cte_use_raw_units)):
