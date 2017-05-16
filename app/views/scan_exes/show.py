@@ -486,9 +486,18 @@ if curStep < len(steps) and scanconfig.cte_verbose:
 db.commit()
 db.close()
 
-from getch import getch, pause
+if scanconfig.cte_step_wait_for_key:
+    import os
+    if os.name == 'nt':
+        import msvcrt
+        print "Press any key to close document"
+        if msvcrt.kbhit():
+            ret = msvcrt.getch()
+            done = True
 
-pause("Press any key to close document")
+    else:
+        from getch import getch, pause
+        pause("Press any key to close document")
 
 if scanconfig.cte_export_ods:
     doc.save("./db/" + timestr + ".ods")
