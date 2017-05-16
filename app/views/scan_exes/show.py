@@ -319,6 +319,12 @@ if scanconfig.cte_reset_motors_first:
         print("Check motor positions after resets")
     sleep(scanconfig.cte_stabilization_time)
     sws.motorPositions()
+elif scanconfig.cte_home_motors_first:
+    sws.homeMotors()
+    if scanconfig.cte_verbose:
+        print("Check motor positions after resets")
+    sleep(scanconfig.cte_stabilization_time)
+    sws.motorPositions()
 else:
     if scanconfig.cte_verbose:
         print("Check initial motor positions")
@@ -479,6 +485,10 @@ if curStep < len(steps) and scanconfig.cte_verbose:
 
 db.commit()
 db.close()
+
+from getch import getch, pause
+
+pause("Press any key to close document")
 
 if scanconfig.cte_export_ods:
     doc.save("./db/" + timestr + ".ods")
