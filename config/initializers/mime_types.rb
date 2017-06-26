@@ -6,4 +6,4 @@ Mime::Type.register "image/svg+xml", :svg
 Mime::Type.register "text/plain", :py
 #Mime::Type.register "text/tab-separated-values", :tsv
 Mime::Type.register "text/tsv", :tsv
-
+Mime::Type.register "text/plain", :script

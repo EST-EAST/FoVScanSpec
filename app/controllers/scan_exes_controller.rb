@@ -14,6 +14,7 @@ class ScanExesController < ApplicationController
       format.html
       format.py
       format.tsv { send_data @scan_ex.to_csv(col_sep: "\t")  }
+      format.script
     end
   end
   def index
