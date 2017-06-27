@@ -1,10 +1,39 @@
 <% 
-xscale = 10000000
-yscale = 10000000
+# In GREGOR (Jun 17) we need to produce some commands.
+# The syntax is '5000 IFU set position rel FM1 0 Yjump  Xjump'
+# We also have to send commands for waiting 0.5 s after each step
+# The scale is tenths of micron, so we have to multiply metres by 10 milions
+# The commands are relative, not absolute, so we have to force a "set mid" 
+# command to begin working at 0,0, so the first relative command acts as absolute
+# Then we have to calculate the jumps by subtracting the previous position to
+# the new one.  We have to take care to do not accumulate truncate errors, so 
+# we will calculate the current position from the jumps already done, not from
+# the previous absolute position.
+
+xscale = 10000000   # from meters to tenths of micron
+yscale = 10000000   # from meters to tenths of micron
+
+# Then we send the initial commands
 %>
 5000 IFU set position mid FM1 0
 0001 Conductor wait 500
-<% @scan_ex.step_coords_list.each{|st| %>
-5000 IFU set position rel FM1 0 <%= (st[:y_coord] * yscale).to_s %>  <%= (st[:x_coord] * xscale).to_s %>
+<% 
+# Setting zero,zero as current position, the first relative command will
+# act as an absolute one.
+pos_x = 0
+pos_y = 0
+
+# Iterating steps to convert them to jumps
+@scan_ex.step_coords_list.each{|st| 
+    # calculate the current jump by subtracting the current position from the
+    # new one (adapted by the scale)
+    jump_x = ((st[:x_coord] * xscale) - pos_x).round
+    jump_y = ((st[:y_coord] * yscale) - pos_y).round
+    # Calculating the future position by adding the jump to the current one
+    pos_x = pos_x + jump_x
+    pos_y = pos_y + jump_y
+    # Sending the commands with the calculated jumps.
+%>
+5000 IFU set position rel FM1 0 <%= jump_y.to_s %>  <%= jump_x.to_s %>
 0001 Conductor wait 500
 <% } %>
